@@ -1,0 +1,14 @@
+main {
+  .journal {
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: 100px repeat(60, 10px);
+
+    .master {
+      border: 1px solid black;
+
+      &:nth-child(1) {
+      }
+    }
+  }
+}

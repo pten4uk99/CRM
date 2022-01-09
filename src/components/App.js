@@ -1,17 +1,16 @@
 import React from "react";
-import {connect} from "react-redux";
+
 import Header from "./Header/Header";
+import Main from "./Main/Main";
 
 
-function App(props) {
+function App() {
     return (
         <>
             <Header/>
+            <Main/>
         </>
     )
 }
 
-export default connect(
-    state => ({store: state}),
-    dispatch => ({})
-)(App);
+export default App;

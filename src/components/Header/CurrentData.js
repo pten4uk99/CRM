@@ -10,6 +10,7 @@ function CurrentData(props) {
 
     let hours = props.store.hours;
     let minutes = props.store.minutes < 10 ? `0${props.store.minutes}` : props.store.minutes;
+
     return (
         <section className="current-data">
             <div className="current-time">{hours}<span>:</span>{minutes}</div>

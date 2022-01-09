@@ -30,6 +30,7 @@ header nav {
     header nav div.active {
       color: #101010;
       background-color: #efefef;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
       border: 1px solid #efefef; }
 
 header .current-data {
@@ -60,3 +61,10 @@ header .current-data {
     opacity: 0; }
   100% {
     opacity: 0; } }
+
+main .journal {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  grid-template-rows: 100px repeat(60, 10px); }
+  main .journal .master {
+    border: 1px solid black; }
