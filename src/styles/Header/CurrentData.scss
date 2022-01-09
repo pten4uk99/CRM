@@ -1,0 +1,44 @@
+header {
+  .current-data {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) 100px 100px;
+    justify-content: end;
+    flex-grow: 1;
+
+    .current-time {
+      grid-column: 6 / -1;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 2.5rem;
+      color: $white;
+
+      span {
+        transform: translate(-2px, -5px);
+        font-size: 2.5rem;
+        animation: time 1s infinite;
+        
+      }
+    }
+  }
+}
+
+@keyframes time {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 100%;
+  }
+  50% {
+    opacity: 100%;
+  }
+  55% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

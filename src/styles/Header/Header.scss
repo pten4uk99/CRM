@@ -1,0 +1,9 @@
+header {
+  display: flex;
+
+  height: 100px;
+  background-color: $red;
+}
+
+@import "Menu";
+@import "CurrentData";
