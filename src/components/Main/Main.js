@@ -1,14 +1,15 @@
 import React from "react";
 import {connect} from "react-redux";
+import Time from "./Time";
+import Masters from "./Masters/Masters";
 
 
 function Main(props) {
     return (
         <main>
             <article className="journal">
-                <div className="master">csdc</div>
-                <div className="master">beer</div>
-                <div className="master">reverv</div>
+                <Time/>
+                <Masters/>
             </article>
         </main>
     )
