@@ -1,9 +1,21 @@
-export const SwapWindowToActiveBottom = () => {
-    return {type: "SWAP_ACTIVE_BOTTOM"}
+export const ActivateWindowToTop = (offsetTop, offsetLeft) => {
+    return {
+        type: "ACTIVATE_TO_TOP",
+        payload: {
+            offsetTop: offsetTop,
+            offsetLeft: offsetLeft
+        }
+    }
 }
-export const SwapWindowToActiveTop = () => {
-    return {type: "SWAP_ACTIVE_TOP"}
+export const ActivateWindowToBottom = (offsetTop, offsetLeft) => {
+    return {
+        type: "ACTIVATE_TO_BOTTOM",
+        payload: {
+            offsetTop: offsetTop,
+            offsetLeft: offsetLeft
+        }
+    }
 }
-export const Deactivate = () => {
-    return {type: "SWAP_ACTIVE_TOP"}
+export const DeactivateWindow = () => {
+    return {type: "DEACTIVATE"}
 }

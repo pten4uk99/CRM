@@ -7,10 +7,10 @@ import AddClientWindow from "./AddClientWindow";
 function Masters(props) {
     return (
         <section className="masters">
-            <Master/>
-            <Master/>
-            <Master/>
-            <AddClientWindow/>
+            <Master name="Саша" />
+            <Master name="Вика" />
+            <Master name="Ира" />
+            {props.store.active ? <AddClientWindow/> : ""}
         </section>
     )
 }

@@ -40,6 +40,10 @@ section.masters .master {
       &:hover {
         box-shadow: 0 0 0 1px rgba(0, 0, 0, .6);
       }
+
+      &.active {
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, .6);
+      }
     }
 
     &:hover {

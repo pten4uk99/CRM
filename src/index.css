@@ -131,6 +131,8 @@ section.masters .master .table-items .table-item {
     border: 1px solid rgba(16, 16, 16, 0.2); }
   section.masters .master .table-items .table-item:hover {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6); }
+  section.masters .master .table-items .table-item.active {
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.6); }
 
 section.masters .master .table-items:hover {
   cursor: pointer; }
@@ -146,7 +148,7 @@ section.masters .add-client-window {
   border: 1px solid rgba(16, 16, 16, 0.2);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(16, 16, 16, 0.2);
-  transition: all .1s;
+  transition: transform .1s, opacity .1s;
   pointer-events: none; }
   section.masters .add-client-window.active-bottom {
     opacity: 100%;
