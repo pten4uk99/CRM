@@ -49,7 +49,6 @@ export default connect(
 
 
 function renderWindow(event, props, index) {
-    props.SwapToActive(props.name)
     index >= 16 ?
         props.ActivateWindowToTop(event.target.offsetTop - 307, event.target.offsetLeft) :
         props.ActivateWindowToBottom(event.target.offsetTop + 15, event.target.offsetLeft);
