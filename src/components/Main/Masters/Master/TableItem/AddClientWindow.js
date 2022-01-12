@@ -7,6 +7,7 @@ function AddClientWindow(props) {
     useEffect(() => {
         addClientWindow.current.classList.add(props.store.orientation)
     }, [])
+
     return (
         <div className="add-client-window"
              style={{top: props.store.offsetTop, left: props.store.offsetLeft}}
@@ -19,6 +20,6 @@ function AddClientWindow(props) {
 }
 
 export default connect(
-    state => ({store: state.Main.Masters.AddClientWindow}),
+    state => ({store: state.Main.addClientWindow}),
     dispatch => ({})
 )(AddClientWindow);
