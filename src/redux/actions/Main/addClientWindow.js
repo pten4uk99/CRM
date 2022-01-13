@@ -1,20 +1,6 @@
-export const ActivateWindowToTop = (offsetTop, offsetLeft, name, index) => {
-    return {
-        type: "ACTIVATE_TO_TOP",
-        payload: {
-            offsetTop: offsetTop - 307,
-            offsetLeft: offsetLeft,
-            master: name,
-            indexItem: index
-        }
-    }
+export const ActivateBackground = () => {
+    return {type: "ACTIVATE_BACKGROUND"}
 }
-export const ActivateWindowToBottom = (offsetTop, offsetLeft, name, index) => {
-    return {
-        type: "ACTIVATE_TO_BOTTOM",
-        payload: {
-            offsetTop: offsetTop + 15,
-            offsetLeft: offsetLeft
-        }
-    }
+export const DeactivateBackground = () => {
+    return {type: "DEACTIVATE_BACKGROUND"}
 }

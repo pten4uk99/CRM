@@ -1,25 +1,13 @@
 const initialState = {
-    orientation: "active-top",
-    offsetTop: 0,
-    offsetLeft: 0
+    className: "background"
 }
 
 export default function addClientWindow(state = initialState, action) {
     switch (action.type) {
-        case "ACTIVATE_TO_TOP":
-            return {
-                ...state,
-                orientation: "active-top",
-                offsetTop: action.payload.offsetTop,
-                offsetLeft: action.payload.offsetLeft
-            };
-        case "ACTIVATE_TO_BOTTOM":
-            return {
-                ...state,
-                orientation: "active-bottom",
-                offsetTop: action.payload.offsetTop,
-                offsetLeft: action.payload.offsetLeft
-            };
+        case "ACTIVATE_BACKGROUND":
+            return {className: "background active"}
+        case "DEACTIVATE_BACKGROUND":
+            return {className: "background"}
         default:
             return state
     }

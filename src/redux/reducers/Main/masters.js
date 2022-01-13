@@ -6,40 +6,44 @@ export default function masters(state = initialState, action) {
     switch (action.type) {
         case "ADD_MASTER":
             newObj[action.payload.name] = listElems().map(
-                    (index) => {
-                        let o;
-                        index >= 16 ?
-                            o = "active-top" :
-                            o = "active-bottom"
-                        return {
-                            active: false,
-                            className: "table-item",
-                            addClientWindow: {
-                                orientation: o,
-                                offsetTop: 0,
-                                offsetLeft: 0
-                            }
+                (index) => {
+                    let orientation;
+                    let diff;
+                    if (index >= 16) {
+                        orientation = "active-top";
+                        diff = -307;
+                    } else {
+                        orientation = "active-bottom";
+                        diff = 15;
+                    }
+                    return {
+                        active: false,
+                        className: "table-item",
+                        addClientWindow: {
+                            orientation: orientation,
+                            offsetDiff: diff,
+                            offsetTop: 0,
+                            offsetLeft: 0
                         }
                     }
-                )
+                })
             return newObj;
         case "SWAP_TO_ACTIVE":
             newObj[action.payload.name].map((elem, index) => {
                 if (index === action.payload.index) {
-                    return {
-                        active: true,
-                        classname: "table-item active",
-                        addClientWindow: {
-                            ...elem.addClientWindow,
-                            offsetTop: action.payload.offsetTop,
-                            offsetLeft: action.payload.offsetLeft
-                        }
-                    };
+                    elem.active = true;
+                    elem.className = "table-item active";
+                    elem.addClientWindow = {
+                        ...elem.addClientWindow,
+                        offsetTop: action.payload.offsetTop + elem.addClientWindow.offsetDiff,
+                        offsetLeft: action.payload.offsetLeft
+                    }
+                    return elem;
                 } else if (elem.active) {
                     elem.active = false;
                     elem.className = "table-item"
+                    return elem;
                 }
-                return elem;
             })
             return newObj;
         case "SWAP_TO_INACTIVE":

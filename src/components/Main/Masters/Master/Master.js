@@ -18,7 +18,7 @@ function Master(props) {
                     <div className="table-items">
                         {props.store[props.name].map(
                             (elem, index) => <TableItem key={index}
-                                                        className="table-item"
+                                                        className={props.store[props.name][index].className}
                                                         master={props.name}
                                                         index={index}/>)}
                     </div>

@@ -118,27 +118,38 @@ section.masters .master .name {
   border: 1px solid rgba(16, 16, 16, 0.2);
   border-radius: 10px; }
 
-section.masters .master .table-items .table-item {
+.master .table-items .table-item {
   margin-left: 10px;
   width: 200px;
   height: 30px;
   border: 1px solid rgba(16, 16, 16, 0.2);
   border-top: none; }
-  section.masters .master .table-items .table-item:nth-of-type(1) {
+  .master .table-items .table-item:nth-of-type(1) {
     border-top: 1px solid rgba(16, 16, 16, 0.2); }
-  section.masters .master .table-items .table-item:nth-of-type(2n + 1) {
+  .master .table-items .table-item:nth-of-type(2n + 1) {
     height: 29px;
     border: 1px solid rgba(16, 16, 16, 0.2); }
-  section.masters .master .table-items .table-item:hover {
+  .master .table-items .table-item:hover {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6); }
-  section.masters .master .table-items .table-item.active {
+  .master .table-items .table-item.active {
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.6); }
 
-section.masters .master .table-items:hover {
+.master .table-items:hover {
   cursor: pointer; }
 
-section.masters .add-client-window {
-  display: block;
+.table-items .background {
+  display: none;
+  position: fixed;
+  width: 100vw;
+  height: 100vh; }
+  .table-items .background.active {
+    display: block; }
+
+.table-items .add-client-window {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   position: absolute;
   opacity: 0;
   width: 500px;
@@ -150,11 +161,11 @@ section.masters .add-client-window {
   box-shadow: 0 0 10px rgba(16, 16, 16, 0.2);
   transition: transform .1s, opacity .1s;
   pointer-events: none; }
-  section.masters .add-client-window.active-bottom {
+  .table-items .add-client-window.active-bottom {
     opacity: 100%;
     transform: translate(0, 20px);
     pointer-events: all; }
-  section.masters .add-client-window.active-top {
+  .table-items .add-client-window.active-top {
     opacity: 100%;
     transform: translate(0, -20px);
     pointer-events: all; }
