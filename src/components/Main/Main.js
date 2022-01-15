@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import Time from "./Time";
 import Masters from "./Masters/Masters";
+import {TimePicker} from "antd";
 
 
 function Main(props) {

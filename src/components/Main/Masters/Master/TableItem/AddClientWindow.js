@@ -17,9 +17,22 @@ function AddClientWindow(props) {
                  style={{top: props.tableItem.addClientWindow.offsetTop,
                      left: props.tableItem.addClientWindow.offsetLeft}}
                  ref={addClientWindow}>
-                <h1>Добавить клиента</h1>
-                <p>Имя: <input type="text"/></p>
-                <input type="submit"/>
+                <h1>Новая запись</h1>
+                <h1>15 янв. суббота</h1>
+                <h1>Мастер: Вика</h1>
+                <form>
+                    <p>Имя: <input type="text"/></p>
+                    <p>Телефон: <input type="text"/></p>
+                    <p>
+                        Услуга:
+                        <select name="" id="">
+                            <option value="hair">Стрижка</option>
+                            <option value="maniqure">Маникюр</option>
+                            <option value="cosmetology">Косметология</option>
+                        </select>
+                    </p>
+                    <input type="submit" value="Добавить"/>
+                </form>
             </div>
         </>
     )

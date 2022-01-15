@@ -140,13 +140,14 @@ section.masters .master .name {
 .table-items .background {
   display: none;
   position: fixed;
-  top: 70px;
+  top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   cursor: default; }
   .table-items .background.active {
-    display: block; }
+    display: block;
+    background-color: rgba(0, 0, 0, 0.1); }
 
 .table-items .add-client-window {
   display: flex;
@@ -165,6 +166,18 @@ section.masters .master .name {
   transition: transform .1s, opacity .1s;
   pointer-events: none;
   cursor: default; }
+  .table-items .add-client-window.add-client-window-enter {
+    opacity: 0;
+    transform: none; }
+  .table-items .add-client-window.add-client-window-enter-active {
+    opacity: 100;
+    transform: translate(0, 20px); }
+  .table-items .add-client-window.add-client-window-exit {
+    opacity: 100;
+    transform: translate(0, 20px); }
+  .table-items .add-client-window.add-client-window-exit-active {
+    opacity: 0;
+    transform: none; }
   .table-items .add-client-window.active-bottom {
     opacity: 100%;
     transform: translate(0, 20px);

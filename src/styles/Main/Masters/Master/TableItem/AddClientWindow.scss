@@ -8,7 +8,7 @@ $border-color: rgba(16, 16, 16, .2);
   .background {
     display: none;
     position: fixed;
-    top: 70px;
+    top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
@@ -16,6 +16,7 @@ $border-color: rgba(16, 16, 16, .2);
 
     &.active {
       display: block;
+      background-color: rgba(0, 0, 0, .1);
     }
   }
 
@@ -42,6 +43,26 @@ $border-color: rgba(16, 16, 16, .2);
     transition: transform .1s, opacity .1s;
     pointer-events: none;
     cursor: default;
+
+    &.add-client-window-enter {
+      opacity: 0;
+      transform: none;
+    }
+
+    &.add-client-window-enter-active {
+      opacity: 100;
+      transform: translate(0, 20px);
+    }
+
+    &.add-client-window-exit {
+      opacity: 100;
+      transform: translate(0, 20px);
+    }
+
+    &.add-client-window-exit-active {
+      opacity: 0;
+      transform: none;
+    }
 
     &.active-bottom {
       opacity: 100%;
