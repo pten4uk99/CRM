@@ -29,28 +29,25 @@ export default function masters(state = initialState, action) {
                 })
             return newObj;
         case "SWAP_TO_ACTIVE":
-            newObj[action.payload.name].map((elem, index) => {
-                if (index === action.payload.index) {
-                    elem.active = true;
-                    elem.className = "table-item active";
-                    elem.addClientWindow = {
-                        ...elem.addClientWindow,
-                        offsetTop: action.payload.offsetTop + elem.addClientWindow.offsetDiff,
-                        offsetLeft: action.payload.offsetLeft
-                    }
-                    return elem;
-                } else if (elem.active) {
-                    elem.active = false;
-                    elem.className = "table-item"
-                    return elem;
+            const elem = newObj[action.payload.name][action.payload.index];
+            newObj[action.payload.name][action.payload.index] = {
+                active: true,
+                className: "table-item active",
+                addClientWindow: {
+                    ...elem.addClientWindow,
+                    offsetTop: action.payload.offsetTop + elem.addClientWindow.offsetDiff,
+                    offsetLeft: action.payload.offsetLeft
                 }
-            })
+            }
             return newObj;
         case "SWAP_TO_INACTIVE":
-            return {
-                ...state,
+            const obj = newObj[action.payload.name][action.payload.index];
+            newObj[action.payload.name][action.payload.index] = {
+                active: false,
                 className: "table-item",
-            };
+                addClientWindow: obj.addClientWindow
+            }
+            return newObj;
         default:
             return state
     }

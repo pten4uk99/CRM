@@ -13,7 +13,9 @@ function TableItem(props) {
         <>
             <div className={props.className}
                  onClick={(event) => activateWindow(event, props, props.index)}/>
-            {currentItem.active ? <AddClientWindow tableItem={currentItem}/> : ""}
+            {currentItem.active ? <AddClientWindow tableItem={currentItem}
+                                                   master={props.master}
+                                                   index={props.index}/> : ""}
         </>
     )
 }
@@ -23,8 +25,6 @@ export default connect(
     dispatch => ({
          ActivateBackground:
             () => dispatch(ActivateBackground()),
-        ActivateWindowToBottom:
-            (top, left) => dispatch(ActivateWindowToBottom(top, left)),
         SwapToActive:
             (i, name, offsetTop, offsetLeft) => dispatch(SwapToActive(i, name, offsetTop, offsetLeft)),
         SwapToInactive:

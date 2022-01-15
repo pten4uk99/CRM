@@ -8,8 +8,11 @@ $border-color: rgba(16, 16, 16, .2);
   .background {
     display: none;
     position: fixed;
+    top: 70px;
+    left: 0;
     width: 100vw;
     height: 100vh;
+    cursor: default;
 
     &.active {
       display: block;
@@ -38,6 +41,7 @@ $border-color: rgba(16, 16, 16, .2);
 
     transition: transform .1s, opacity .1s;
     pointer-events: none;
+    cursor: default;
 
     &.active-bottom {
       opacity: 100%;

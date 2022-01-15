@@ -12,6 +12,6 @@ export const SwapToActive = (index, name, offsetTop, offsetLeft) => {
         }
     }
 }
-export const SwapToInactive = (index, name) => {
+export const SwapToInactive = (name, index) => {
     return {type: "SWAP_TO_INACTIVE", payload: {name: name, index: index}}
 }

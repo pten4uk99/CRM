@@ -140,8 +140,11 @@ section.masters .master .name {
 .table-items .background {
   display: none;
   position: fixed;
+  top: 70px;
+  left: 0;
   width: 100vw;
-  height: 100vh; }
+  height: 100vh;
+  cursor: default; }
   .table-items .background.active {
     display: block; }
 
@@ -160,7 +163,8 @@ section.masters .master .name {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(16, 16, 16, 0.2);
   transition: transform .1s, opacity .1s;
-  pointer-events: none; }
+  pointer-events: none;
+  cursor: default; }
   .table-items .add-client-window.active-bottom {
     opacity: 100%;
     transform: translate(0, 20px);
