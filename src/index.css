@@ -1,7 +1,6 @@
 * {
   margin: 0;
-  padding: 0;
-  font-size: 25px; }
+  padding: 0; }
 
 html, body {
   background-color: #efefef; }
@@ -19,10 +18,11 @@ header nav {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none;
+  font-size: 25px; }
   header nav div {
     color: #efefef;
-    font-size: 1.5rem;
+    font-size: 1.5em;
     margin: 0 10px;
     padding: 2px 10px;
     border: 1px solid;
@@ -35,26 +35,28 @@ header nav {
       border: 1px solid #efefef;
       cursor: default; }
 
-header .current-data {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr) 100px 100px;
-  justify-content: end;
-  flex-grow: 1; }
-  header .current-data .current-time {
-    grid-column: 6 / -1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.5rem;
-    color: #efefef;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none; }
-    header .current-data .current-time span {
-      transform: translate(-2px, -5px);
-      font-size: 2.5rem;
-      animation: time 1s infinite; }
+header {
+  font-size: 25px; }
+  header .current-data {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) 100px 100px;
+    justify-content: end;
+    flex-grow: 1; }
+    header .current-data .current-time {
+      grid-column: 6 / -1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.3em;
+      color: #efefef;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none; }
+      header .current-data .current-time span {
+        transform: translate(-2px, -5px);
+        font-size: 2.5rem;
+        animation: time 1s infinite; }
 
 @keyframes time {
   0% {
@@ -74,7 +76,8 @@ main .journal {
 .journal section.time {
   display: flex;
   margin-top: 80px;
-  margin-left: 10px; }
+  margin-left: 10px;
+  font-size: 25px; }
   .journal section.time .hours .hour {
     display: flex;
     justify-content: center;
@@ -84,7 +87,7 @@ main .journal {
     border: 1px solid rgba(16, 16, 16, 0.2);
     border-bottom: 2px solid rgba(16, 16, 16, 0.2);
     border-top: none;
-    font-size: 1.7rem;
+    font-size: 1.7em;
     font-weight: bold; }
     .journal section.time .hours .hour:nth-of-type(1) {
       border-top: 1px solid rgba(16, 16, 16, 0.2); }
@@ -94,7 +97,7 @@ main .journal {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: .9rem;
+    font-size: .9em;
     width: 30px;
     height: 30px;
     border: 1px solid rgba(16, 16, 16, 0.2);
@@ -108,15 +111,17 @@ main .journal {
 section.masters {
   display: flex; }
 
-section.masters .master .name {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 10px 8px 10px;
-  width: 200px;
-  height: 60px;
-  border: 1px solid rgba(16, 16, 16, 0.2);
-  border-radius: 10px; }
+section.masters .master {
+  font-size: 25px; }
+  section.masters .master .name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 10px 8px 10px;
+    width: 200px;
+    height: 60px;
+    border: 1px solid rgba(16, 16, 16, 0.2);
+    border-radius: 10px; }
 
 .master .table-items .table-item {
   margin-left: 10px;
@@ -150,15 +155,13 @@ section.masters .master .name {
     background-color: rgba(0, 0, 0, 0.1); }
 
 .table-items .add-client-window {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   position: absolute;
   opacity: 0;
   width: 500px;
   height: 300px;
   padding: 10px;
+  font-size: 20px;
   background-color: #efefef;
   border: 1px solid rgba(16, 16, 16, 0.2);
   border-radius: 10px;
@@ -166,18 +169,6 @@ section.masters .master .name {
   transition: transform .1s, opacity .1s;
   pointer-events: none;
   cursor: default; }
-  .table-items .add-client-window.add-client-window-enter {
-    opacity: 0;
-    transform: none; }
-  .table-items .add-client-window.add-client-window-enter-active {
-    opacity: 100;
-    transform: translate(0, 20px); }
-  .table-items .add-client-window.add-client-window-exit {
-    opacity: 100;
-    transform: translate(0, 20px); }
-  .table-items .add-client-window.add-client-window-exit-active {
-    opacity: 0;
-    transform: none; }
   .table-items .add-client-window.active-bottom {
     opacity: 100%;
     transform: translate(0, 20px);

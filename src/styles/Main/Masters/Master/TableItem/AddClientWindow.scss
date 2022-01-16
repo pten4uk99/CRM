@@ -21,9 +21,6 @@ $border-color: rgba(16, 16, 16, .2);
   }
 
   .add-client-window {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
     position: absolute;
 
@@ -34,6 +31,8 @@ $border-color: rgba(16, 16, 16, .2);
 
     padding: 10px;
 
+    font-size: 20px;
+
     background-color: $white;
 
     border: 1px solid $border-color;
@@ -43,26 +42,6 @@ $border-color: rgba(16, 16, 16, .2);
     transition: transform .1s, opacity .1s;
     pointer-events: none;
     cursor: default;
-
-    &.add-client-window-enter {
-      opacity: 0;
-      transform: none;
-    }
-
-    &.add-client-window-enter-active {
-      opacity: 100;
-      transform: translate(0, 20px);
-    }
-
-    &.add-client-window-exit {
-      opacity: 100;
-      transform: translate(0, 20px);
-    }
-
-    &.add-client-window-exit-active {
-      opacity: 0;
-      transform: none;
-    }
 
     &.active-bottom {
       opacity: 100%;

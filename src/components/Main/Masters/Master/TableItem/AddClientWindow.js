@@ -18,6 +18,7 @@ function AddClientWindow(props) {
                      left: props.tableItem.addClientWindow.offsetLeft}}
                  ref={addClientWindow}>
                 <h1>Новая запись</h1>
+                <h1><input type="time"/></h1>
                 <h1>15 янв. суббота</h1>
                 <h1>Мастер: Вика</h1>
                 <form>
