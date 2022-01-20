@@ -1,0 +1,19 @@
+.add-client-window .time {
+  display: flex;
+
+  .hours, .minutes {
+    font-size: 30px;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+  }
+
+  .hours:focus, .minutes:focus {
+    outline: none;
+  }
+
+  .hours {
+
+  }
+}

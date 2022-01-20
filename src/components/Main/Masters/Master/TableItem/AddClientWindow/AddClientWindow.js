@@ -1,7 +1,8 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {DeactivateBackground} from "../../../../../redux/actions/Main/addClientWindow";
-import {SwapToInactive} from "../../../../../redux/actions/Main/masters";
+import {DeactivateBackground} from "../../../../../../redux/actions/Main/addClientWindow";
+import {SwapToInactive} from "../../../../../../redux/actions/Main/masters";
+import Time from "./Time";
 
 
 function AddClientWindow(props) {
@@ -17,22 +18,22 @@ function AddClientWindow(props) {
                  style={{top: props.tableItem.addClientWindow.offsetTop,
                      left: props.tableItem.addClientWindow.offsetLeft}}
                  ref={addClientWindow}>
-                <h1>Новая запись</h1>
-                <h1><input type="time" step="900"/></h1>
-                <h1>15 янв. суббота</h1>
-                <h1>Мастер: Вика</h1>
+                <p className="header">Новая запись</p> <Time/>
+                <p className="day">15 янв. суббота</p>
+                <p className="master">Мастер: Вика</p>
                 <form>
-                    <p>Имя: <input type="text"/></p>
-                    <p>Телефон: <input type="text"/></p>
-                    <p>
-                        Услуга:
-                        <select name="" id="">
+                    <input className="name" type="text" placeholder="Имя"/>
+                    <input className="phone" type="text" placeholder="Телефон"/>
+                    <p className="service">
+                        <label htmlFor="service">Услуга:</label>
+                        <select id="service">
                             <option value="hair">Стрижка</option>
                             <option value="maniqure">Маникюр</option>
                             <option value="cosmetology">Косметология</option>
                         </select>
                     </p>
-                    <input type="submit" value="Добавить"/>
+                    <input className="confirm" type="submit" value="Добавить"/>
+                    <input className="cancel" type="button" value="Отмена"/>
                 </form>
             </div>
         </>

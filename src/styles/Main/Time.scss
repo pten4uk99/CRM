@@ -4,7 +4,7 @@ $red: rgba(166, 21, 21, 0.9);
 
 $border-color: rgba(16, 16, 16, .2);
 
-.journal section.time {
+.journal > section.time {
   display: flex;
   margin-top: 80px;
   margin-left: 10px;

@@ -4,7 +4,7 @@ import {
     ActivateBackground,
 } from "../../../../../redux/actions/Main/addClientWindow";
 import {SwapToActive, SwapToInactive} from "../../../../../redux/actions/Main/masters";
-import AddClientWindow from "./AddClientWindow";
+import AddClientWindow from "./AddClientWindow/AddClientWindow";
 
 
 function TableItem(props) {

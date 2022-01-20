@@ -1,0 +1,130 @@
+$white: rgb(239,239,239);
+$black: rgb(16, 16, 16);
+$red: rgba(166, 21, 21, 0.9);
+
+$border-color: rgba(16, 16, 16, .2);
+
+.table-items {
+  .background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    cursor: default;
+
+    &.active {
+      display: block;
+      background-color: rgba(0, 0, 0, .1);
+    }
+  }
+
+  .add-client-window {
+    display: grid;
+    grid-template-rows: repeat(10, 30px);
+    grid-template-columns: repeat(10, 50px);
+
+    flex-direction: column;
+    position: absolute;
+
+    opacity: 0;
+
+    width: 500px;
+    height: 300px;
+
+    padding: 10px;
+
+    font-size: 20px;
+
+    background-color: $white;
+
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    box-shadow: 0 0 10px $border-color;
+
+    transition: transform .1s, opacity .1s;
+    pointer-events: none;
+    cursor: default;
+
+    &.active-bottom {
+      opacity: 100%;
+      transform: translate(0, 20px);
+      pointer-events: all;
+    }
+
+    &.active-top {
+      opacity: 100%;
+      transform: translate(0, -20px);
+      pointer-events: all;
+    }
+
+    .header {
+      justify-self: center;
+      grid-column: 1 / 4;
+      grid-row: 1;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+    .day {
+      justify-self: center;
+      grid-column: 8 / 11;
+      grid-row: 1;
+    }
+    .time {
+      justify-self: center;
+      grid-column: 8 / 11;
+      grid-row: 2;
+    }
+    .master {
+      justify-self: center;
+      grid-column: 1 / 4;
+      grid-row: 2;
+    }
+
+    form {
+      grid-column: 1 / 11;
+      grid-row: 5 / 11;
+
+      display: grid;
+      grid-template-rows: repeat(5, 30px);
+      grid-template-columns: repeat(10, 50px);
+
+      .name {
+        justify-self: center;
+        grid-column: 2 / 4;
+        grid-row: 1;
+      }
+      .phone {
+        justify-self: center;
+        grid-column: 8 / 10;
+        grid-row: 1;
+      }
+      .service {
+        justify-self: center;
+        grid-column: 2 / 7;
+        grid-row: 3;
+
+        #service {
+          height: 30px;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+      .confirm {
+        justify-self: center;
+        grid-column: 2 / 4;
+        grid-row: 6;
+      }
+      .cancel {
+        justify-self: center;
+        grid-column: 5 / 7;
+        grid-row: 6;
+      }
+    }
+  }
+}
+
+@import "Time";
