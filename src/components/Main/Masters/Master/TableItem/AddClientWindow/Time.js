@@ -4,15 +4,26 @@ import {connect} from "react-redux";
 
 
 function Time(props) {
-    const time = React.useRef();
-
-    useEffect(() => {
-
-    }, [time])
     return (
         <div className="time">
-            <input className="hours" type="text" ref={time} value="15" readOnly={true}/>
-            <input className="minutes" type="text" ref={time} value="30" readOnly={true}/>
+            <div className="time-range">
+                <div className="time-start">
+                    <input className="hours" type="text" value={props.hoursStart} readOnly={true}/>
+                    <span className="colon">:</span>
+                    <input className="minutes" type="text" value={props.minutesStart} readOnly={true}/>
+                </div>
+                <span className="minus">-</span>
+                <div className="time-end">
+                    <input className="hours" type="text" value={props.hoursEnd} readOnly={true}/>
+                    <span className="colon">:</span>
+                    <input className="minutes" type="text" value={props.minutesEnd} readOnly={true}/>
+                </div>
+            </div>
+            <div className="extend-time">
+                <span className="minus">-</span>
+                <span className="text">Время на услугу</span>
+                <span className="plus">+</span>
+            </div>
         </div>
     )
 }
