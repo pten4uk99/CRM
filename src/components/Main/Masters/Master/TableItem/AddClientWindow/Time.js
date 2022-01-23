@@ -19,9 +19,9 @@ function Time(props) {
                     <input className="minutes" type="text" value={props.minutesEnd} readOnly={true}/>
                 </div>
             </div>
-            <div className="extend-time">
+            <div className="change-time">
                 <span className="minus">-</span>
-                <span className="text">Время на услугу</span>
+                <span className="quantity">30 мин.</span>
                 <span className="plus">+</span>
             </div>
         </div>

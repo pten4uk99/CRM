@@ -1,9 +1,3 @@
-$white: rgb(239,239,239);
-$black: rgb(16, 16, 16);
-$red: rgba(213, 28, 28, 0.9);
-
-$border-color: rgba(16, 16, 16, .2);
-
 .table-items {
   .background {
     display: none;
@@ -39,13 +33,14 @@ $border-color: rgba(16, 16, 16, .2);
 
     background-color: $white;
 
-    border: 1px solid $border-color;
+    border: 1px solid $blue;
     border-radius: 10px;
-    box-shadow: 0 0 10px $border-color;
+    //box-shadow: 0 0 10px $border-color;
 
     transition: transform .1s, opacity .1s;
     pointer-events: none;
     cursor: default;
+    z-index: 1;
 
     &.active-bottom {
       opacity: 100%;
@@ -59,37 +54,67 @@ $border-color: rgba(16, 16, 16, .2);
       pointer-events: all;
     }
 
+    .header-line {
+      position: absolute;
+
+      height: 45px;
+      width: 100%;
+
+      background-color: $blue;
+      border-radius: 10px 10px 0 0;
+      z-index: 2;
+    }
+
     .header {
       justify-self: center;
       grid-column: 1 / 4;
       grid-row: 1;
+
       font-size: 1.1em;
       font-weight: bold;
-    }
-    .day {
-      justify-self: center;
-      grid-column: 8 / 11;
-      grid-row: 1;
-    }
-    .time {
-      justify-self: center;
-      align-self: center;
-      grid-column: 6 / 11;
-      grid-row: 3 / 6;
-    }
-    .master {
-      justify-self: center;
-      grid-column: 1 / 4;
-      grid-row: 2;
+      color: $white;
+      z-index: 3;
     }
 
     form {
       grid-column: 1 / 11;
-      grid-row: 5 / 11;
+      grid-row: 1 / 11;
 
       display: grid;
-      grid-template-rows: repeat(5, 30px);
+      grid-template-rows: repeat(10, 30px);
       grid-template-columns: repeat(10, 50px);
+
+      input:focus {
+        border-bottom: 2px solid $blue;
+      }
+      input:focus::placeholder {
+        color: $blue;
+      }
+
+      .day {
+        justify-self: center;
+        grid-column: 8 / 11;
+        grid-row: 1;
+
+        color: $white;
+        z-index: 3;
+      }
+      .time {
+        justify-self: center;
+        align-self: center;
+        grid-column: 6 / 11;
+        grid-row: 2 / 7;
+      }
+      .master {
+        justify-self: center;
+        grid-column: 1 / 5;
+        grid-row: 3;
+
+        font-family: sans-serif;
+
+        position: relative;
+        left: -15px;
+      }
 
       .name, .last-name, .phone {
         align-self: center;
@@ -109,18 +134,70 @@ $border-color: rgba(16, 16, 16, .2);
       }
 
       .name {
-        grid-row: 1;
+        grid-row: 4 / 6;
       }
       .last-name {
-        grid-row: 2 / 4;
+        grid-row: 6;
       }
       .phone {
-        grid-row: 4;
+        grid-row: 7 / 9;
+      }
+      .gender {
+        justify-self: center;
+        align-self: center;
+        grid-column: 7 / 10;
+        grid-row: 6;
+
+        display: flex;
+        align-items: center;
+
+        font-family: sans-serif;
+        font-size: 17px;
+        line-height: 25px;
+
+        p {
+          margin-right: 10px;
+          cursor: text;
+        }
+
+        .male, .female {
+          width: 25px;
+          height: 25px;
+
+          border: 1px solid $border-color;
+
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          cursor: pointer;
+
+          .checkmark {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 100%;
+            height: 100%;
+            background-color: $white;
+
+            transition: background-color .1s, color .1s;
+          }
+
+          input {
+            display: none;
+
+            &:checked + .checkmark {
+              color: $white;
+              background-color: $blue;
+            }
+          }
+        }
       }
       .service {
         justify-self: center;
-        grid-column: 7 / 11;
-        grid-row: 3 / 5;
+        grid-column: 7 / 10;
+        grid-row: 7 / 9;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -135,31 +212,51 @@ $border-color: rgba(16, 16, 16, .2);
           outline: none;
           border: none;
         }
+        .input-service {
+          height: 15px;
+          padding: 5px;
+
+          font-size: 15px;
+
+          background-color: $white;
+
+          outline: none;
+          border: none;
+          border-bottom: 1px solid rgba(0,0,0,.3);
+        }
+          option {
+            color: white;
+          }
       }
 
       .confirm, .cancel {
         justify-self: center;
         align-self: center;
+        grid-row: 9 / 11;
 
         width: 100px;
         height: 35px;
         padding: 5px;
 
-        border: none;
-
         color: $white;
         font-size: 15px;
+
+        border: 1px solid $border-color;
+
+        cursor: pointer;
+
+        &:focus {
+          border-bottom: 1px solid $border-color;
+        }
       }
 
       .confirm {
         grid-column: 3 / 6;
-        grid-row: 5 / 7;
-        background-color: rgb(37, 196, 33);
+        background-color: $blue;
       }
       .cancel {
         grid-column: 6 / 9;
-        grid-row: 5 / 7;
-        background-color: $red;
+        color: $black;
       }
     }
   }

@@ -22,21 +22,34 @@ function AddClientWindow(props) {
                  style={{top: props.tableItem.addClientWindow.offsetTop,
                      left: props.tableItem.addClientWindow.offsetLeft}}
                  ref={addClientWindow}>
+                <div className="header-line"/>
                 <p className="header">Новая запись</p>
-                <Time hoursStart="15" minutesStart="30" hoursEnd="16" minutesEnd="00"/>
-                <p className="day">15 янв. суббота</p>
-                <p className="master">Мастер: Вика</p>
                 <form>
-                    <input className="name" type="text" placeholder="Имя"/>
-                    <input className="last-name" type="text" placeholder="Фамилия"/>
-                    <input className="phone" type="text" placeholder="Телефон" ref={ref}/>
+                    <Time hoursStart="15" minutesStart="30" hoursEnd="16" minutesEnd="00"/>
+                    <p className="day">15 янв. суббота</p>
+                    <p className="master">Мастер: Вика</p>
+
+                    <input className="name" type="text" placeholder="Имя" autoComplete="-"/>
+                    <input className="last-name" type="text" placeholder="Фамилия" autoComplete="-"/>
+                    <input className="phone" type="text" placeholder="Телефон" autoComplete="-" ref={ref}/>
+                    <div className="gender">
+                        <p>Пол:</p>
+                        <label htmlFor="male" className="male">
+                            <input type="radio" name="gender" value="male" id="male"/>
+                            <span className="checkmark">М</span>
+                        </label>
+                        <label htmlFor="female" className="female">
+                            <input type="radio" name="gender" value="female" id="female"/>
+                            <span className="checkmark">Ж</span>
+                        </label>
+                    </div>
                     <p className="service">
-                        <label htmlFor="service">Услуга:</label>
-                        <select id="service">
-                            <option value="hair">Стрижка</option>
-                            <option value="maniqure">Маникюр</option>
-                            <option value="cosmetology">Косметология</option>
-                        </select>
+                        <input className="input-service" list="service" placeholder="Услуга"/>
+                        <datalist id="service">
+                            <option value="Стрижка"/>
+                            <option value="Маникюр"/>
+                            <option value="Косметология"/>
+                        </datalist>
                     </p>
                     <input className="confirm" type="submit" value="Добавить"/>
                     <input className="cancel" type="button" value="Отмена"/>
