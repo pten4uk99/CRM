@@ -27,7 +27,10 @@ function AddClientWindow(props) {
                 <form>
                     <Time hoursStart="15" minutesStart="30" hoursEnd="16" minutesEnd="00"/>
                     <p className="day">15 янв. суббота</p>
-                    <p className="master">Мастер: Вика</p>
+                    <label className="master">Мастер: <input className="master-name"
+                                                             value={props.master}
+                                                             readOnly={true}/>
+                    </label>
 
                     <input className="name" type="text" placeholder="Имя" autoComplete="-"/>
                     <input className="last-name" type="text" placeholder="Фамилия" autoComplete="-"/>

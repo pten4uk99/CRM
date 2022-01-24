@@ -107,13 +107,29 @@
       }
       .master {
         justify-self: center;
-        grid-column: 1 / 5;
+        align-self: center;
+        grid-column: 1 / 7;
         grid-row: 3;
 
         font-family: sans-serif;
+        font-size: 18px;
 
         position: relative;
         left: -15px;
+
+        .master-name {
+          width: 150px;
+
+          color: $blue;
+          text-decoration: underline;
+          font-size: 17px;
+
+          background-color: transparent;
+
+          outline: none;
+          border: none;
+          cursor: pointer;
+        }
       }
 
       .name, .last-name, .phone {

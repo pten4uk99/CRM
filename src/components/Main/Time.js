@@ -27,12 +27,9 @@ function getHours() {
 }
 
 function getMinutes() {
-    let list = [];
+    let list = ['00', '15', '30', '45'];
 
-    for (let i = 1; i <= 26; i++) {
-        if (i % 2 === 0) list.push('30');
-        else list.push('00');
-    }
+    list.concat()
 
     return list;
 }
