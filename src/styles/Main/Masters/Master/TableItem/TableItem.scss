@@ -2,7 +2,7 @@
   .table-item {
     margin-left: 10px;
     width: 200px;
-    height: 30px;
+    height: 25px;
 
     border: 1px solid $border-color;
     border-top: none;
@@ -11,23 +11,37 @@
       border-top: 1px solid $border-color;
     }
 
-    &:nth-of-type(2n + 1) {
-      height: 29px;
+    &:nth-of-type(4n + 1) {
+      //height: 29px;
       border: 1px solid $border-color;
     }
 
     &:hover {
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, .6);
+      background-color: rgba(0, 109, 255, .1);
     }
 
     &.active {
-      box-shadow: 0 0 0 2px $blue;
+      background-color: rgba(0, 109, 255, .2);
       z-index: 5;
     }
   }
 
   &:hover {
     cursor: pointer;
+  }
+
+  &>.underline {
+    position: absolute;
+    left: 125px;
+    transform: translate(0, -1px);
+    display: none;
+
+    width: 700px;
+    border: 1px solid $blue;
+
+    &.active {
+      display: block;
+    }
   }
 }
 

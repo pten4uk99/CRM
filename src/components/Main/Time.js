@@ -27,9 +27,12 @@ function getHours() {
 }
 
 function getMinutes() {
-    let list = ['00', '15', '30', '45'];
+    let list = [];
+    let numbers = ['00', '15', '30', '45'];
 
-    list.concat()
+    for (let i = 1; i <= 13; i++) {
+        list.push(...numbers);
+    }
 
     return list;
 }

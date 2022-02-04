@@ -17,13 +17,13 @@ $border-color: rgba(16, 16, 16, .2);
       justify-content: center;
       align-items: center;
 
-      width: 60px;
-      height: 60px;
+      width: 103px;
+      height: 103px;
       border: 1px solid $border-color;
       border-bottom: 2px solid $border-color;
       border-top: none;
 
-      font-size: 1.7em;
+      font-size: 3em;
       font-weight: bold;
 
       &:nth-of-type(1) {
@@ -44,8 +44,8 @@ $border-color: rgba(16, 16, 16, .2);
 
       font-size: .9em;
 
-      width: 30px;
-      height: 30px;
+      width: 25px;
+      height: 25px;
 
       border: 1px solid $border-color;
       border-top: none;
@@ -54,8 +54,8 @@ $border-color: rgba(16, 16, 16, .2);
         border-top: 1px solid $border-color;
       }
 
-      &:nth-of-type(2n +1) {
-        height: 29px;
+      &:nth-of-type(4n + 1) {
+        //height: 29px;
         border: 1px solid $border-color;
       }
     }

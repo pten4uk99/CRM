@@ -7,21 +7,10 @@ export default function masters(state = initialState, action) {
         case "ADD_MASTER":
             newObj[action.payload.name] = listElems().map(
                 (index) => {
-                    let orientation;
-                    let diff;
-                    if (index >= 16) {
-                        orientation = "active-top";
-                        diff = -307;
-                    } else {
-                        orientation = "active-bottom";
-                        diff = 15;
-                    }
                     return {
                         active: false,
                         className: "table-item",
                         addClientWindow: {
-                            orientation: orientation,
-                            offsetDiff: diff,
                             offsetTop: 0,
                             offsetLeft: 0
                         }
@@ -35,8 +24,6 @@ export default function masters(state = initialState, action) {
                 className: "table-item active",
                 addClientWindow: {
                     ...elem.addClientWindow,
-                    offsetTop: action.payload.offsetTop + elem.addClientWindow.offsetDiff,
-                    offsetLeft: action.payload.offsetLeft
                 }
             }
             return newObj;
@@ -56,6 +43,6 @@ export default function masters(state = initialState, action) {
 
 function listElems() {
     let list = [];
-    for (let i=1; i <= 26; i++) list.push(i);
+    for (let i = 1; i <= 13 * 4; i++) list.push(i);
     return list;
 }

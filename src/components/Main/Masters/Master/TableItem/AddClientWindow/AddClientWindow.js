@@ -10,17 +10,18 @@ function AddClientWindow(props) {
     const addClientWindow = React.createRef();
     const [ opts, setOpts ] = React.useState({ mask: "+{7}(000)000-00-00" });
     const { ref, maskRef } = useIMask(opts);
+    console.log(props.store.orientation)
 
     useEffect(() => {
-        setTimeout(() => addClientWindow.current.classList.add(props.tableItem.addClientWindow.orientation))
+        setTimeout(() => addClientWindow.current.classList.add(props.store.orientation))
     }, [])
 
     return (
         <>
             <div className={props.store.className} onClick={() => {deactivateWindow(props)}}/>
             <div className="add-client-window"
-                 style={{top: props.tableItem.addClientWindow.offsetTop,
-                     left: props.tableItem.addClientWindow.offsetLeft}}
+                 style={{top: props.store.offsetTop,
+                     left: props.store.offsetLeft}}
                  ref={addClientWindow}>
                 <div className="header-line"/>
                 <p className="header">Новая запись</p>
