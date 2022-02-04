@@ -31,10 +31,12 @@
   }
 
   &>.underline {
-    position: absolute;
-    left: 125px;
-    transform: translate(0, -1px);
     display: none;
+
+    position: absolute;
+    left: 115px;
+
+    transform: translate(0, -1px);
 
     width: 700px;
     border: 1px solid $blue;

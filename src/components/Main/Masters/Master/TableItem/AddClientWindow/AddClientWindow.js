@@ -10,7 +10,6 @@ function AddClientWindow(props) {
     const addClientWindow = React.createRef();
     const [ opts, setOpts ] = React.useState({ mask: "+{7}(000)000-00-00" });
     const { ref, maskRef } = useIMask(opts);
-    console.log(props.store.orientation)
 
     useEffect(() => {
         setTimeout(() => addClientWindow.current.classList.add(props.store.orientation))

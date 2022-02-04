@@ -47,7 +47,7 @@ export default connect(
 )(TableItem);
 
 function activateWindow(event, props, index) {
-    event.clientY + 350 > window.innerHeight ?
+    event.clientY + 370 > window.innerHeight ?
        props.SwapOrientationToTop(event.target.offsetTop, event.target.offsetLeft) :
        props.SwapOrientationToBottom(event.target.offsetTop, event.target.offsetLeft);
 
