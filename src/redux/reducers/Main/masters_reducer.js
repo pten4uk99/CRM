@@ -12,7 +12,7 @@ export default function masters(state = initialState, action) {
                         active: false,
                         className: "table-item",
                         hour: hour,
-                        minute: minutes[index % 4],
+                        minutes: minutes[index % 4],
                         addClientWindow: {
                             offsetTop: 0,
                             offsetLeft: 0

@@ -11,13 +11,13 @@ function Main(props) {
             <article className="journal">
                 <Time/>
                 <Masters/>
-                <Client/>
+                <Client master="Саша" params={props.store.clients.masters["Саша"][0]}/>
             </article>
         </main>
     )
 }
 
 export default connect(
-    state => ({store: state}),
+    state => ({store: state.Main}),
     dispatch => ({})
 )(Main);
