@@ -3,11 +3,13 @@ main {
     display: flex;
     position: relative;
 
-    width: 1200px;
-    height: calc(100vh - 130px);
+    width: $main-size;
+    height: calc(100vh - 40px);
     
-    margin: 100px 10px 20px 10px;
-    
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+
     border: 2px solid $border-color;
 
     overflow-x: hidden;
@@ -16,4 +18,5 @@ main {
 }
 
 @import "Time";
+@import "Client";
 @import "Masters/Masters";

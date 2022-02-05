@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 
-import {AddMaster} from "../../../../redux/actions/Main/masters";
+import {AddMaster} from "../../../../redux/actions/Main/masters_actions";
 import TableItem from "./TableItem/TableItem";
 
 

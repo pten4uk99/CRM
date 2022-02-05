@@ -14,7 +14,8 @@
     padding: 10px 0;
 
      .hours, .minutes {
-       font-size: 25px;
+       font-size: 23px;
+       font-family: sans-serif;
        text-align: center;
 
        width: 35px;
@@ -76,7 +77,7 @@
     }
 
     .minus {
-      line-height: 15px;
+      line-height: 19px;
     }
   }
 }

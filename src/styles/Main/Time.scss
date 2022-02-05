@@ -1,6 +1,6 @@
 .journal > section.time {
   display: flex;
-  margin-top: 80px;
+  margin-top: 100px;
   margin-left: 10px;
 
   font-size: 25px;
@@ -18,7 +18,7 @@
       border-top: none;
 
       font-size: 3em;
-      font-weight: bold;
+      font-weight: 600;
 
       &:nth-of-type(1) {
         border-top: 1px solid $border-color;
@@ -36,7 +36,8 @@
       justify-content: center;
       align-items: center;
 
-      font-size: .9em;
+      font-size: .65em;
+      font-weight: 400;
 
       width: 25px;
       height: 25px;

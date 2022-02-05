@@ -2,16 +2,25 @@ import React, {useState} from "react";
 import {connect} from "react-redux";
 import {
     ActivateBackground, SwapOrientationToBottom, SwapOrientationToTop,
-} from "../../../../../redux/actions/Main/addClientWindow";
-import {SwapToActive, SwapToInactive} from "../../../../../redux/actions/Main/masters";
+} from "../../../../../redux/actions/Main/addClientWindow_actions";
+import {AddOffset, SwapToActive, SwapToInactive} from "../../../../../redux/actions/Main/masters_actions";
 import AddClientWindow from "./AddClientWindow/AddClientWindow";
 
 
 function TableItem(props) {
     const currentItem = props.store.masters[props.master][props.index];
 
-    let [underlineClass, setUnderlineClass] = useState('underline');
+    let tableItem = React.createRef();
+    React.useEffect(() => {
+        props.AddOffset(
+            props.master,
+            props.index,
+            tableItem.current.offsetTop,
+            tableItem.current.offsetLeft
+        )
+    }, [])
 
+    let [underlineClass, setUnderlineClass] = useState('underline');
     function activateUnderline() {
         setUnderlineClass('underline active');
     }
@@ -23,7 +32,8 @@ function TableItem(props) {
         <>
             <div className={props.className}
                  onClick={(event) => activateWindow(event, props, props.index)}
-                 onMouseEnter={activateUnderline} onMouseLeave={deactivateUnderline}/>
+                 onMouseEnter={activateUnderline} onMouseLeave={deactivateUnderline}
+                 ref={tableItem}/>
             {currentItem.active ? <AddClientWindow tableItem={currentItem}
                                                    master={props.master}
                                                    index={props.index}/> : ""}
@@ -35,6 +45,8 @@ function TableItem(props) {
 export default connect(
     state => ({store: state.Main}),
     dispatch => ({
+        AddOffset:
+            (name, index, top, left) => dispatch(AddOffset(name, index, top, left)),
         ActivateBackground:
             () => dispatch(ActivateBackground()),
         SwapToActive:

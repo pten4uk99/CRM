@@ -5,11 +5,14 @@ export default function masters(state = initialState, action) {
     let newObj = {...state};
     switch (action.type) {
         case "ADD_MASTER":
-            newObj[action.payload.name] = listElems().map(
-                (index) => {
+            newObj[action.payload.name] = getHours().map(
+                (hour, index) => {
+                    let minutes = ['00', '15', '30', '45'];
                     return {
                         active: false,
                         className: "table-item",
+                        hour: hour,
+                        minute: minutes[index % 4],
                         addClientWindow: {
                             offsetTop: 0,
                             offsetLeft: 0
@@ -18,21 +21,27 @@ export default function masters(state = initialState, action) {
                 })
             return newObj;
         case "SWAP_TO_ACTIVE":
-            const elem = newObj[action.payload.name][action.payload.index];
+            const activeObj = newObj[action.payload.name][action.payload.index];
             newObj[action.payload.name][action.payload.index] = {
+                ...activeObj,
                 active: true,
                 className: "table-item active",
-                addClientWindow: {
-                    ...elem.addClientWindow,
-                }
             }
             return newObj;
         case "SWAP_TO_INACTIVE":
-            const obj = newObj[action.payload.name][action.payload.index];
+            const inactiveObj = newObj[action.payload.name][action.payload.index];
             newObj[action.payload.name][action.payload.index] = {
+                ...inactiveObj,
                 active: false,
                 className: "table-item",
-                addClientWindow: obj.addClientWindow
+            }
+            return newObj;
+        case "ADD_OFFSET":
+            const offsetObj = newObj[action.payload.name][action.payload.index];
+            newObj[action.payload.name][action.payload.index] = {
+                ...offsetObj,
+                offsetTop: action.payload.top,
+                offsetLeft: action.payload.left
             }
             return newObj;
         default:
@@ -40,9 +49,10 @@ export default function masters(state = initialState, action) {
     }
 }
 
-
-function listElems() {
+function getHours() {
     let list = [];
-    for (let i = 1; i <= 13 * 4; i++) list.push(i);
-    return list;
+    for (let hour = 9; hour <= 21; hour ++) {
+        list.push(hour, hour, hour, hour);
+    }
+    return list
 }

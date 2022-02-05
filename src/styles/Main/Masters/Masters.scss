@@ -1,3 +1,16 @@
+.masters-line {
+  position: fixed;
+
+  width: $main-size - 4px;
+  height: 80px;
+
+  border-bottom: 2px solid $border-color;
+
+  background-color: rgb(234, 234, 234);
+
+  z-index: 4;
+}
+
 section.masters {
   display: flex;
 }

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {DeactivateBackground} from "../../../../../../redux/actions/Main/addClientWindow";
-import {SwapToInactive} from "../../../../../../redux/actions/Main/masters";
+import {DeactivateBackground} from "../../../../../../redux/actions/Main/addClientWindow_actions";
+import {SwapToInactive} from "../../../../../../redux/actions/Main/masters_actions";
 import Time from "./Time";
 import {useIMask} from "react-imask";
 
@@ -25,7 +25,8 @@ function AddClientWindow(props) {
                 <div className="header-line"/>
                 <p className="header">Новая запись</p>
                 <form>
-                    <Time hoursStart="15" minutesStart="30" hoursEnd="16" minutesEnd="00"/>
+                    <Time hoursStart={props.tableItem.hour} minutesStart={props.tableItem.minute}
+                          hoursEnd="16" minutesEnd="00"/>
                     <p className="day">15 янв. суббота</p>
                     <label className="master">Мастер: <input className="master-name"
                                                              value={props.master}
