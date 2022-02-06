@@ -22,7 +22,7 @@ export default function masters(state = initialState, action) {
                     }
                 })
             return newObj;
-        case "SWAP_TO_ACTIVE":
+        case "SWAP_TABLE_ITEM_TO_ACTIVE":
             const activeObj = newObj[action.payload.name][action.payload.index];
             newObj[action.payload.name][action.payload.index] = {
                 ...activeObj,
@@ -30,7 +30,7 @@ export default function masters(state = initialState, action) {
                 className: "table-item active",
             }
             return newObj;
-        case "SWAP_TO_INACTIVE":
+        case "SWAP_TABLE_ITEM_TO_INACTIVE":
             const inactiveObj = newObj[action.payload.name][action.payload.index];
             newObj[action.payload.name][action.payload.index] = {
                 ...inactiveObj,

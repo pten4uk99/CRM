@@ -11,12 +11,12 @@ function Client(props) {
             return elem.hour === props.params.timeStart.hour &&
                 elem.minutes === props.params.timeStart.minutes})[0])
 
-        setOnload(props.store.components.ClientsClient);
+        setOnload(true);
         }, []
     )
 
     return onload ? (
-        <div className="client" style={getStyle(tableItem, props)}>
+        <div className="client" style={getStyle(props)}>
             vjdfnvdkj
         </div>
     ) : <></>
@@ -27,10 +27,11 @@ export default connect(
     dispatch => ({})
 )(Client);
 
-function getStyle(tableItem, props) {
+function getStyle(props) {
+    console.log(props.params)
     return {
-        top: tableItem.offsetTop,
-        left: tableItem.offsetLeft,
-        height: props.params.cardParams.height
+        top: props.offsetTop,
+        left: props.offsetLeft,
+        height: props.params.duration / 15 * 25
     }
 }

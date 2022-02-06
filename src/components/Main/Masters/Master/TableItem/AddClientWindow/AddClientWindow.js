@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {DeactivateBackground} from "../../../../../../redux/actions/Main/addClientWindow_actions";
-import {SwapToInactive} from "../../../../../../redux/actions/Main/masters_actions";
+import {SwapTableItemToInactive} from "../../../../../../redux/actions/Main/masters_actions";
 import Time from "./Time";
 import {useIMask} from "react-imask";
 
 
 function AddClientWindow(props) {
-    const addClientWindow = React.createRef();
+    const addClientWindow = React.useRef();
     const [ opts, setOpts ] = React.useState({ mask: "+{7}(000)000-00-00" });
     const { ref, maskRef } = useIMask(opts);
 
@@ -68,12 +68,12 @@ export default connect(
     dispatch => ({
         DeactivateBackground:
             () => dispatch(DeactivateBackground()),
-        SwapToInactive:
-            (name, index) => dispatch(SwapToInactive(name, index))
+        SwapTableItemToInactive:
+            (name, index) => dispatch(SwapTableItemToInactive(name, index))
     })
 )(AddClientWindow);
 
 function deactivateWindow(props) {
-    props.SwapToInactive(props.master, props.index)
+    props.SwapTableItemToInactive(props.master, props.index)
     props.DeactivateBackground()
 }
