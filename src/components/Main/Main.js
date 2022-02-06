@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import Time from "./Time";
 import Masters from "./Masters/Masters";
-import Client from "./Client";
+import Clients from "./Clients/Clients";
 
 
 function Main(props) {
@@ -11,7 +11,7 @@ function Main(props) {
             <article className="journal">
                 <Time/>
                 <Masters/>
-                <Client master="Саша" params={props.store.clients.masters["Саша"][0]}/>
+                <Clients/>
             </article>
         </main>
     )

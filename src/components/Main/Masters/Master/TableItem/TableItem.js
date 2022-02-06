@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {
     ActivateBackground, SwapOrientationToBottom, SwapOrientationToTop,
@@ -11,7 +11,7 @@ function TableItem(props) {
     const currentItem = props.store.masters[props.master][props.index];
 
     let tableItem = React.createRef();
-    React.useEffect(() => {
+    useEffect(() => {
         props.AddOffset(
             props.master,
             props.index,
