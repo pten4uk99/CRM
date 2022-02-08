@@ -39,6 +39,7 @@ function TableItem(props) {
             {currentItem.active ? <AddClientWindow tableItem={currentItem}
                                                    master={props.master}
                                                    index={props.index}/> : ""}
+            {props.index % 4 === 0 ? <hr className="bold-border"/> : <></>}
             <hr className={underlineClass} style={{width: getUnderlineLength(props.store)}}/>
         </>
     )

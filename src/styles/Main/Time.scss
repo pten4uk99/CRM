@@ -14,7 +14,7 @@
       width: 103px;
       height: 103px;
       border: 1px solid $border-color;
-      border-bottom: 2px solid $border-color;
+      //border-bottom: 2px solid $border-color;
       border-top: none;
 
       font-size: 3em;
@@ -49,10 +49,9 @@
         border-top: 1px solid $border-color;
       }
 
-      &:nth-of-type(4n + 1) {
-        //height: 29px;
-        border: 1px solid $border-color;
-      }
+      //&:nth-of-type(4n + 1) {
+      //  border: 1px solid $border-color;
+      //}
     }
   }
 }

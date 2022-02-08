@@ -31,7 +31,7 @@ const initialState = [
             hour: 15,
             minutes: "30"
         },
-        duration: 60,
+        duration: 60 * 4,
         gender: "Ж",
         service: "Стрижка",
     }

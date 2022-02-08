@@ -17,7 +17,7 @@ function Client(props) {
 
     return onload ? (
         <div className="client" style={getStyle(props)}>
-            vjdfnvdkj
+            <p>dklcnsdlkc</p>
         </div>
     ) : <></>
 }
@@ -32,6 +32,6 @@ function getStyle(props) {
     return {
         top: props.offsetTop,
         left: props.offsetLeft,
-        height: props.params.duration / 15 * 25
+        height: props.params.duration / 15 * 25 + props.params.duration / 15
     }
 }
