@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import Master from "./Master/Master";
+import Master from "./Master";
 
 
 function Masters(props) {

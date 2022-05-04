@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {refreshTime} from "../../redux/actions/Header/CurrentData";
 
 
 function CurrentData(props) {
-    React.useEffect(() => {
+
+    useEffect(() => {
         setInterval(() => props.refreshTime(), 1000*30)
     }, [])
 

@@ -1,0 +1,51 @@
+.calendar__wrapper {
+    display: block;
+    align-items: center;
+
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+
+    overflow-x: hidden;
+}
+
+.calendar__container {
+    position: relative;
+    display: block;
+    justify-content: center;
+
+    width: 360px;
+    height: 393px;
+
+    margin: 0 auto;
+
+    border-radius: 0;
+    background-color: #F5F5F5;
+
+    overflow: hidden;
+}
+
+.calendar__container > .inside__container {
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+
+    width: 360px;
+    height: 393px;
+
+    bottom: 16px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+@import "DaysOfWeek";
+@import "MonthNav";
+@import "Date/Date";
+@import "Date/DatesList";

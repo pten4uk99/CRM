@@ -22,3 +22,7 @@ export const SwapOrientationToBottom = (top, left) => {
         }
     }
 }
+export const SetChosenDuration = (duration) => {
+    return {type: "SET_CHOSEN_DURATION", payload: duration}
+}
+

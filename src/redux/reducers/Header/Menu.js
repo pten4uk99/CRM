@@ -1,7 +1,7 @@
 const initialState = {
-    cashbox: "cashbox active",
-    journal: "journal",
-    warehouse: "warehouse"
+    cashbox: true,
+    journal: false,
+    warehouse: false
 }
 
 
@@ -10,23 +10,23 @@ export default function Menu(state = initialState, action) {
         case "CASHBOX_ACTIVE":
             return {
                 ...state,
-                cashbox: "cashbox active",
-                journal: "journal",
-                warehouse: "warehouse"
+                cashbox: true,
+                journal: false,
+                warehouse: false
             };
         case "JOURNAL_ACTIVE":
             return {
                 ...state,
-                cashbox: "cashbox",
-                journal: "journal active",
-                warehouse: "warehouse"
+                cashbox: false,
+                journal: true,
+                warehouse: false
             };
         case "WAREHOUSE_ACTIVE":
             return {
                 ...state,
-                cashbox: "cashbox",
-                journal: "journal",
-                warehouse: "warehouse active"
+                cashbox: false,
+                journal: false,
+                warehouse: true
             };
         default:
             return state;

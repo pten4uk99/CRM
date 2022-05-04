@@ -1,0 +1,33 @@
+.masters__dropdown {
+  position: absolute;
+  left: 85px;
+  top: 35px;
+
+  list-style: none;
+
+  background-color: white;
+  box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+
+  padding: 5px 15px;
+
+  color: $black;
+  font-size: 14px;
+  font-weight: 600;
+
+  animation: dropdown-appearance .1s;
+
+  .master {
+    cursor: pointer;
+  }
+}
+
+@keyframes dropdown-appearance {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}

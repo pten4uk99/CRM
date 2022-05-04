@@ -13,12 +13,6 @@ export default function masters(state = initialState, action) {
                         className: "table-item",
                         hour: hour,
                         minutes: minutes[index % 4],
-                        offsetTop: 0,
-                        offsetLeft: 0,
-                        addClientWindow: {
-                            offsetTop: 0,
-                            offsetLeft: 0
-                        }
                     }
                 })
             return newObj;
@@ -36,14 +30,6 @@ export default function masters(state = initialState, action) {
                 ...inactiveObj,
                 active: false,
                 className: "table-item",
-            }
-            return newObj;
-        case "ADD_OFFSET":
-            const offsetObj = newObj[action.payload.name][action.payload.index];
-            newObj[action.payload.name][action.payload.index] = {
-                ...offsetObj,
-                offsetTop: action.payload.top,
-                offsetLeft: action.payload.left
             }
             return newObj;
         default:

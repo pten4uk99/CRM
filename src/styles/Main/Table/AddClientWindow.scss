@@ -11,7 +11,7 @@
 
     cursor: default;
 
-    z-index: 2;
+    z-index: 9;
 
     &.active {
       display: block;
@@ -21,75 +21,95 @@
 
   .add-client-window {
     display: grid;
-    grid-template-rows: repeat(10, 30px);
-    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: repeat(14, 25px);
+    grid-template-columns: repeat(18, 50px);
 
     flex-direction: column;
-    position: absolute;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-    opacity: 0;
-
-    width: 500px;
-    height: 300px;
-
-    padding: 10px;
+    width: 900px;
+    height: 350px;
 
     font-size: 20px;
 
     background-color: $white;
-
-    border: 1px solid $blue;
-    border-radius: 10px;
-    //box-shadow: 0 0 10px $border-color;
+    box-shadow: 0 0 5px $border-color;
 
     transition: transform .1s, opacity .1s;
-    pointer-events: none;
-    cursor: default;
-    z-index: 3;
+    //pointer-events: none;
+    z-index: 10;
 
-    &.active-bottom {
-      opacity: 100%;
-      transform: translate(0, 20px);
-      pointer-events: all;
-    }
-
-    &.active-top {
-      opacity: 100%;
-      transform: translate(0, -20px);
-      pointer-events: all;
-    }
+    //&.active-bottom {
+    //  opacity: 100%;
+    //  transform: translate(0, 20px);
+    //  pointer-events: all;
+    //}
+    //
+    //&.active-top {
+    //  opacity: 100%;
+    //  transform: translate(0, -20px);
+    //  pointer-events: all;
+    //}
 
     .header-line {
       position: absolute;
 
-      height: 45px;
+      height: 50px;
       width: 100%;
 
       background-color: $blue;
-      border-radius: 10px 10px 0 0;
       z-index: 2;
+      cursor: move;
+      user-select: none;
     }
 
-    .header {
-      justify-self: center;
-      grid-column: 1 / 4;
-      grid-row: 1;
+    & > .master {
+      display: flex;
+      align-items: center;
+      justify-self: start;
+      align-self: center;
+      grid-column: 1 / 7;
+      grid-row: 1 / 3;
 
-      font-size: 1.1em;
+      margin-left: 10px;
+
       font-weight: bold;
       font-family: sans-serif;
       color: $white;
 
       z-index: 3;
+      user-select: none;
+
+      .master-name {
+        box-sizing: border-box;
+
+        margin-left: 5px;
+        padding: 3px;
+
+        height: min-content;
+
+        color: $black;
+        font-size: .9em;
+        font-weight: 500;
+
+        background-color: $white;
+
+        border-radius: 5px;
+        cursor: pointer;
+        user-select: none;
+      }
     }
 
     form {
       grid-column: 1 / 11;
-      grid-row: 1 / 11;
+      grid-row: 1 / 15;
 
       display: grid;
-      grid-template-rows: repeat(10, 30px);
-      grid-template-columns: repeat(10, 50px);
+      grid-template-rows: repeat(14, 25px);
+      grid-template-columns: repeat(18, 50px);
 
       input:focus {
         border-bottom: 2px solid $blue;
@@ -99,89 +119,101 @@
       }
 
       .day {
+        align-self: center;
         justify-self: center;
-        grid-column: 7 / 11;
-        grid-row: 1;
+        grid-column: 15 / span 4;
+        grid-row: 1 / span 2;
 
         color: $white;
         font-family: sans-serif;
 
         z-index: 3;
+        user-select: none;
       }
       .time {
         justify-self: center;
         align-self: center;
-        grid-column: 6 / 11;
-        grid-row: 2 / 7;
+        grid-column: 12 / span 6;
+        grid-row: 4 / span 5;
 
         font-size: .9em;
         font-weight: 400;
       }
-      .master {
-        justify-self: center;
-        align-self: center;
-        grid-column: 1 / 7;
-        grid-row: 3;
 
-        font-size: 18px;
-        font-weight: normal;
-        font-family: sans-serif;
+      .comment {
+        box-sizing: border-box;
+        padding: 5px;
+        border: none;
+        outline: none;
+        font-size: .9em;
 
-        position: relative;
-        left: -5px;
+        box-shadow: inset 0 0 2px rgba(0, 0, 0, .3);
 
-        .master-name {
-          width: 150px;
-
-          color: $blue;
-          text-decoration: underline;
-          font-size: 17px;
-
-          background-color: transparent;
-
-          outline: none;
-          border: none;
-          cursor: pointer;
-        }
+        resize: none;
+        margin-right: 10px;
+        grid-column: 2 / span 9;
+        grid-row: 9 / span 5;
       }
 
-      .name, .last-name, .phone {
+      .name, .last-name, .phone, .service {
         align-self: center;
         justify-self: center;
-        grid-column: 2 / 5;
+        grid-column: 2 / span 4;
 
         height: 15px;
         padding: 5px;
 
-        font-size: 15px;
+        font-size: .85em;
 
         background-color: $white;
 
         outline: none;
         border: none;
-        border-bottom: 1px solid rgba(0,0,0,.3);
+        border-bottom: 1px solid rgba(0, 0, 0, .3);
+      }
+
+      .service {
+        grid-row: 6 / span 2;
+        grid-column: 7 / span 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .input-service {
+          height: 15px;
+          padding: 5px;
+
+          font-size: .95em;
+
+          background-color: $white;
+
+          outline: none;
+          border: none;
+          border-bottom: 1px solid rgba(0, 0, 0, .3);
+        }
       }
 
       .name {
-        grid-row: 4 / 6;
+        grid-row: 4 / span 2;
       }
       .last-name {
-        grid-row: 6;
+        grid-row: 4 / span 2;
+        grid-column: 7 / span 3;
       }
       .phone {
-        grid-row: 7 / 9;
+        grid-row: 6 / span 2;
       }
       .gender {
         justify-self: center;
         align-self: center;
-        grid-column: 7 / 10;
-        grid-row: 6;
+        grid-column: 2 / span 4;
+        grid-row: 12 / span 2;
 
         display: flex;
         align-items: center;
 
         font-weight: 400;
-        font-size: 17px;
+        font-size: .9em;
         line-height: 25px;
 
         p {
@@ -223,52 +255,18 @@
           }
         }
       }
-      .service {
-        justify-self: center;
-        grid-column: 7 / 10;
-        grid-row: 7 / 9;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-
-        label {
-          font-family: sans-serif;
-          font-size: .8em;
-          color: rgba(0, 0, 0, .7);
-        }
-        #service {
-          height: 30px;
-          outline: none;
-          border: none;
-        }
-        .input-service {
-          height: 15px;
-          padding: 5px;
-
-          font-size: 15px;
-
-          background-color: $white;
-
-          outline: none;
-          border: none;
-          border-bottom: 1px solid rgba(0,0,0,.3);
-        }
-          option {
-            color: white;
-          }
-      }
 
       .confirm, .cancel {
         justify-self: center;
         align-self: center;
-        grid-row: 9 / 11;
+        grid-row: 11 / span 3;
 
-        width: 100px;
+        box-sizing: border-box;
         height: 35px;
         padding: 5px;
 
         color: $white;
-        font-size: 15px;
+        font-size: .95em;
         font-weight: 600;
 
         border: 1px solid $border-color;
@@ -281,15 +279,15 @@
       }
 
       .confirm {
-        grid-column: 3 / 6;
+        grid-column: 12 / span 3;
         background-color: $blue;
       }
       .cancel {
-        grid-column: 6 / 9;
+        grid-column: 15 / span 3;
         color: $black;
       }
     }
   }
 }
 
-@import "Time";
+@import "src/styles/Main/Table/Time";

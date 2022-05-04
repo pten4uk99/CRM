@@ -1,0 +1,92 @@
+.table-items > .client {
+  position: absolute;
+
+  width: 202px;
+
+  padding: 5px;
+  box-sizing: border-box;
+
+  background-color: rgb(173, 188, 208);
+  z-index: 4;
+
+  font-size: 16px;
+  font-weight: 400;
+  overflow: hidden;
+
+  transform-origin: center;
+  transition: transform .2s, height .1s;
+
+  &:hover {
+    transform: scale(1.03);
+    z-index: 5;
+  }
+
+  .time {
+    font-size: 14px;
+  }
+  .name, .last-name {
+    font-weight: 600;
+
+    .master-client, .non-master-client {
+      display: inline-block;
+      border-radius: 50%;
+      width: 7px;
+      height: 7px;
+      margin-right: 3px;
+    }
+    .master-client {
+      border: 2px solid rgb(232, 0, 0);
+    }
+    .non-master-client {
+      border: 2px solid blue;
+    }
+  }
+  .last-name {
+    margin-left: 14px;
+  }
+  .phone {
+    animation: appearance .2s;
+    &.mt-10 {
+      margin-top: 10px;
+    }
+  }
+  .service {
+    animation: appearance .2s;
+    font-style: italic;
+  }
+
+  .comment {
+    background-color: navajowhite;
+    border: 1px solid gray;
+    margin-top: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding: 5px;
+    animation: appearance .2s;
+  }
+
+  .underline {
+    margin-top: 30px;
+    height: 1px;
+    background-color: gray;
+    opacity: .6;
+
+  }
+
+  .last-visit {
+    margin-top: 10px;
+
+    .header {
+      font-size: 14px;
+    }
+  }
+}
+
+@keyframes appearance {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}

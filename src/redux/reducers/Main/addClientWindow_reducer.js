@@ -1,5 +1,6 @@
 const initialState = {
-    className: "background"
+    className: "background",
+    chosenDuration: 30
 }
 
 export default function addClientWindow(state = initialState, action) {
@@ -12,16 +13,18 @@ export default function addClientWindow(state = initialState, action) {
             return {
                 ...state,
                 orientation: "active-top",
-                offsetTop: action.payload.offsetTop - 307,
+                offsetTop: action.payload.offsetTop - 315,
                 offsetLeft: action.payload.offsetLeft
             }
         case "SWAP_ORIENTATION_TO_BOTTOM":
             return {
                 ...state,
                 orientation: "active-bottom",
-                offsetTop: action.payload.offsetTop + 15,
+                offsetTop: action.payload.offsetTop - 10,
                 offsetLeft: action.payload.offsetLeft
             }
+        case "SET_CHOSEN_DURATION":
+            return {...state, chosenDuration: action.payload}
         default:
             return state
     }

@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 
-import {AddMaster} from "../../../../redux/actions/Main/masters_actions";
-import TableItem from "./TableItem/TableItem";
+import {AddMaster} from "../../../redux/actions/Main/masters_actions";
+import TableItem from "../Table/TableItem";
 
 
 function Master(props) {
@@ -30,8 +30,7 @@ function Master(props) {
 export default connect(
     state => ({store: state.Main.masters}),
     dispatch => ({
-        AddMaster:
-            (name) => dispatch(AddMaster(name)),
+        AddMaster: (name) => dispatch(AddMaster(name)),
     })
 )(Master);
 

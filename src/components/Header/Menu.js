@@ -3,12 +3,13 @@ import {connect} from "react-redux";
 import {swapItemToCashBox, swapItemToJournal, swapItemToWarehouse} from "../../redux/actions/Header/Menu";
 
 function Menu(props) {
-    let getClassName = (name) => props.Menu[name];
+    let menu = props.Menu
+
     return (
-        <nav>
-            <div className={getClassName('cashbox')} onClick={props.swapItemToCashBox}>Касса</div>
-            <div className={getClassName('journal')} onClick={props.swapItemToJournal}>Журнал</div>
-            <div className={getClassName('warehouse')} onClick={props.swapItemToWarehouse}>Склад</div>
+        <nav className="header__main-menu">
+            <div className={`cashbox ${menu.cashbox && "active"}`} onClick={props.swapItemToCashBox}>Касса</div>
+            <div className={`journal ${menu.journal && "active"}`} onClick={props.swapItemToJournal}>Журнал</div>
+            <div className={`warehouse ${menu.warehouse && "active"}`} onClick={props.swapItemToWarehouse}>Склад</div>
         </nav>
     )
 }

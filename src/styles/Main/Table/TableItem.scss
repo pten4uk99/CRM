@@ -2,6 +2,7 @@
   margin-top: 90px;
 
   .table-item {
+    position: relative;
     width: 200px;
     height: 25px;
 
@@ -57,5 +58,5 @@
   }
 }
 
-@import "Client";
-@import "AddClientWindow/AddClientWindow";
+@import "src/styles/Main/Table/Client";
+@import "AddClientWindow";
