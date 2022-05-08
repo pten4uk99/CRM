@@ -1,0 +1,116 @@
+.paint-list {
+  .paint {
+    display: flex;
+    margin: 30px 0;
+    width: max-content;
+
+    transition: transform .1s;
+
+    &:hover {
+      transform: translateX(5px);
+    }
+
+    .main {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      width: 900px;
+      height: 100px;
+
+      border: 1px solid $border-color;
+      box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+      background-color: $white;
+
+      .category {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 60px;
+        font-weight: 800;
+
+        margin-left: 10px;
+        width: 80px;
+        height: 80px;
+      }
+      .name {
+        margin-left: 10px;
+        font-size: 34px;
+        font-weight: 600;
+      }
+      .right-block {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 10px;
+
+        .favorites {
+          margin-right: 40px;
+          img {
+            width: 48px;
+            height: 48px;
+          }
+        }
+        .quantity {
+          display: flex;
+          flex-direction: column;
+
+          .change-quantity {
+            margin-bottom: 5px;
+
+            .plus, .minus {
+              width: 30px;
+            }
+            .plus {
+              margin-right: 10px;
+            }
+          }
+
+          .view-quantity {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            .block-segments {
+              display: flex;
+              margin-right: 5px;
+
+              .block-segment {
+                margin-left: 3px;
+                width: 10px;
+                height: 25px;
+                background-color: green;
+              }
+            }
+
+            & > p {
+              font-size: 18px;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+
+    .trash, .hide {
+      margin: 10px 0;
+      padding: 1px 6px;
+      height: 30px;
+      background-color: $red;
+
+      img {
+        height: 100%;
+      }
+    }
+    .hide {
+      background-color: orange;
+    }
+  }
+}

@@ -1,0 +1,96 @@
+.add-client-window__calculator {
+  display: flex;
+  flex-direction: column;
+
+  margin-left: 50px;
+  margin-bottom: 50px;
+  padding: 2px;
+  border: 1px solid $border-color;
+
+  width: 280px;
+  height: 280px;
+
+  .money-input {
+    box-sizing: border-box;
+
+    padding: 10px;
+    margin-bottom: 4px;
+
+    height: 50px;
+    font-size: 26px;
+    outline: none;
+  }
+
+  .calculator {
+    display: flex;
+    user-select: none;
+
+    font-size: 30px;
+
+    .numbers {
+      display: grid;
+      grid-template-columns: repeat(3, $calc-cell-size);
+      grid-template-rows: repeat(4, $calc-cell-size);
+      grid-gap: 2px;
+
+      .number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: white;
+
+        &:last-of-type {
+          grid-column: 1 / span 3;
+        }
+        &:active {
+          color: white;
+          background-color: $blue;
+        }
+      }
+    }
+
+    .actions, .special-signs {
+      display: grid;
+      grid-template-rows: repeat(3, $calc-cell-size);
+      grid-gap: 2px;
+
+      width: $calc-cell-size;
+      margin-left: 2px;
+    }
+
+    .actions {
+      .action {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: white;
+        height: $calc-cell-size;
+
+        &:active {
+          color: white;
+          background-color: $blue;
+        }
+      }
+    }
+
+    .special-signs {
+      grid-template-rows: repeat(2, $calc-cell-size) 1fr;
+
+      .calculate, .remove, .remove-all {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: white;
+
+        &:active {
+          color: white;
+          background-color: $blue;
+        }
+      }
+
+    }
+  }
+}

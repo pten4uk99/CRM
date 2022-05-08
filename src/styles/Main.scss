@@ -1,0 +1,34 @@
+main {
+  width: calc(100% - #{$header-size}); // переменные надо заключать в супер скобки
+  height: 100vh;
+  overflow: hidden;
+
+  .journal {
+    display: flex;
+    position: relative;
+
+    width: $main-size;
+    height: calc(100vh - 40px);
+    
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    border: 2px solid $border-color;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+@import "Journal/Time";
+@import "../components/Warehouse/styles/Warehouse";
+
+@import "Journal/Masters/Masters";
+@import "Journal/Masters/Master";
+
+@import "Journal/ClientWindow/AddClientWindow";
+@import "Journal/Table/Client";
+@import "Journal/Table/MastersDropDown";
+@import "Journal/Table/TableItem";
+@import "Journal/ClientWindow/Time";

@@ -23,6 +23,14 @@ module.exports = {
                 ]
             },
             {
+                test: /\.(gif|png|jpe?g|svg)$/i,
+                loader: 'file-loader',
+                options: {
+                    outputPath: './assets/img',
+                    name: '[name].[ext]',
+                },
+            },
+            {
                 test: /\.scss$/,
                 use: [
                     {

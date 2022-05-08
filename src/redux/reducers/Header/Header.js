@@ -1,9 +1,9 @@
 import {combineReducers} from "redux";
-import Menu from "./Menu";
+import menu from "./menu";
 import CurrentData from "./CurrentData";
 
 export default combineReducers({
-        Menu,
+        menu,
         CurrentData
     }
 )

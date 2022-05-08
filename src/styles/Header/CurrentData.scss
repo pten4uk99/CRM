@@ -2,14 +2,10 @@ header {
   font-size: 25px;
 
   .current-data {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr) 100px 100px;
-    justify-content: end;
-    flex-grow: 1;
+    position: absolute;
+    bottom: 0;
 
     .current-time {
-      grid-column: 6 / -1;
-
       display: flex;
       justify-content: center;
       align-items: center;

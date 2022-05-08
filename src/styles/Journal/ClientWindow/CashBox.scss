@@ -1,0 +1,47 @@
+.add-client-window__cashbox {
+  display: flex;
+
+  .right-block {
+    margin-left: 50px;
+
+    .service {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      .input-service {
+        height: 15px;
+        padding: 5px;
+
+        font-size: .75em;
+
+        background-color: $white;
+        border-bottom: 1px solid rgba(0, 0, 0, .3);
+      }
+    }
+
+    .result {
+      position: absolute;
+      bottom: 50px;
+    }
+    .confirm {
+      position: absolute;
+      right: 50px;
+      bottom: 50px;
+
+      height: 35px;
+
+      outline: none;
+      border: none;
+
+      padding: 5px;
+      box-sizing: border-box;
+
+      background-color: $blue;
+      color: $white;
+      font-size: .75em;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
+}

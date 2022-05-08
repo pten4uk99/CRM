@@ -1,0 +1,14 @@
+header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  width: $header-size;
+  height: 100vh;
+  background-color: $dark-blue;
+
+  z-index: 10;
+}
+
+@import "Header/Menu";
+@import "Header/CurrentData";

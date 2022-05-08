@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 
 import MonthNav from './MonthNav'
 import DaysOfWeek from './DaysOfWeek'
-import { connect } from 'react-redux'
-import DatesListSwappable from './Date/DatesListSwappable'
 import {SetCheckedDate, SetHoverDate} from "../redux/actions/calendar";
 import DatesList from "./Date/DatesList";
 

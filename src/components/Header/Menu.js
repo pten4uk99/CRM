@@ -3,11 +3,11 @@ import {connect} from "react-redux";
 import {swapItemToCashBox, swapItemToJournal, swapItemToWarehouse} from "../../redux/actions/Header/Menu";
 
 function Menu(props) {
-    let menu = props.Menu
+    let menu = props.store.Header.menu
 
     return (
         <nav className="header__main-menu">
-            <div className={`cashbox ${menu.cashbox && "active"}`} onClick={props.swapItemToCashBox}>Касса</div>
+            {/*<div className={`cashbox ${menu.cashbox && "active"}`} onClick={props.swapItemToCashBox}>Касса</div>*/}
             <div className={`journal ${menu.journal && "active"}`} onClick={props.swapItemToJournal}>Журнал</div>
             <div className={`warehouse ${menu.warehouse && "active"}`} onClick={props.swapItemToWarehouse}>Склад</div>
         </nav>
@@ -15,7 +15,7 @@ function Menu(props) {
 }
 
 export default connect(
-    state => ({Menu: state.Header.Menu}),
+    state => ({store: state}),
     dispatch => ({
         swapItemToCashBox: () => dispatch(swapItemToCashBox()),
         swapItemToJournal: () => dispatch(swapItemToJournal()),

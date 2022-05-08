@@ -1,0 +1,33 @@
+article.warehouse {
+  margin-left: 30px;
+
+  .paint-list {
+    width: max-content;
+    height: calc(100vh - 170px);
+
+    margin-top: 10px;
+    padding: 10px;
+
+    border-top: 2px solid $border-color;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    list-style: none;
+  }
+
+  & > input.search {
+    width: 954px;
+    height: 40px;
+
+    box-sizing: border-box;
+    padding: 10px;
+
+    font-size: 18px;
+
+    border: 1px solid $border-color;
+  }
+}
+
+@import "Paint";
+@import "WarehouseMenu";
+@import "SetPaintInfo";

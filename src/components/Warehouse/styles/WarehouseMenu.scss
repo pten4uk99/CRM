@@ -1,0 +1,26 @@
+.warehouse__menu {
+  display: flex;
+  margin: 20px 0;
+
+  .menu-item {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 60px;
+    height: 50px;
+    box-sizing: border-box;
+
+    transition: transform .1s;
+
+    &:hover {
+      transform: scale(1.3);
+      border-bottom: 2px solid $dark-blue;
+    }
+
+    img {
+      height: 30px;
+    }
+  }
+}

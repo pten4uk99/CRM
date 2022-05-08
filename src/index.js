@@ -1,12 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {createStore} from "redux";
+import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 
-import reducer from "./redux/reducers/index"
+
 import App from "./components/App";
 
 import "./styles/index.scss";
+import Header from "./redux/reducers/Header/Header";
+import calendar from "./components/Header/Calendar/redux/reducers/calendar";
+import Main from "./redux/reducers/Main";
+import {paints} from "./components/Warehouse/redux/reducers/paints";
+
+const reducer = combineReducers({
+    Header,
+    calendar,
+    paints,
+    Main
+})
 
 
 const store = createStore(

@@ -1,0 +1,75 @@
+.add-client-window .time {
+  display: flex;
+  flex-direction: column;
+
+  .time-range {
+    display: flex;
+    padding: 10px 0;
+
+     .hours, .minutes {
+       font-size: 28px;
+       font-family: sans-serif;
+       text-align: center;
+
+       width: 45px;
+       height: 45px;
+
+       outline: none;
+       border: none;
+       box-sizing: border-box;
+    }
+
+    .colon {
+      align-self: center;
+    }
+    &>.minus {
+      align-self: center;
+      font-size: 1.5em;
+    }
+
+    .time-start, .time-end {
+      display: flex;
+      margin: 0 5px;
+      border: 1px solid $border-color;
+      background-color: white;
+    }
+  }
+
+  .change-time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+
+    span {
+      display: block;
+      text-align: center;
+      line-height: 30px;
+      margin: 0 5px;
+    }
+
+    .minus, .plus {
+      width: 30px;
+      height: 30px;
+
+      border: 1px solid $border-color;
+
+      transition: background-color .1s, color .1s;
+
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      cursor: pointer;
+
+      &:active {
+        color: $white;
+        background-color: $blue;
+      }
+    }
+
+    .minus {
+      line-height: 29px;
+    }
+  }
+}

@@ -14,11 +14,6 @@ function DatesList(props) {
       {calendar.map((date, index) => {
         return <Date key={index} date={date} />
       })}
-      <div className='dates__underlines'>
-        {getUnderlines().map(index => (
-          <div key={index} className='dates__underline' />
-        ))}
-      </div>
     </section>
   )
 }
