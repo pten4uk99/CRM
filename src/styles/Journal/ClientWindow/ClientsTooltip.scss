@@ -1,0 +1,28 @@
+.client-info > .clients__tooltip {
+  margin-left: 15px;
+  list-style: none;
+
+  border: 1px solid $border-color;
+  font-size: .85em;
+
+  grid-column: 1 / span 11;
+  grid-row: 6 / span 6;
+
+  .client {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 3px 5px;
+
+    width: 50%;
+
+    p {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .phone {
+      font-weight: 400;
+    }
+  }
+}

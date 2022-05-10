@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
+import leftArrow from "/src/assets/img/left-arrow.svg"
+import rightArrow from "/src/assets/img/right-arrow.svg"
 import {
   SwapMonthToNext,
   SwapMonthToPrev,
@@ -24,13 +26,13 @@ function MonthNav(props) {
   return (
     <nav className='month-nav'>
       <div onClick={() => {if (!canNotPrevSwap) {props.SwapMonthToPrev()}}}>
-        <img src={canNotPrevSwap ? "": ""} alt=""/>
+        <img src={leftArrow} alt="Предыдущий месяц"/>
       </div>
       <span>
         {getMonth(currentMonth)} {currentYear}
       </span>
       <div onClick={() => {if (!canNotNextSwap) props.SwapMonthToNext()}}>
-        <img src="" alt=""/>
+        <img src={rightArrow} alt="Следующий месяц"/>
       </div>
     </nav>
   )

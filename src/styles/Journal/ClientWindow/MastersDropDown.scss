@@ -1,7 +1,7 @@
 .masters__dropdown {
   position: absolute;
-  left: 85px;
-  top: 35px;
+  left: 100px;
+  top: 45px;
 
   list-style: none;
 
@@ -17,7 +17,13 @@
   animation: dropdown-appearance .1s;
 
   .master {
+    height: 20px;
+    box-sizing: border-box;
     cursor: pointer;
+
+    &:hover {
+      border-bottom: 1px solid $dark-blue;
+    }
   }
 }
 

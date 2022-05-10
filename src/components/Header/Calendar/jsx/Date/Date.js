@@ -16,31 +16,67 @@ import {SwapModalChooseDates} from "../../redux/actions/calendar";
 
 
 function Date(props) {
-  let [hover, setHover] = useState(false)
-  let [active, setActive] = useState(false)
-  let [events, setEvents] = useState(null)
 
-  // useEffect(() => {
-  //   let currentEvents = props.store.dateDetail.filter(value => {
-  //     return checkEqualDates(value.date, props.date)
-  //   })
-  //   if (currentEvents.length > 0) setEvents(currentEvents[0].events)
-  //   else setEvents(null)
-  //
-  //   if (!props.store.header.modalActive) {
-  //     if (checkEqualDates(props.store.calendar.checkedDate, props.date))
-  //       setActive(true)
-  //     else setActive(false)
-  //   } else setActive(false)
-  // }, [props.store.dateDetail, props.store.calendar.currentDate])
+  function getClassName(props) {
+    let className = 'calendar-date'
 
-  // useEffect(() => {
-  //   if (!props.store.header.modalActive) {
-  //     if (checkEqualDates(props.store.calendar.hoverDate, props.date))
-  //       setHover(true)
-  //     else setHover(false)
-  //   } else setHover(false)
-  // }, [props.store.calendar.hoverDate])
+    if (props.store.calendar.currentDate.getMonth() !== props.date.getMonth() ||
+      props.date - props.store.calendar.today <= - 1000 * 60 * 60 * 24 ||
+      props.date - props.store.calendar.today >= 1000 * 60 * 60 * 24 * 365
+    ) return 'calendar-date inactive'
+
+    if (checkEqualDates(props.date, props.store.calendar.today))
+      className += ' today'
+    if (checkEqualDates(props.date, props.store.calendar.checkedDate))
+      className += ' active'
+
+    return className
+  }
+
+  function clickHandler(props) {
+
+    if (checkNeedSwapToNextMonth(
+      props.date, props.store.calendar.currentDate, props.store.calendar.today)) {
+      props.SwapMonthToNext()
+    } else if (checkNeedSwapToPrevMonth(
+      props.date, props.store.calendar.currentDate, props.store.calendar.today)) {
+      props.SwapMonthToPrev()
+    } else if (!(props.date - props.store.calendar.today <= - 1000 * 60 * 60 * 24) &&
+      !(props.date - props.store.calendar.today >= 1000 * 60 * 60 * 24 * 365)
+    ) {
+      props.SetCheckedDate(props.date)
+    }
+  }
+
+  function hoverHandler(props, enter) {
+    if (props.store.calendar.currentDate.getMonth() !== props.date.getMonth()) {
+      return props.SetHoverDate(props.store.calendar.checkedDate)
+    }
+
+    enter
+      ? props.SetHoverDate(props.date)
+      : props.SetHoverDate(props.store.calendar.checkedDate)
+  }
+
+
+  function SwapChooseDates(props) {
+    let choseDates = props.store.calendar.modalChooseDates
+    let canChoose = props.store.calendar.modalChooseDates.length < 5
+    let newDates = []
+    let contains = false
+
+    for (let date of choseDates) {
+      if (!checkEqualDates(props.date, date)) {
+        newDates.push(date)
+      } else contains = true
+    }
+    if (contains) props.SwapModalChooseDates(newDates)
+    else if (canChoose) {
+      newDates.push(props.date)
+      props.SwapModalChooseDates(newDates)
+    }
+  }
+
 
   return (
     <div className={getClassName(props)} 
@@ -63,70 +99,3 @@ export default connect(
     
   })
 )(Date)
-
-
-function getClassName(props) {
-    let choseDates = props.store.calendar.modalChooseDates
-    for (let date of choseDates) {
-      if (checkEqualDates(props.date, date)) return "calendar-date active"
-    }
-  
-  let className = 'calendar-date'
-
-  if (props.store.calendar.currentDate.getMonth() !== props.date.getMonth() || 
-    props.date - props.store.calendar.today <= - 1000 * 60 * 60 * 24 ||
-    props.date - props.store.calendar.today >= 1000 * 60 * 60 * 24 * 365
-  ) return 'calendar-date inactive'
-
-  if (checkEqualDates(props.date, props.store.calendar.today))
-    className += ' today'
-  if (checkEqualDates(props.date, props.store.calendar.hoverDate))
-    className += ' active'
-
-  return className
-}
-
-function clickHandler(props) {
-  
-  if (checkNeedSwapToNextMonth(
-    props.date, props.store.calendar.currentDate, props.store.calendar.today)) {
-    props.SwapMonthToNext()
-  } else if (checkNeedSwapToPrevMonth(
-    props.date, props.store.calendar.currentDate, props.store.calendar.today)) {
-    props.SwapMonthToPrev()
-  } else if (!(props.date - props.store.calendar.today <= - 1000 * 60 * 60 * 24) &&
-    !(props.date - props.store.calendar.today >= 1000 * 60 * 60 * 24 * 365)
-  ) {
-    props.SetCheckedDate(props.date)
-  }
-}
-
-function hoverHandler(props, enter) {
-  if (props.store.calendar.currentDate.getMonth() !== props.date.getMonth()) {
-    return props.SetHoverDate(props.store.calendar.checkedDate)
-  }
-
-  enter
-    ? props.SetHoverDate(props.date)
-    : props.SetHoverDate(props.store.calendar.checkedDate)
-}
-
-
-function SwapChooseDates(props) {
-  let choseDates = props.store.calendar.modalChooseDates
-  let canChoose = props.store.calendar.modalChooseDates.length < 5
-  let newDates = []
-  let contains = false
-  
-  for (let date of choseDates) {
-    if (!checkEqualDates(props.date, date)) {
-      newDates.push(date)
-    } else contains = true
-  }
-  if (contains) props.SwapModalChooseDates(newDates)
-  else if (canChoose) {
-    newDates.push(props.date)
-    props.SwapModalChooseDates(newDates)
-  }
-  
-}

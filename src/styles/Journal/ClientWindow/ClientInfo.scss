@@ -1,0 +1,204 @@
+.add-client-window > .client-info {
+  display: grid;
+  grid-template-rows: repeat(12, 25px);
+  grid-template-columns: repeat(18, 50px);
+
+  flex-direction: column;
+
+  font-size: 20px;
+
+  & > .master {
+    justify-self: center;
+    align-self: center;
+
+    display: flex;
+    align-items: center;
+
+    grid-column: 14 / span 4;
+    grid-row: 7 / span 3;
+
+    height: $add-client-window__header-size;
+
+    font-size: .9em;
+    font-family: sans-serif;
+
+    z-index: 3;
+
+    .master-name {
+      box-sizing: border-box;
+
+      margin-left: 5px;
+      padding: 3px 5px;
+
+      height: min-content;
+
+      color: $white;
+      font-weight: 500;
+
+      background-color: $blue;
+
+      border-radius: 5px;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+
+  form {
+    grid-column: 1 / 11;
+    grid-row: 1 / 13;
+
+    display: grid;
+    grid-template-rows: repeat(12, 25px);
+    grid-template-columns: repeat(18, 50px);
+
+    .input {
+      outline: none;
+      border: none;
+      resize: none;
+    }
+    .input:focus {
+      border-bottom: 2px solid $blue;
+    }
+
+    .input:focus::placeholder {
+      color: $blue;
+    }
+
+    .time {
+      justify-self: center;
+      align-self: center;
+      grid-column: 13 / span 6;
+      grid-row: 2 / span 5;
+
+      font-size: .9em;
+      font-weight: 400;
+    }
+
+    .comment {
+      box-sizing: border-box;
+      padding: 5px;
+      font-size: .8em;
+
+      box-shadow: inset 0 0 2px rgba(0, 0, 0, .3);
+
+      border: none;
+      outline: none;
+      resize: none;
+      grid-column: 7 / span 5;
+      grid-row: 3 / span 2;
+    }
+
+    .name, .last-name, .phone {
+      align-self: center;
+      grid-column: 1 / span 5;
+
+      margin-left: 15px;
+
+      height: 21px;
+      padding: 5px;
+
+      font-size: .85em;
+
+      background-color: $white;
+      border-bottom: 1px solid rgba(0, 0, 0, .3);
+    }
+
+    .name {
+      grid-row: 1 / span 2;
+    }
+
+    .last-name {
+      margin-left: 0;
+      grid-row: 1 / span 2;
+      grid-column: 7 / span 5;
+    }
+
+    .phone {
+      grid-row: 3 / span 2;
+    }
+
+    .gender {
+      justify-self: center;
+      align-self: center;
+      grid-column: 2 / span 4;
+      grid-row: 12 / span 2;
+
+      display: flex;
+      align-items: center;
+
+      font-weight: 400;
+      font-size: .9em;
+      line-height: 25px;
+
+      p {
+        margin-right: 10px;
+        cursor: text;
+      }
+
+      .male, .female {
+        width: 25px;
+        height: 25px;
+
+        border: 1px solid $border-color;
+
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: pointer;
+
+        .checkmark {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          width: 100%;
+          height: 100%;
+          background-color: $white;
+
+          transition: background-color .1s, color .1s;
+        }
+
+        input {
+          display: none;
+
+          &:checked + .checkmark {
+            color: $white;
+            background-color: $blue;
+          }
+        }
+      }
+    }
+
+    .confirm, .cancel {
+      justify-self: center;
+      align-self: flex-end;
+      grid-row: 9 / span 3;
+
+      box-sizing: border-box;
+      height: 35px;
+      padding: 5px 10px;
+
+      color: $white;
+      font-size: .85em;
+      font-weight: 600;
+
+      border: 1px solid $border-color;
+      cursor: pointer;
+
+      &:focus {
+        border-bottom: 1px solid $border-color;
+      }
+    }
+
+    .confirm {
+      grid-column: 13 / span 3;
+      background-color: $blue;
+    }
+
+    .cancel {
+      grid-column: 16 / span 3;
+      color: $black;
+    }
+  }
+}

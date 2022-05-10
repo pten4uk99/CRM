@@ -1,28 +1,28 @@
 .inside__container > .days-of-week__container {
-    display: flex;
-    flex-direction: column;
-    width: 304px;
-}
+  display: flex;
+  flex-direction: column;
+  width: 304px;
 
-.days-of-week__container > .days-of-week {
+  .days-of-week {
     display: flex;
     justify-content: space-around;
-}
 
-.days-of-week__container > .days-of-week > .day-of-week {
-    font-size: 11px;
-    color: #B4B4B4;
-}
+    .day-of-week {
+      font-size: 11px;
+      color: $calendar-font-color;
+    }
+  }
 
-.days-of-week__container > .days-of-week__underline {
+  .days-of-week__underline {
     width: 304px;
     height: 1px;
 
     margin-top: 5px;
     margin-bottom: 10px;
 
-    background-color: #DBDBDB;
+    background-color: $calendar-font-color;
     border: none;
+  }
 }
 
 

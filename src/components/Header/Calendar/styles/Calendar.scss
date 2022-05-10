@@ -7,41 +7,41 @@
     font-size: 14px;
 
     overflow-x: hidden;
-}
 
-.calendar__container {
-    position: relative;
-    display: block;
-    justify-content: center;
+    .calendar__container {
+        position: relative;
+        display: block;
+        justify-content: center;
 
-    width: 360px;
-    height: 393px;
+        width: 330px;
+        height: 370px;
 
-    margin: 0 auto;
+        margin: 0 auto;
 
-    border-radius: 0;
-    background-color: #F5F5F5;
+        border-radius: 0;
+        border: 1px solid $white;
+        background-color: $white;
 
-    overflow: hidden;
-}
+        overflow: hidden;
 
-.calendar__container > .inside__container {
-    position: absolute;
+        & > .inside__container {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
+            width: 100%;
+            height: 100%;
 
-    width: 360px;
-    height: 393px;
+            bottom: 16px;
 
-    bottom: 16px;
-
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    }
 }
 
 

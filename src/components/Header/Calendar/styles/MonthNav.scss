@@ -29,8 +29,9 @@
 
 
 .month-nav > span {
-    display: inline-block;
-    text-align: center;
-    width: 120px;
-    line-height: 35px;
+  display: inline-block;
+  text-align: center;
+  width: 120px;
+  line-height: 35px;
+  color: $calendar-font-color;
 }

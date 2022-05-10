@@ -1,4 +1,4 @@
-.add-client-window .time {
+.add-client-window > .client-info > form > .time {
   display: flex;
   flex-direction: column;
 
@@ -7,12 +7,12 @@
     padding: 10px 0;
 
      .hours, .minutes {
-       font-size: 28px;
+       font-size: 36px;
        font-family: sans-serif;
        text-align: center;
 
-       width: 45px;
-       height: 45px;
+       width: 55px;
+       height: 55px;
 
        outline: none;
        border: none;

@@ -50,7 +50,8 @@
     transform: translate(0, -1px);
 
     width: 700px;
-    border: 1px solid $blue;
+    height: 1px;
+    background-color: $blue;
 
     &.active {
       display: block;

@@ -1,6 +1,5 @@
 .dates__list {
     display: grid;
-    grid-template-columns: repeat(7, 45px);
-    grid-template-rows: repeat(6, 45px);
-    margin: 0 20px;
+    grid-template-columns: repeat(7, #{$calendar-cell-size});
+    grid-template-rows: repeat(6, #{$calendar-cell-size});
 }

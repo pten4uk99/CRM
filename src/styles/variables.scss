@@ -3,10 +3,13 @@ $black: rgb(16, 16, 16);
 $red: rgba(213, 28, 28, 0.9);
 
 $border-color: rgba(16, 16, 16, .2);
-$blue: rgba(0, 77, 154, 0.7);
+$light-gray: rgb(134, 134, 134);
+$blue: rgb(73, 114, 187);
 $dark-blue: rgba(38, 49, 84);
 
 $main-size: 1200px;
-$header-size: 400px;
+$header-size: 360px;
 
 $calc-cell-size: 55px;
+$calendar-cell-size: 45px;
+$calendar-font-color: $black;
