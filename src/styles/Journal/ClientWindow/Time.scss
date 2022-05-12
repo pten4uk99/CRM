@@ -41,6 +41,11 @@
     justify-content: center;
     margin-top: 10px;
 
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
     span {
       display: block;
       text-align: center;
@@ -56,10 +61,6 @@
 
       transition: background-color .1s, color .1s;
 
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
       cursor: pointer;
 
       &:active {

@@ -1,12 +1,16 @@
 .add-client-window__calculator {
+  margin-left: 15px;
+  align-self: flex-end;
+  grid-row: 2 / span 11;
+  grid-column: 1 / span 6;
+
   display: flex;
   flex-direction: column;
 
-  margin: 30px;
   padding: 2px;
   border: 1px solid $border-color;
 
-  width: 280px;
+  width: 225px;
   height: 280px;
 
   .money-input {

@@ -59,11 +59,11 @@ function CashBox(props) {
                                                    onClick={(e) => handleClickNumber(e)}>{elem}</div>)}
                 </div>
 
-                <div className="actions">
-                    {actionSignArr.map((elem) => <div key={elem}
-                                                      className="action"
-                                                      onClick={(e) => handleClickAction(e)}>{elem}</div>)}
-                </div>
+                {/*<div className="actions">*/}
+                {/*    {actionSignArr.map((elem) => <div key={elem}*/}
+                {/*                                      className="action"*/}
+                {/*                                      onClick={(e) => handleClickAction(e)}>{elem}</div>)}*/}
+                {/*</div>*/}
 
                 <div className="special-signs">
                     <div className="remove" onClick={() => handleSpecialAction(value.slice(0, value.length - 1))}>BS</div>

@@ -31,55 +31,63 @@ function Client(props) {
         }
     }, [fullSize, elem])
 
-    return (
+    function handleClick(e) {
+        setFullSize(!fullSize)
+    }
+
+    return tableItem && (
         <>
-            {tableItem &&
-                <div className="client"
-                     style={style}
-                     onMouseOver={() => setFullSize(true)}
-                     onMouseLeave={() => setFullSize(false)}
-                     onClick={(e) => props.onClick(e)}
-                     ref={elem}>
-                    {!fullSize ?
-                        <div className="client__content">
-                            <p className="name">{data.toMaster ?
-                                <span className="master-client"/> :
-                                <span className="non-master-client"/>}
-                                {data.name}</p>
-                            <p className="phone">{data.phone}</p>
-                        </div> :
-                        <div className="client__content">
-                            <p className="time">
-                                {data.timeStart.hour}:{data.timeStart.minutes} - {' '}
-                                {data.timeEnd.hour}:{data.timeEnd.minutes}
-                            </p>
-                            <p className="name wrap">
-                                {data.toMaster ?
-                                <span className="master-client"/> :
-                                <span className="non-master-client"/>}
-                                {data.name}</p>
-                            <p className="last-name">{data.lastName}</p>
-                            <p className="phone mt-10">{data.phone}</p>
-                            <p className="service">{data.service}</p>
-                            <p className="comment">{data.comment}</p>
+            <div className={`background ${fullSize && "active"}`} onClick={() => setFullSize(false)}/>
+            <div className={`client ${data.isDone && "done"}`}
+                 tabIndex={1}
+                 style={fullSize ? {...style,
+                     boxShadow: "0 0 10px rgba(0, 0, 0, .5)",
+                     transform: "scale(1.03)",
+                     zIndex: "10"
+                 } : style}
+                 onClick={(e) => handleClick(e)}
+                 ref={elem}>
+                {!fullSize ?
+                    <div className="client__content">
+                        <p className="name">{data.toMaster ?
+                            <span className="master-client"/> :
+                            <span className="non-master-client"/>}
+                            {data.name}</p>
+                        <p className="phone">{data.phone}</p>
+                    </div> :
+                    <div className="client__content">
+                        <p className="time">
+                            {data.timeStart.hour}:{data.timeStart.minutes} - {' '}
+                            {data.timeEnd.hour}:{data.timeEnd.minutes}
+                        </p>
+                        <p className="name wrap">
+                            {data.toMaster ?
+                            <span className="master-client"/> :
+                            <span className="non-master-client"/>}
+                            {data.name}</p>
+                        <p className="last-name">{data.lastName}</p>
+                        <p className="phone mt-10">{data.phone}</p>
+                        <p className="service">{data.service}</p>
+                        <p className="comment">{data.comment}</p>
 
-                            <div className="underline"/>
+                        <div className="underline"/>
 
-                                <p className="last-visit">
-                                    <p className="header">Последнее посещение:</p>
-                                    {data.lastVisit ?
-                                        <>
-                                            <div className="date">{data.lastVisit.date}</div>
-                                            <div className="time">{data.lastVisit.time}</div>
-                                            <div className="service">{data.lastVisit.service}</div>
-                                            <div className="duration">{data.lastVisit.duration / 60} ч.</div>
-                                            <button className="detail">Подробнее...</button>
-                                        </> :
-                                        <span>Нет</span>
-                                    }
-                                </p>
-                        </div>}
-                </div>}
+                        <p className="last-visit">
+                            <p className="header">Последнее посещение:</p>
+                            {data.lastVisit ?
+                                <>
+                                    <div className="date">{data.lastVisit.date}</div>
+                                    <div className="time">{data.lastVisit.time}</div>
+                                    <div className="service">{data.lastVisit.service}</div>
+                                    <div className="duration">{data.lastVisit.duration / 60} ч.</div>
+                                    <button className="detail">Подробнее...</button>
+                                </> :
+                                <span>Нет</span>
+                            }
+                        </p>
+                        <button className="actions" onClick={(e) => props.onClick(e)}>Оплатить/Изменить</button>
+                    </div>}
+            </div>
         </>
     )
 }

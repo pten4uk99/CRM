@@ -1,6 +1,6 @@
 .add-client-window > .client-info {
   display: grid;
-  grid-template-rows: repeat(12, 25px);
+  grid-template-rows: repeat(13, 25px);
   grid-template-columns: repeat(18, 50px);
 
   flex-direction: column;
@@ -8,6 +8,7 @@
   font-size: 20px;
 
   & > .master {
+    position: relative;
     justify-self: center;
     align-self: center;
 
@@ -15,7 +16,7 @@
     align-items: center;
 
     grid-column: 14 / span 4;
-    grid-row: 7 / span 3;
+    grid-row: 8 / span 3;
 
     height: $add-client-window__header-size;
 
@@ -44,25 +45,12 @@
   }
 
   form {
-    grid-column: 1 / 11;
-    grid-row: 1 / 13;
+    grid-column: 1 / span 11;
+    grid-row: 1 / span 5;
 
     display: grid;
-    grid-template-rows: repeat(12, 25px);
+    grid-template-rows: repeat(13, 25px);
     grid-template-columns: repeat(18, 50px);
-
-    .input {
-      outline: none;
-      border: none;
-      resize: none;
-    }
-    .input:focus {
-      border-bottom: 2px solid $blue;
-    }
-
-    .input:focus::placeholder {
-      color: $blue;
-    }
 
     .time {
       justify-self: center;
@@ -173,7 +161,7 @@
     .confirm, .cancel {
       justify-self: center;
       align-self: flex-end;
-      grid-row: 9 / span 3;
+      grid-row: 10 / span 3;
 
       box-sizing: border-box;
       height: 35px;

@@ -52,33 +52,20 @@ function ClientInfo(props) {
             props.UpdateClients(newClient)
     }
 
-    function handleInputChange(e) {
-        let value = e.target.value
-        if (value.length === 0) return
-        let lastSymbol = value[value.length - 1]
-        let lowerSymbol = lastSymbol.toLowerCase()
-
-        if (REPLACER.hasOwnProperty(lowerSymbol)) {
-            e.target.value = value.replace(lastSymbol, REPLACER[lowerSymbol])
-        }
-        if (value.length === 1) e.target.value = e.target.value.toUpperCase()
-    }
-
     return (
-        <div className="client-info">
+        <div className="client-info" onClick={() => setDropDownVisible(false)}>
 
             <ClientsTooltip/>
 
             <div className="master">
                 <span>Мастер:</span>
                 <div className="master-name"
-                     onClick={() => setDropDownVisible(true)}>{chosenMaster}</div>
+                     onClick={(e) => {e.stopPropagation(); setDropDownVisible(true)}}>{chosenMaster}</div>
                 {dropDownVisible && <MastersDropDown setVisible={setDropDownVisible}
                                                      setMaster={props.setMaster}/>}
             </div>
 
             <form onSubmit={(e) => handleSubmitForm(e)}
-                  onClick={() => setDropDownVisible(false)}
                   ref={form}
                   autoComplete="off">
 
@@ -137,3 +124,16 @@ export default connect(
         SwapTableItemToInactive: (name, index) => dispatch(SwapTableItemToInactive(name, index))
     })
 )(ClientInfo);
+
+
+export function handleInputChange(e) {
+    let value = e.target.value
+    if (value.length === 0) return
+    let lastSymbol = value[value.length - 1]
+    let lowerSymbol = lastSymbol.toLowerCase()
+
+    if (REPLACER.hasOwnProperty(lowerSymbol)) {
+        e.target.value = value.replace(lastSymbol, REPLACER[lowerSymbol])
+    }
+    if (value.length === 1) e.target.value = e.target.value.toUpperCase()
+}

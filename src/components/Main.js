@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 
 import Journal from "./Journal/Journal";
 import Warehouse from "./Warehouse/js/Warehouse";
+import PriceList from "./PriceList/js/PriceList";
+import Additional from "./Additional/js/Additional";
 
 
 function Main(props) {
@@ -12,6 +14,8 @@ function Main(props) {
         <main>
             {menu.journal && <Journal/>}
             {menu.warehouse && <Warehouse/>}
+            {menu.priceList && <PriceList/>}
+            {menu.additional && <Additional/>}
         </main>
     )
 }

@@ -19,7 +19,10 @@ function AddClientWindow(props) {
     }, [])
 
     useEffect(() => {
-        if (props.clientInfo && !props.clientInfo.toMaster) setChosenMaster("Нет")
+        if (props.clientInfo) {
+            if (!props.clientInfo.toMaster) setChosenMaster("Нет")
+            setClientInfoActive(false)
+        }
     }, [props.clientInfo])
 
     function handleMouseDown(e) {

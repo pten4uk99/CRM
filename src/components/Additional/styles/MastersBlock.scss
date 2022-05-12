@@ -1,0 +1,117 @@
+.masters__block {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  position: relative;
+  margin-top: 30px;
+  padding: 30px 20px;
+
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  background-color: $blue;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+
+  width: max-content;
+
+  font-size: 20px;
+  font-weight: 800;
+
+  .edit {
+    position: absolute;
+    top: -20px;
+    left: 15px;
+
+    width: 25px;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:active {
+      transform: scale(1.05);
+    }
+  }
+
+  .masters-list {
+    .master {
+      display: flex;
+      margin-bottom: 10px;
+
+      .name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 10px 15px;
+
+        width: 160px;
+
+        background-color: white;
+        border: 1px solid $border-color;
+        border-radius: 10px;
+        text-align: center;
+      }
+
+      .remove {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-left: 10px;
+        width: 50px;
+        height: 50px;
+
+        background-color: white;
+        box-sizing: border-box;
+        border-radius: 8px;
+        border: 3px solid $red;
+
+        cursor: pointer;
+        animation: shake-icon .2s infinite;
+        transition: transform .1s;
+
+        &::after {
+          display: block;
+          content: "";
+          width: 15px;
+          height: 5px;
+
+          background-color: $red;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+
+  .add-master {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 40px;
+    background-color: white;
+    border-radius: 10px;
+
+    &::after {
+      display: block;
+      content: '+';
+      color: green;
+      font-size: 40px;
+      font-weight: 600;
+    }
+  }
+}
+
+@keyframes shake-icon {
+  0% {
+    transform: rotateZ(-2deg);
+  }
+  50% {
+    transform: rotateZ(2deg);
+  }
+  100% {
+    transform: rotateZ(-2deg);
+  }
+}

@@ -1,0 +1,32 @@
+article.additional {
+  margin-top: 50px;
+  margin-left: 50px;
+
+  .menu-block {
+    margin-bottom: 10px;
+
+    .block-button {
+      color: $white;
+      font-weight: 800;
+      font-size: 20px;
+
+      padding: 10px 15px;
+
+      border: 1px solid $border-color;
+      border-radius: 5px;
+      background-color: $blue;
+
+      outline: none;
+      cursor: pointer;
+      transition: background-color .05s, color .05s;
+
+      &.active {
+        background-color: $white;
+        color: $black;
+      }
+    }
+  }
+}
+
+@import "MastersBlock";
+@import "CashBlock";

@@ -10,12 +10,16 @@ import "./styles/index.scss";
 import Header from "./redux/reducers/Header/Header";
 import calendar from "./components/Header/Calendar/redux/reducers/calendar";
 import Main from "./redux/reducers/Main";
-import {paints} from "./components/Warehouse/redux/reducers/paints";
+import paints from "./components/Warehouse/redux/reducers/paints";
+import priceList from "./components/PriceList/redux/reducers/priceList";
+import additional from "./components/Additional/redux/reducers/additional";
 
 const reducer = combineReducers({
     Header,
     calendar,
     paints,
+    priceList,
+    additional,
     Main
 })
 

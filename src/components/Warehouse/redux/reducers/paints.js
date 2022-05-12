@@ -34,7 +34,7 @@ let initialState = [
 
 ]
 
-export function paints(state=initialState, action) {
+export default function paints(state=initialState, action) {
     switch (action.type) {
         case "SET_PAINT_QUANTITY":
             return state.map((elem) => {

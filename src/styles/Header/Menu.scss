@@ -12,19 +12,20 @@ header .header__main-menu {
   font-size: 25px;
 
   margin-top: 20px;
-  margin-bottom: 100px;
+  margin-bottom: 10px;
 
   & > div {
     display: flex;
     justify-content: center;
     align-items: center;
 
-    width: 60px;
+    width: 75px;
 
+    box-sizing: border-box;
     padding: 10px;
     margin: 0 5px;
 
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
 
     img {
@@ -41,4 +42,12 @@ header .header__main-menu {
       cursor: default;
     }
   }
+}
+
+header > .tooltip {
+  font-size: 30px;
+  font-weight: 600;
+  color: $white;
+  height: 30px;
+  margin-bottom: 90px;
 }

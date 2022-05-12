@@ -34,6 +34,20 @@ $add-client-window__header-size: 50px;
 
     transition: transform .1s, opacity .1s;
     z-index: 10;
+    cursor: default;
+
+    .input {
+      outline: none;
+      border: none;
+      resize: none;
+    }
+    .input:focus {
+      border-bottom: 2px solid $blue;
+    }
+
+    .input:focus::placeholder {
+      color: $blue;
+    }
 
     .header-line {
       height: $add-client-window__header-size;
@@ -67,6 +81,7 @@ $add-client-window__header-size: 50px;
 
         color: $white;
         font-weight: 400;
+        cursor: pointer;
 
         &.active {
           background-color: $white;
