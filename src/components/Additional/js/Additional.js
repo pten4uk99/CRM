@@ -11,16 +11,16 @@ function Additional(props) {
 
     return (
         <article className="additional">
+
             <div className="menu-block">
                 <button className={`block-button ${buttons.masters && "active"}`}
                         onClick={() => props.ActivateAdditionalItem('masters')}>Мастера</button>
-                {buttons.masters && <MastersBlock/>}
-            </div>
-            <div className="menu-block">
                 <button className={`block-button ${buttons.cashBox && "active"}`}
                         onClick={() => props.ActivateAdditionalItem('cashBox')}>Касса</button>
-                {buttons.cashBox && <CashBlock/>}
             </div>
+
+            {buttons.masters && <MastersBlock/>}
+            {buttons.cashBox && <CashBlock/>}
         </article>
     )
 }

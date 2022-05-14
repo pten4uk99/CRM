@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {connect} from "react-redux";
 
 import edit from "/src/assets/img/edit.svg"
+import ClientsList from "./MastersBlock/ClientsList";
 
 
 function MastersBlock(props) {
@@ -9,36 +10,39 @@ function MastersBlock(props) {
 
     return (
         <section className="masters__block">
-            <img className="edit"
-                 src={edit}
-                 alt="Редактировать"
-                 onClick={() => setEditActive(!editActive)}/>
+            <div className="masters">
+                <img className="edit"
+                     src={edit}
+                     alt="Редактировать"
+                     onClick={() => setEditActive(!editActive)}/>
 
-            <div className="masters-list">
-                <div className="master">
-                    <span className="name">Саша</span>
-                    {editActive && <div className="remove"/>}
+                <div className="masters-list">
+                    <div className="master">
+                        <span className="name">Саша</span>
+                        {editActive && <div className="remove"/>}
+                    </div>
+                    <div className="master">
+                        <span className="name">Вика</span>
+                        {editActive && <div className="remove"/>}
+                    </div>
+                    <div className="master">
+                        <span className="name">Марина</span>
+                        {editActive && <div className="remove"/>}
+                    </div>
+                    <div className="master">
+                        <span className="name">Ира</span>
+                        {editActive && <div className="remove"/>}
+                    </div>
+                    <div className="master">
+                        <span className="name">Ангелина</span>
+                        {editActive && <div className="remove"/>}
+                    </div>
                 </div>
-                <div className="master">
-                    <span className="name">Вика</span>
-                    {editActive && <div className="remove"/>}
-                </div>
-                <div className="master">
-                    <span className="name">Марина</span>
-                    {editActive && <div className="remove"/>}
-                </div>
-                <div className="master">
-                    <span className="name">Ира</span>
-                    {editActive && <div className="remove"/>}
-                </div>
-                <div className="master">
-                    <span className="name">Ангелина</span>
-                    {editActive && <div className="remove"/>}
-                </div>
+
+                {editActive && <div className="add-master"/>}
             </div>
 
-            {editActive && <div className="add-master"/>}
-
+            <ClientsList/>
         </section>
     )
 }

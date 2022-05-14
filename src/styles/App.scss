@@ -14,10 +14,10 @@ html, body {
   display: flex;
 }
 
-input {
-
+input, .input {
   border: none;
   outline: none;
+  resize: none;
 }
 
 ::-webkit-scrollbar {

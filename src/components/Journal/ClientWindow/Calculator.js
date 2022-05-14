@@ -1,6 +1,8 @@
 import React, {useRef, useState} from "react";
 import {connect} from "react-redux";
 
+import backArrow from "/src/assets/img/cash/arrow-left.svg"
+
 
 function CashBox(props) {
     let input = useRef()
@@ -66,7 +68,9 @@ function CashBox(props) {
                 {/*</div>*/}
 
                 <div className="special-signs">
-                    <div className="remove" onClick={() => handleSpecialAction(value.slice(0, value.length - 1))}>BS</div>
+                    <div className="remove" onClick={() => handleSpecialAction(value.slice(0, value.length - 1))}>
+                        <img src={backArrow} alt="Стереть" style={{width: "50%"}}/>
+                    </div>
                     <div className="remove-all" onClick={() => handleSpecialAction('')}>AC</div>
                     <div className="calculate" onClick={handleCalculate}>=</div>
                 </div>

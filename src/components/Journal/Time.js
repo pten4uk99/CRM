@@ -13,17 +13,12 @@ function Time(props) {
                 if (now.getHours() === Math.trunc(hour)) {
                     let minutes = now.getHours() * 60 + Number(elem)
                     let nowMinutes = now.getHours() * 60 + now.getMinutes()
-                    console.log('------------------------------')
-                    console.log('Минута:', elem)
-                    console.log(hour, now.getHours())
-                    console.log(minutes, nowMinutes)
-                    console.log('------------------------------')
                     if (nowMinutes >= minutes && nowMinutes <= minutes + 15) setTimeIndex(index)
                 }
             })
         }
         getNow()
-        setInterval(getNow, 1000 * 2)
+        setInterval(getNow, 1000 * 60)
     }, [])
 
     return (

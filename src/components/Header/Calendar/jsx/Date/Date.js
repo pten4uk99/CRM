@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import {
@@ -12,7 +12,6 @@ import {
   checkNeedSwapToNextMonth,
   checkNeedSwapToPrevMonth,
 } from '../../utils/date'
-import {SwapModalChooseDates} from "../../redux/actions/calendar";
 
 
 function Date(props) {
@@ -20,10 +19,7 @@ function Date(props) {
   function getClassName(props) {
     let className = 'calendar-date'
 
-    if (props.store.calendar.currentDate.getMonth() !== props.date.getMonth() ||
-      props.date - props.store.calendar.today <= - 1000 * 60 * 60 * 24 ||
-      props.date - props.store.calendar.today >= 1000 * 60 * 60 * 24 * 365
-    ) return 'calendar-date inactive'
+    if (props.store.calendar.currentDate.getMonth() !== props.date.getMonth()) return 'calendar-date inactive'
 
     if (checkEqualDates(props.date, props.store.calendar.today))
       className += ' today'
@@ -41,11 +37,7 @@ function Date(props) {
     } else if (checkNeedSwapToPrevMonth(
       props.date, props.store.calendar.currentDate, props.store.calendar.today)) {
       props.SwapMonthToPrev()
-    } else if (!(props.date - props.store.calendar.today <= - 1000 * 60 * 60 * 24) &&
-      !(props.date - props.store.calendar.today >= 1000 * 60 * 60 * 24 * 365)
-    ) {
-      props.SetCheckedDate(props.date)
-    }
+    } else props.SetCheckedDate(props.date)
   }
 
   function hoverHandler(props, enter) {
@@ -57,26 +49,6 @@ function Date(props) {
       ? props.SetHoverDate(props.date)
       : props.SetHoverDate(props.store.calendar.checkedDate)
   }
-
-
-  function SwapChooseDates(props) {
-    let choseDates = props.store.calendar.modalChooseDates
-    let canChoose = props.store.calendar.modalChooseDates.length < 5
-    let newDates = []
-    let contains = false
-
-    for (let date of choseDates) {
-      if (!checkEqualDates(props.date, date)) {
-        newDates.push(date)
-      } else contains = true
-    }
-    if (contains) props.SwapModalChooseDates(newDates)
-    else if (canChoose) {
-      newDates.push(props.date)
-      props.SwapModalChooseDates(newDates)
-    }
-  }
-
 
   return (
     <div className={getClassName(props)} 
@@ -95,7 +67,5 @@ export default connect(
     SwapMonthToNext: () => dispatch(SwapMonthToNext()),
     SwapMonthToPrev: () => dispatch(SwapMonthToPrev()),
     SetHoverDate: date => dispatch(SetHoverDate(date)),
-    SwapModalChooseDates: dates => dispatch(SwapModalChooseDates(dates)),
-    
   })
 )(Date)

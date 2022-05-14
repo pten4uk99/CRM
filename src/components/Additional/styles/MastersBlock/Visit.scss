@@ -1,0 +1,71 @@
+.visit {
+  margin-top: 5px;
+  padding: 5px 10px;
+  background-color: $white;
+
+  .shirt-block {
+    display: flex;
+    justify-content: space-between;
+
+    .date {
+      font-weight: 600;
+    }
+    span {
+      font-size: .85em;
+      cursor: pointer;
+    }
+  }
+
+  .visit-detail {
+    margin-top: 15px;
+    & > .service {
+      display: flex;
+      flex-direction: column;
+
+      .service-name {
+        font-weight: 600;
+
+        span {
+          font-weight: 400;
+          padding: 3px 5px;
+          background-color: orange;
+          border-radius: 5px;
+        }
+      }
+
+      .service-detail {
+        margin-top: 10px;
+
+        .work {
+          span {
+            color: green;
+          }
+        }
+
+        .paints {
+          display: flex;
+          margin-top: 10px;
+
+          .category {
+            margin-right: 50px;
+          }
+        }
+      }
+    }
+
+    .comment {
+      margin-top: 10px;
+      padding: 5px 10px;
+      border: 1px solid $border-color;
+      background-color: white;
+    }
+
+    .summary {
+      margin-top: 10px;
+      text-align: right;
+      span {
+        color: green;
+      }
+    }
+  }
+}

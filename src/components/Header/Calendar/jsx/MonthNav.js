@@ -14,24 +14,19 @@ function MonthNav(props) {
     let currentMonth = props.store.calendar.currentDate.getMonth()
     let currentYear = props.store.calendar.currentDate.getFullYear()
 
-    let canNotNextSwap = (currentYear === props.store.calendar.today.getFullYear() + 1 &&
-        currentMonth === props.store.calendar.today.getMonth())
-    let canNotPrevSwap = (currentYear === props.store.calendar.today.getFullYear() &&
-        currentMonth === props.store.calendar.today.getMonth())
-
     function getMonth(monthId) {
         return MONTHS[monthId]
     }
 
   return (
     <nav className='month-nav'>
-      <div onClick={() => {if (!canNotPrevSwap) {props.SwapMonthToPrev()}}}>
+      <div onClick={() => props.SwapMonthToPrev()}>
         <img src={leftArrow} alt="Предыдущий месяц"/>
       </div>
       <span>
         {getMonth(currentMonth)} {currentYear}
       </span>
-      <div onClick={() => {if (!canNotNextSwap) props.SwapMonthToNext()}}>
+      <div onClick={() => props.SwapMonthToNext()}>
         <img src={rightArrow} alt="Следующий месяц"/>
       </div>
     </nav>

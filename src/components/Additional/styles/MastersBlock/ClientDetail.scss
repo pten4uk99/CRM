@@ -1,0 +1,44 @@
+.clients-list__block > .client-detail {
+  box-sizing: border-box;
+  padding: 10px;
+  height: calc(100% - 60px);
+  background-color: white;
+  font-size: 18px;
+  overflow: auto;
+
+  .back-arrow {
+    width: 15px;
+
+    padding: 5px;
+
+    border: 1px solid $border-color;
+    background-color: white;
+    cursor: pointer;
+  }
+
+  .content {
+    margin-top: 15px;
+
+    p>span {
+      font-weight: 600;
+    }
+
+    .visits-header {
+      display: block;
+
+      margin-top: 30px;
+
+      color: $blue;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .visits {
+      height: 440px;
+      margin-top: 10px;
+
+      overflow: auto;
+
+    }
+  }
+}
