@@ -1,0 +1,36 @@
+.add-client-window__woman-price-table {
+  &>.table {
+    .row {
+      display: flex;
+      border-bottom: 1px solid $border-color;
+
+      & > div {
+        background-color: white;
+        box-sizing: border-box;
+        padding: 5px;
+      }
+
+      .name {
+        width: 80%;
+
+        &.header {
+          background-color: $white;
+        }
+      }
+
+      .price {
+        width: 20%;
+        border-left: 1px solid $border-color;
+        text-align: center;
+        color: green;
+        font-weight: 500;
+        cursor: pointer;
+
+        &.header {
+          color: $black;
+          background-color: $white;
+        }
+      }
+    }
+  }
+}

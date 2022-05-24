@@ -54,27 +54,27 @@ function CashBox(props) {
                    onChange={e => handleChangeValue(e)}
                    ref={input}/>
             
-            <div className="calculator">
-                <div className="numbers">
-                    {numbersArr.map((elem) => <div key={elem}
-                                                   className="number"
-                                                   onClick={(e) => handleClickNumber(e)}>{elem}</div>)}
-                </div>
+            {/*<div className="calculator">*/}
+            {/*    <div className="numbers">*/}
+            {/*        {numbersArr.map((elem) => <div key={elem}*/}
+            {/*                                       className="number"*/}
+            {/*                                       onClick={(e) => handleClickNumber(e)}>{elem}</div>)}*/}
+            {/*    </div>*/}
 
-                {/*<div className="actions">*/}
-                {/*    {actionSignArr.map((elem) => <div key={elem}*/}
-                {/*                                      className="action"*/}
-                {/*                                      onClick={(e) => handleClickAction(e)}>{elem}</div>)}*/}
-                {/*</div>*/}
+            {/*    <div className="actions">*/}
+            {/*        {actionSignArr.map((elem) => <div key={elem}*/}
+            {/*                                          className="action"*/}
+            {/*                                          onClick={(e) => handleClickAction(e)}>{elem}</div>)}*/}
+            {/*    </div>*/}
 
-                <div className="special-signs">
-                    <div className="remove" onClick={() => handleSpecialAction(value.slice(0, value.length - 1))}>
-                        <img src={backArrow} alt="Стереть" style={{width: "50%"}}/>
-                    </div>
-                    <div className="remove-all" onClick={() => handleSpecialAction('')}>AC</div>
-                    <div className="calculate" onClick={handleCalculate}>=</div>
-                </div>
-            </div>
+            {/*    <div className="special-signs">*/}
+            {/*        <div className="remove" onClick={() => handleSpecialAction(value.slice(0, value.length - 1))}>*/}
+            {/*            <img src={backArrow} alt="Стереть" style={{width: "50%"}}/>*/}
+            {/*        </div>*/}
+            {/*        <div className="remove-all" onClick={() => handleSpecialAction('')}>AC</div>*/}
+            {/*        <div className="calculate" onClick={handleCalculate}>=</div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </div>
     )
 }

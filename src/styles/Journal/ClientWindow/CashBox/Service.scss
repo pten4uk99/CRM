@@ -1,0 +1,62 @@
+.add-client-window__service {
+  grid-row: 1 / span 19;
+  grid-column: 2 / span 20;
+
+  .service-list {
+    display: flex;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 27px; // выровнено по верхней части "Итога"
+    .service-list__item {
+      box-sizing: border-box;
+      margin-right: 5px;
+      padding: 10px;
+      background-color: $blue;
+      border-radius: 5px;
+      color: $white;
+      cursor: pointer;
+      user-select: none;
+
+      &.coloring {
+        margin-right: 30px;
+      }
+      &.active {
+        background-color: $white;
+        box-shadow: inset 0 0 0 1px $border-color;
+        color: $black;
+      }
+    }
+  }
+
+  .service-input {
+    grid-row: 1 / span 2;
+    grid-column: 2 / span 5;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    margin-left: 15px;
+
+    .input-service {
+      height: 21px;
+      padding: 5px;
+
+      font-size: .70em;
+
+      background-color: $white;
+      border-bottom: 1px solid rgba(0, 0, 0, .3);
+    }
+  }
+
+  .materials-used {
+    display: flex;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 15px 0 10px 10px;
+    .checkbox {
+      margin-top: 4px;
+      margin-left: 10px;
+    }
+  }
+}

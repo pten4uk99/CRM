@@ -1,0 +1,14 @@
+.add-client-window__materials {
+  display: flex;
+  flex-direction: column;
+
+  padding: 5px;
+
+  width: 370px;
+  height: 388px; // выровнено по кнопке Услуга Оплачена
+
+  border: 1px solid $border-color;
+
+  font-size: 16px;
+  overflow: auto;
+}

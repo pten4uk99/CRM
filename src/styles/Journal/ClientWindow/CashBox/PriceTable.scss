@@ -1,0 +1,34 @@
+.add-client-window__price-table {
+  width: 500px;
+  height: calc(100% - 75px);
+
+  border: 1px solid $border-color;
+
+  font-size: 18px;
+  font-weight: 400;
+
+  overflow: auto;
+  &>.table {
+    .row {
+      display: flex;
+      border-bottom: 1px solid $border-color;
+
+      &>div {
+        background-color: white;
+        box-sizing: border-box;
+        padding: 5px;
+      }
+      .name {
+        width: 80%;
+      }
+      .price {
+        width: 20%;
+        border-left: 1px solid $border-color;
+        text-align: center;
+        color: green;
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+  }
+}

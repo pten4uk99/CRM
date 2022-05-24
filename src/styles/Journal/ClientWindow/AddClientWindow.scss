@@ -110,9 +110,5 @@ $add-client-window__header-size: 50px;
   }
 }
 
-@import "Time";
-@import "CashBox";
-@import "ClientInfo";
-@import "Calculator";
-@import "MastersDropDown";
-@import "ClientsTooltip";
+@import "CashBox/CashBox";
+@import "ClientInfo/ClientInfo";

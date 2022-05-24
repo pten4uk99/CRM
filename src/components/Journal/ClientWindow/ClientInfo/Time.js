@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 
 import {connect} from "react-redux";
 import {useIMask} from "react-imask";
-import {SetChosenDuration} from "../../../redux/actions/Main/addClientWindow_actions";
+import {SetChosenDuration} from "../../../../redux/actions/Main/addClientWindow_actions";
 
 
 function Time(props) {

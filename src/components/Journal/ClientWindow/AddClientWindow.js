@@ -3,8 +3,8 @@ import {connect} from "react-redux";
 
 import {DeactivateBackground} from "../../../redux/actions/Main/addClientWindow_actions";
 import {SwapTableItemToInactive} from "../../../redux/actions/Main/masters_actions";
-import CashBox from "./CashBox";
-import ClientInfo from "./ClientInfo";
+import CashBox from "./CashBox/CashBox";
+import ClientInfo from "./ClientInfo/ClientInfo";
 
 
 function AddClientWindow(props) {

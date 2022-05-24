@@ -3,11 +3,11 @@ import {connect} from "react-redux";
 
 import ClientsTooltip from "./ClientsTooltip";
 import Time from "./Time";
-import {REPLACER} from "../../../constants";
+import {REPLACER} from "../../../../constants";
 import {useIMask} from "react-imask";
-import {SetClientInfo, UpdateClients} from "../../../redux/actions/Main/clients_actions";
-import {DeactivateBackground} from "../../../redux/actions/Main/addClientWindow_actions";
-import {SwapTableItemToInactive} from "../../../redux/actions/Main/masters_actions";
+import {SetClientInfo, UpdateClients} from "../../../../redux/actions/Main/clients_actions";
+import {DeactivateBackground} from "../../../../redux/actions/Main/addClientWindow_actions";
+import {SwapTableItemToInactive} from "../../../../redux/actions/Main/masters_actions";
 import MastersDropDown from "./MastersDropDown";
 
 
