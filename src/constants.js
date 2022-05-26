@@ -5,3 +5,9 @@ export const REPLACER = {
     ";": "ж", "'": "э", "z": "я", "x": "ч", "c": "с", "v": "м", "b": "и",
     "n": "т" , "m": "ь", ",": "б", ".": "ю", "/": "."
 };
+
+export const HAIR_LENGTHS = {
+    shirt: 'Кор',
+    middle: 'Ср',
+    long: 'Дл'
+}

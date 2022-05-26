@@ -19,16 +19,27 @@
       }
 
       .price {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 20%;
         border-left: 1px solid $border-color;
         text-align: center;
         color: green;
         font-weight: 500;
         cursor: pointer;
+        user-select: none;
+
+        .count-pos-in-result {
+          font-size: .85em;
+          margin-left: 5px;
+          color: $black;
+        }
 
         &.header {
           color: $black;
           background-color: $white;
+          cursor: default;
         }
       }
     }

@@ -84,7 +84,7 @@ const initialState = [
         isDone: true,
         name: "Екатерина",
         lastName: "Василькина",
-        phone: "+7(925)-504-75-41",
+        phone: "+7(925)-567-73-10",
         date: "2021-02-03",
         timeStart: {
             hour: 9,

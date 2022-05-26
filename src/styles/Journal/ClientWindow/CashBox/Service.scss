@@ -1,6 +1,7 @@
 .add-client-window__service {
   grid-row: 1 / span 19;
-  grid-column: 2 / span 20;
+  grid-column: 1 / span 20;
+  margin-left: 15px;
 
   .service-list {
     display: flex;

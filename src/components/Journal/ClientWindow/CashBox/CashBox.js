@@ -9,8 +9,6 @@ import {RemoveCashPosition} from "../../../../redux/actions/Main/cashResult";
 function CashBox(props) {
     let cashResult = props.store.cashResult
     let [calculatorResult, setCalculatorResult] = useState('')
-    let [serviceList, setServiceList] = useState([1])
-    let [activeService, setActiveService] = useState(1)
 
 
     useEffect(() => {
@@ -26,50 +24,25 @@ function CashBox(props) {
         }
     }
 
-    function handleAddService() {
-        if (serviceList.length < 5) {
-            setServiceList([...serviceList, serviceList.length + 1])
-            setActiveService(serviceList.length + 1)
-        }
-    }
-
-    function handleRemoveCashPosition(e, elem) {
+    function handleRemoveCashPosition(e, index) {
         e.stopPropagation()
-        props.RemoveCashPosition(elem)
-        setServiceList(serviceList.filter((pos) => {
-            return pos !== elem.service_index
-        }))
-        if (activeService === elem.service_index) setActiveService(serviceList.length)
+        props.RemoveCashPosition(index)
     }
 
     return (
         <section className="add-client-window__cashbox">
-
-            <div className="service-list__header">
-                {serviceList.map((elem) => {
-                    return <div className={elem === activeService ? "service-header active" : "service-header"}
-                                onClick={() => setActiveService(elem)}>
-                        {elem}
-                    </div>
-                })}
-                <div className="plus"
-                     onClick={handleAddService}>+</div>
-            </div>
-
-            {serviceList.map((elem) => elem === activeService && <Service key={elem} index={elem}/>)}
-
+            <Service/>
 
             <div className="total">
                 <div className="service-positions">
                     {cashResult.map((elem, index) => {
-                        return <div key={index} className="price-block"
-                                    onClick={() => setActiveService(elem.service_index)}>
+                        return <div key={index} className="price-block">
                             <div className="name">{elem.name}</div>
                             <div className="price">{elem.price}</div>
                             <img className="remove"
                                  src={minus}
                                  alt="Удалить"
-                                 onClick={(e) => handleRemoveCashPosition(e, elem)}/>
+                                 onClick={(e) => handleRemoveCashPosition(e, index)}/>
                         </div>
                     })}
                 </div>

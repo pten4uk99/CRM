@@ -3,13 +3,13 @@ import {connect} from "react-redux";
 
 import Coloring from "./Coloring";
 import PriceTable from "./PriceTable";
+import {HAIR_LENGTHS} from "../../../../constants";
 
 
 function Service(props) {
     let [serviceList, setServiceList] = useState([
         {
             header: 'Мужской зал',
-            service_index: props.index,
             price_list: [
                 {
                     name: 'Стрижка модельная',
@@ -22,14 +22,27 @@ function Service(props) {
 
             ]
         },
-        {header: 'Стрижка женская', price_list: [
+        {
+            header: 'Стрижка женская',
+            price_list: [
             {
                 name: 'Стрижка + обдув',
-                priceShirt: '800',
-                priceMiddle: '1000',
-                priceLong: '1000',
-            },
+                hair_lengths: [
+                    {
+                        hair_length: HAIR_LENGTHS.shirt,
+                        price: '800'
+                    },
+                    {
+                        hair_length: HAIR_LENGTHS.middle,
+                        price: '1000'
+                    },
+                    {
+                        hair_length: HAIR_LENGTHS.long,
+                        price: '1200'
+                    },
 
+                ],
+            },
         ]},
         {header: 'Укладка', price_list: []},
         {header: 'Маникюр', price_list: []},
@@ -47,7 +60,7 @@ function Service(props) {
                 <div className={`service-list__item coloring ${activeService === 'Окрашивание' && 'active'}`}
                      onClick={() => setActiveService('Окрашивание')}>
                     Окрашивание
-                    </div>
+                </div>
                 {serviceList.map((service, index) => {
                     return <div className={`service-list__item ${service?.header === activeService?.header && 'active'}`}
                                 key={index}
