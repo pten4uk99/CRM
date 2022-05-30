@@ -1,6 +1,7 @@
 let initialState = {
     masters: false,
     cashBox: false,
+    clients: false,
 }
 
 export default function additional(state=initialState, action) {

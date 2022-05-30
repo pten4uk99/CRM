@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import MastersBlock from "./MastersBlock";
 import CashBlock from "./CashBlock";
 import {ActivateAdditionalItem} from "../redux/actions/additional";
+import ClientsBlock from "./ClientsBlock";
 
 
 function Additional(props) {
@@ -15,11 +16,14 @@ function Additional(props) {
             <div className="menu-block">
                 <button className={`block-button ${buttons.masters && "active"}`}
                         onClick={() => props.ActivateAdditionalItem('masters')}>Мастера</button>
+                <button className={`block-button ${buttons.clients && "active"}`}
+                        onClick={() => props.ActivateAdditionalItem('clients')}>Клиенты</button>
                 <button className={`block-button ${buttons.cashBox && "active"}`}
                         onClick={() => props.ActivateAdditionalItem('cashBox')}>Касса</button>
             </div>
 
             {buttons.masters && <MastersBlock/>}
+            {buttons.clients && <ClientsBlock/>}
             {buttons.cashBox && <CashBlock/>}
         </article>
     )

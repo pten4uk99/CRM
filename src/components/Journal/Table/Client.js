@@ -67,7 +67,7 @@ function Client(props) {
                             {data.name}</p>
                         <p className="last-name">{data.lastName}</p>
                         <p className="phone mt-10">{data.phone}</p>
-                        <p className="service">{data.service}</p>
+                        {/*<p className="service">{data.service}</p>*/}
                         <p className="comment">{data.comment}</p>
 
                         <div className="underline"/>

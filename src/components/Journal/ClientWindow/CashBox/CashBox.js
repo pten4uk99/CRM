@@ -54,7 +54,7 @@ function CashBox(props) {
                               onChange={(e) => handleChangeResult(e)}/>
                 </div>
             </div>
-            <button className="confirm">Оплачено</button>
+            <button className="confirm" onClick={() => localStorage.clear()}>Оплачено</button>
         </section>
     )
 }

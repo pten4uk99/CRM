@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {connect} from "react-redux";
 
 import leftArrow from "/src/assets/img/cash/arrow-left.svg"
-import Visit from "./Visit";
+import Visit from "../MastersBlock/Visit";
 
 
 function ClientDetail(props) {

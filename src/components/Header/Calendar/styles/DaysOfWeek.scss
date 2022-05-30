@@ -1,7 +1,7 @@
 .inside__container > .days-of-week__container {
   display: flex;
   flex-direction: column;
-  width: 304px;
+  width: $calendar-width - 15px;
 
   .days-of-week {
     display: flex;
@@ -14,7 +14,7 @@
   }
 
   .days-of-week__underline {
-    width: 304px;
+    width: $calendar-width - 15px;
     height: 1px;
 
     margin-top: 5px;

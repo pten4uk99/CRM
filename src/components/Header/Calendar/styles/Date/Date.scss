@@ -7,8 +7,8 @@
     align-items: center;
     justify-content: center;
 
-    width: $calendar-cell-size - 5px;
-    height: $calendar-cell-size - 5px;
+    width: $calendar-width / 7.2 - 5px;
+    height: $calendar-width / 7.2 - 5px;
 
     border: 1px solid rgba(0, 0, 0, .1);
 

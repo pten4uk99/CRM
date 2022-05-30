@@ -20,6 +20,17 @@ input, .input {
   resize: none;
 }
 
+button.main-btn {
+  padding: 10px;
+  background-color: $blue;
+
+  color: $white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
 ::-webkit-scrollbar {
     width: 3px;
 }

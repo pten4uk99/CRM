@@ -17,14 +17,6 @@ function ClientsTooltip(props) {
                 <p className="name">Георгий Иванов3</p>
                 <p className="phone">+7(926)-986-31-49</p>
             </li>
-            <li className="client">
-                <p className="name">Георгий Иванов4</p>
-                <p className="phone">+7(926)-986-31-49</p>
-            </li>
-            <li className="client">
-                <p className="name">Георгий Иванов5</p>
-                <p className="phone">+7(926)-986-31-49</p>
-            </li>
         </ul>
     )
 }

@@ -17,7 +17,6 @@ const initialState = [
             minutes: "00"
         },
         duration: 30,
-        service: "Стрижка",
     },
     {
         master: "Саша",
@@ -37,7 +36,6 @@ const initialState = [
             minutes: "00"
         },
         duration: 15,
-        service: "Стрижка",
     },
     {
         master: "Саша",
@@ -56,7 +54,6 @@ const initialState = [
             minutes: "00"
         },
         duration: 30,
-        service: "Стрижка",
     },
     {
         master: "Саша",
@@ -75,7 +72,6 @@ const initialState = [
             minutes: "00"
         },
         duration: 30,
-        service: "Стрижка",
     },
     {
         master: "Вика",
@@ -95,7 +91,6 @@ const initialState = [
             minutes: "30"
         },
         duration: 60 * 4,
-        service: "Стрижка",
         comment: "Стрижка мужская с бородой",
         lastVisit: {
             service: "Окрашивание",

@@ -1,11 +1,76 @@
 import React, {useEffect, useRef, useState} from "react";
 import {connect} from "react-redux";
+import {roundFifty} from "./Coloring";
 
 
 function AddCategory(props) {
     let [materialList, setMaterialList] = useState([
         {index: 1, name: '', quantity: 0}
     ])
+
+    useEffect(() => {
+        let visit = JSON.parse(localStorage.getItem(`visit ${1}`))
+        let newMaterialList = []
+        if (visit) {
+            for (let elem of visit) {
+                if (elem.id === props.index) newMaterialList.push(...elem.materials)
+            }
+        }
+        if (newMaterialList.length > 0) setMaterialList(newMaterialList)
+    }, [])
+
+    useEffect(() => {
+        let visitId = 1
+        let visit = JSON.parse(localStorage.getItem(`visit ${visitId}`))
+        if (!visit) {
+            visit = [
+                {
+                    id: props.index,
+                    category: props.catValue,
+                    materials: materialList
+                }
+            ]
+        }
+        else {
+            let inVisit = false
+            visit.map((elem) => {
+                if (elem.id === props.index) {
+                    inVisit = true
+                    elem.category = props.catValue
+                    elem.materials = materialList
+                }
+                return elem
+            })
+
+            if (!inVisit) {
+                visit = [
+                    ...visit,
+                    {
+                        id: props.index,
+                        category: props.catValue,
+                        materials: materialList
+                    }
+                ]
+            }
+
+            let flourCount = 0
+            let paintCount = 0
+            for (let elem of visit) {
+                if (elem.category === 'Порошок') {
+                    for (let mat of elem.materials) flourCount += Number(mat.quantity)
+                } else {
+                    for (let mat of elem.materials) paintCount += Number(mat.quantity)
+                }
+            }
+            let total = flourCount * props.flourPrice + paintCount * props.paintPrice
+
+            props.setFlourSumValue(flourCount)
+            props.setPaintSumValue(paintCount)
+            props.setPaintSumPrice(roundFifty(total))
+        }
+
+        localStorage.setItem(`visit ${visitId}`, JSON.stringify(visit))
+    }, [materialList, props.catValue])
 
     function handleRemoveMaterial(index) {
         setMaterialList(materialList.filter((elem, i) => elem['index'] !== index))

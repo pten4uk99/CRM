@@ -18,7 +18,8 @@
   transition: transform .1s, height .1s;
 
   &.done {
-    background-color: rgb(174, 211, 174);
+    //background-color: rgb(174, 211, 174);
+    background-color: rgb(203, 203, 203);
   }
 
   &:hover {
@@ -91,7 +92,7 @@
     left: 50%;
     transform: translateX(-50%);
     margin-top: 20px;
-    padding: 3px 5px;
+    padding: 5px;
     background-color: $blue;
     border: none;
     outline: none;

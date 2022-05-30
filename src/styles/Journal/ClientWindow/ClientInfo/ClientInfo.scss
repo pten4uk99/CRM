@@ -15,8 +15,8 @@
     display: flex;
     align-items: center;
 
-    grid-column: 14 / span 4;
-    grid-row: 8 / span 3;
+    grid-column: 12 / span 4;
+    grid-row: 10 / span 3;
 
     height: $add-client-window__header-size;
 
@@ -46,16 +46,16 @@
 
   form {
     grid-column: 1 / span 11;
-    grid-row: 1 / span 5;
+    grid-row: 3 / span 5;
 
     display: grid;
-    grid-template-rows: repeat(13, 25px);
+    grid-template-rows: repeat(20, 25px);
     grid-template-columns: repeat(18, 50px);
 
     .time {
       justify-self: center;
       align-self: center;
-      grid-column: 13 / span 6;
+      grid-column: 11 / span 6;
       grid-row: 2 / span 5;
 
       font-size: .9em;
@@ -63,7 +63,11 @@
     }
 
     .comment {
+      grid-column: 3 / span 5;
+      grid-row: 7 / span 2;
+
       box-sizing: border-box;
+      margin-left: 10px;
       padding: 5px;
       font-size: .8em;
 
@@ -72,13 +76,11 @@
       border: none;
       outline: none;
       resize: none;
-      grid-column: 7 / span 5;
-      grid-row: 3 / span 2;
     }
 
     .name, .last-name, .phone {
       align-self: center;
-      grid-column: 1 / span 5;
+      grid-column: 3 / span 5;
 
       margin-left: 15px;
 
@@ -96,74 +98,21 @@
     }
 
     .last-name {
-      margin-left: 0;
-      grid-row: 1 / span 2;
-      grid-column: 7 / span 5;
+      grid-row: 3 / span 2;
+      grid-column: 3 / span 5;
     }
 
     .phone {
-      grid-row: 3 / span 2;
-    }
-
-    .gender {
-      justify-self: center;
-      align-self: center;
-      grid-column: 2 / span 4;
-      grid-row: 12 / span 2;
-
-      display: flex;
-      align-items: center;
-
-      font-weight: 400;
-      font-size: .9em;
-      line-height: 25px;
-
-      p {
-        margin-right: 10px;
-        cursor: text;
-      }
-
-      .male, .female {
-        width: 25px;
-        height: 25px;
-
-        border: 1px solid $border-color;
-
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        cursor: pointer;
-
-        .checkmark {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          width: 100%;
-          height: 100%;
-          background-color: $white;
-
-          transition: background-color .1s, color .1s;
-        }
-
-        input {
-          display: none;
-
-          &:checked + .checkmark {
-            color: $white;
-            background-color: $blue;
-          }
-        }
-      }
+      grid-row: 5 / span 2;
     }
 
     .confirm, .cancel {
       justify-self: center;
       align-self: flex-end;
-      grid-row: 10 / span 3;
+      grid-row: 13 / span 3;
 
       box-sizing: border-box;
+      width: 130px;
       height: 35px;
       padding: 5px 10px;
 
@@ -180,12 +129,12 @@
     }
 
     .confirm {
-      grid-column: 13 / span 3;
+      grid-column: 11 / span 3;
       background-color: $blue;
     }
 
     .cancel {
-      grid-column: 16 / span 3;
+      grid-column: 14 / span 3;
       color: $black;
     }
   }

@@ -5,7 +5,7 @@
 
   flex-direction: column;
 
-  .total {
+  &>.total {
     display: flex;
     flex-direction: column;
     grid-row: 4 / span 14;

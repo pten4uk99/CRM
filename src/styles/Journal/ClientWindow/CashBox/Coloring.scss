@@ -1,24 +1,74 @@
 .add-client-window__coloring {
   display: flex;
 
-  &>.work {
-    display: flex;
-    align-items: center;
+  &>.prices {
+    margin-left: 10px;
+    &>.price {
+      display: flex;
+      align-items: center;
 
-    height: 40px;
+      height: 40px;
 
-    margin-left: 5px;
-    font-size: 16px;
+      font-size: 16px;
+      font-weight: 400;
 
-    .work-input {
-      box-sizing: border-box;
-      margin-left: 10px;
-      padding: 5px;
+      &>span {
+        width: 150px;
+        font-weight: 600;
+      }
 
-      width: 75px;
-      height: 35px;
+      .work-input, .price-input, .total-input {
+        text-align: center;
+        box-sizing: border-box;
+        padding: 3px 5px;
 
-      font-size: 18px;
+        width: 75px;
+        height: 30px;
+
+        font-size: 18px;
+      }
+
+      .price-input {
+        width: 60px;
+      }
+
+      &.mt-30 {
+        margin-top: 30px;
+      }
+
+      .total-input {
+        color: green;
+      }
+    }
+
+    .change-time {
+      display: flex;
+      justify-content: center;
+
+      margin: 10px 0 30px;
+
+      font-size: 16px;
+      user-select: none;
+
+      &>.minus, &>.plus {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        border: 1px solid $border-color;
+        cursor: pointer;
+      }
+      &>.quantity {
+        text-align: center;
+        font-weight: 500;
+        width: 120px;
+      }
+
+    }
+
+    &>button {
+      margin-top: 20px;
     }
   }
 }

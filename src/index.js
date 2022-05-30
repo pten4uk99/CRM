@@ -14,10 +14,12 @@ import paints from "./components/Warehouse/redux/reducers/paints";
 import priceList from "./components/PriceList/redux/reducers/priceList";
 import additional from "./components/Additional/redux/reducers/additional";
 import cashResult from "./redux/reducers/Main/cashResult";
+import mastersCalendar from "./components/Additional/js/MastersBlock/AdditionalCalendar/redux/reducers/mastersCalendar";
 
 const reducer = combineReducers({
     Header,
     calendar,
+    mastersCalendar,
     paints,
     priceList,
     cashResult,

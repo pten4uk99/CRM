@@ -95,17 +95,6 @@ function ClientInfo(props) {
                        name="phone"
                        placeholder="Телефон"
                        ref={ref}/>
-                {/*<div className="gender">*/}
-                {/*    <p>Пол:</p>*/}
-                {/*    <label htmlFor="male" className="male">*/}
-                {/*        <input type="radio" name="gender" value="male" id="male"/>*/}
-                {/*        <span className="checkmark">М</span>*/}
-                {/*    </label>*/}
-                {/*    <label htmlFor="female" className="female">*/}
-                {/*        <input type="radio" name="gender" value="female" id="female"/>*/}
-                {/*        <span className="checkmark">Ж</span>*/}
-                {/*    </label>*/}
-                {/*</div>*/}
 
                 <input className="confirm" type="submit" value={props.clientInfo ? "Изменить" : "Добавить"}/>
                 <input className="cancel" type="button" value="Отмена" onClick={props.deactivateWindow}/>

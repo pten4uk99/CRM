@@ -12,30 +12,15 @@
 
     border: 1px solid $border-color;
     border-radius: 10px;
-    background-color: $blue;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+    //background-color: $blue;
+    //box-shadow: 0 0 5px rgba(0, 0, 0, .4);
 
     width: max-content;
     height: max-content;
 
     font-size: 20px;
     font-weight: 800;
-    .edit {
-      position: absolute;
-      top: -20px;
-      left: 15px;
-
-      width: 25px;
-      padding: 5px;
-      background-color: white;
-      border: 1px solid $border-color;
-      border-radius: 5px;
-      cursor: pointer;
-
-      &:active {
-        transform: scale(1.05);
-      }
-    }
+    user-select: none;
 
     .masters-list {
       .master {
@@ -55,34 +40,30 @@
           border: 1px solid $border-color;
           border-radius: 10px;
           text-align: center;
+          cursor: pointer;
         }
 
-        .remove {
+        .edit {
+          align-self: center;
           display: flex;
           align-items: center;
           justify-content: center;
 
+          padding: 5px;
           margin-left: 10px;
-          width: 50px;
-          height: 50px;
+          width: 30px;
+          height: 30px;
 
           background-color: white;
           box-sizing: border-box;
           border-radius: 8px;
-          border: 3px solid $red;
 
           cursor: pointer;
-          animation: shake-icon .2s infinite;
-          transition: transform .1s;
 
-          &::after {
-            display: block;
-            content: "";
-            width: 15px;
-            height: 5px;
-
-            background-color: $red;
-            border-radius: 10px;
+          &.active {
+            border: 2
+            px solid $red;
+            transform: scale(1.5);
           }
         }
       }
@@ -106,6 +87,75 @@
       }
     }
   }
+
+  .calendar__wrapper.masters-calendar {
+    $masters-calendar-width: 800px;
+
+    margin-left: 30px;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+
+    .calendar__container {
+      width: $masters-calendar-width;
+      height: 570px;
+      background-color: white;
+
+      .inside__container {
+        .month-nav {
+          margin-bottom: 15px;
+        }
+        .days-of-week__container {
+          width: $masters-calendar-width - 30px;
+
+          .day-of-week {
+            font-size: 14px;
+          }
+          .days-of-week__underline {
+            width: $masters-calendar-width - 30px;
+          }
+        }
+        .dates__list {
+          grid-template-columns: repeat(7, $masters-calendar-width / 7.2);
+          grid-template-rows: repeat(6, $masters-calendar-width / 10.6);
+
+          .calendar-date {
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: $masters-calendar-width / 7.2 - 5px;
+            height: $masters-calendar-width / 10.6 - 5px;
+
+            &:hover, &.active, &.today {
+              font-weight: inherit;
+              &>span {
+                font-size: inherit;
+              }
+            }
+
+
+            &>span {
+              width: 20px;
+              padding: 5px;
+            }
+            
+            .calendar-masters {
+              margin-top: 2px;
+
+              font-size: 12px;
+              color: white;
+              .calendar-master {
+                margin-top: 2px;
+                padding: 2px 5px;
+                background-color: green;
+                border-radius: 10px;
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @keyframes shake-icon {
@@ -121,6 +171,6 @@
 }
 
 
-@import "MastersBlock/ClientsList";
-@import "MastersBlock/ClientDetail";
+@import "ClientsBlock";
+@import "ClientsBlock/ClientDetail";
 @import "MastersBlock/Visit";

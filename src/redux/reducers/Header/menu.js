@@ -1,6 +1,6 @@
 const initialState = {
-    journal: true,
-    additional: false,
+    journal: false,
+    additional: true,
     warehouse: false,
     priceList: false,
 }

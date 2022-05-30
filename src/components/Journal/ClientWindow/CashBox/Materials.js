@@ -1,13 +1,27 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {connect} from "react-redux";
 import AddCategory from "./AddCategory";
 
 
 function Materials(props) {
-    let [categoryList, setCategoryList] = useState([[1, '']])
+    let [categoryList, setCategoryList] = useState([])
+
+    useEffect(() => {
+        let visit = JSON.parse(localStorage.getItem(`visit ${1}`))
+        let newCategoryList = []
+        if (visit) {
+            for (let elem of visit) {
+                newCategoryList.push([elem.id, elem.category])
+            }
+        }
+        if (newCategoryList.length === 0) newCategoryList = [[1, '']]
+        setCategoryList(newCategoryList)
+    }, [])
 
     function handleRemoveCategory(index) {
         setCategoryList(categoryList.filter((elem) => elem[0] !== index))
+        let visit = JSON.parse(localStorage.getItem(`visit ${1}`)) // идентификатор посещения потом будет браться из бэка
+        localStorage.setItem(`visit ${1}`, JSON.stringify(visit.filter((elem) => elem.id !== index)))
     }
 
     function handleAddCategory() {
@@ -18,8 +32,6 @@ function Materials(props) {
         }
         if (categoryList.length < 4) setCategoryList([...categoryList, [newIndex, '']])
     }
-
-
 
     function handleChangeCatValue(e, index) {
         setCategoryList(categoryList.map((elem) => {
@@ -38,7 +50,12 @@ function Materials(props) {
                                     onAdd={handleAddCategory}
                                     onRemove={() => handleRemoveCategory(elem[0])}
                                     setCatValue={(e) => handleChangeCatValue(e, elem[0])}
-                                    catValue={elem[1]}/>
+                                    catValue={elem[1]}
+                                    setPaintSumPrice={props.setPaintSumPrice}
+                                    setPaintSumValue={props.setPaintSumValue}
+                                    setFlourSumValue={props.setFlourSumValue}
+                                    flourPrice={props.flourPrice}
+                                    paintPrice={props.paintPrice}/>
             })}
         </div>
     )

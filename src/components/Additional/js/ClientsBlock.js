@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
-import ClientDetail from "./ClientDetail";
+import ClientDetail from "./ClientsBlock/ClientDetail";
 
 
 
-function ClientsList(props) {
+function ClientsBlock(props) {
     let [detailActive, setDetailActive] = useState(false)
 
     return (
@@ -38,4 +38,4 @@ function ClientsList(props) {
 export default connect(
     state => ({store: state}),
     dispatch => ({})
-)(ClientsList);
+)(ClientsBlock);
