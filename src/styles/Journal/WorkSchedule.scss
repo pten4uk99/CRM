@@ -1,0 +1,56 @@
+.journal-wrapper > .work-schedule__block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > .header {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    user-select: none;
+
+    &>.month {
+      text-align: center;
+      width: 120px;
+
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+
+  & > .table {
+    margin-top: 30px;
+
+    & > .row {
+      display: flex;
+
+      & > .master {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 120px;
+        height: 34px;
+        border: 1px solid $border-color;
+        box-sizing: border-box;
+
+        font-size: 18px;
+        font-weight: 600;
+        word-break: break-all;
+      }
+
+      & > .dates {
+        height: 34px;
+        line-height: 34px;
+
+        & > .cell {
+          display: inline-block;
+          text-align: center;
+          width: 34px;
+          height: 100%;
+          border: 1px solid $border-color;
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+}

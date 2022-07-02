@@ -5,6 +5,7 @@ import AddCategory from "./AddCategory";
 
 function Materials(props) {
     let [categoryList, setCategoryList] = useState([])
+    let [activeCategoryField, setActiveCategoryField] = useState(null)
 
     useEffect(() => {
         let visit = JSON.parse(localStorage.getItem(`visit ${1}`))
@@ -33,23 +34,25 @@ function Materials(props) {
         if (categoryList.length < 4) setCategoryList([...categoryList, [newIndex, '']])
     }
 
-    function handleChangeCatValue(e, index) {
+    function handleChangeCatValue(value, index) {
         setCategoryList(categoryList.map((elem) => {
-            if (elem[0] === index) elem[1] = e.target.value
+            if (elem[0] === index) elem[1] = value
             return elem
         }))
     }
 
     return (
-        <div className="add-client-window__materials">
+        <div className="add-client-window__materials" onClick={() => setActiveCategoryField(null)}>
 
             {categoryList.map((elem) => {
                 return <AddCategory key={elem[0]}
+                                    activeCategory={activeCategoryField}
+                                    setActiveCategory={setActiveCategoryField}
                                     index={elem[0]}
                                     lastIndex={categoryList[categoryList.length - 1][0]}
                                     onAdd={handleAddCategory}
                                     onRemove={() => handleRemoveCategory(elem[0])}
-                                    setCatValue={(e) => handleChangeCatValue(e, elem[0])}
+                                    setCatValue={(value) => handleChangeCatValue(value, elem[0])}
                                     catValue={elem[1]}
                                     setPaintSumPrice={props.setPaintSumPrice}
                                     setPaintSumValue={props.setPaintSumValue}

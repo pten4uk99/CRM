@@ -11,8 +11,9 @@ import { MONTHS } from '../utils/calendar'
 
 
 function MonthNav(props) {
-    let currentMonth = props.store.calendar.currentDate.getMonth()
-    let currentYear = props.store.calendar.currentDate.getFullYear()
+    let calendar = props.store.mastersCalendar
+    let currentMonth = calendar.currentDate.getMonth()
+    let currentYear = calendar.currentDate.getFullYear()
 
     function getMonth(monthId) {
         return MONTHS[monthId]

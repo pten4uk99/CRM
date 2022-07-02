@@ -1,12 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
 import {connect} from "react-redux";
 import {roundFifty} from "./Coloring";
+import DropDown from "./DropDown";
 
 
 function AddCategory(props) {
     let [materialList, setMaterialList] = useState([
         {index: 1, name: '', quantity: 0}
     ])
+
+    let [activeMaterialField, setActiveMaterialField] = useState(null)
 
     useEffect(() => {
         let visit = JSON.parse(localStorage.getItem(`visit ${1}`))
@@ -30,8 +33,7 @@ function AddCategory(props) {
                     materials: materialList
                 }
             ]
-        }
-        else {
+        } else {
             let inVisit = false
             visit.map((elem) => {
                 if (elem.id === props.index) {
@@ -85,9 +87,9 @@ function AddCategory(props) {
         if (materialList.length <= 4) setMaterialList([...materialList, {index: newIndex, name: '', quantity: 0}])
     }
 
-    function handleChangeMatName(e, index) {
-        setMaterialList(materialList.map((elem, i) => {
-            if (elem['index'] === index) elem['name'] = e.target.value
+    function handleChangeMatName(name, index) {
+        setMaterialList(materialList.map((elem) => {
+            if (elem['index'] === index) elem['name'] = name
             return elem
         }))
     }
@@ -105,27 +107,64 @@ function AddCategory(props) {
         }
     }
 
+    function ActivateCategory() {
+        props.setActiveCategory(props.index)
+        setActiveMaterialField(null)
+    }
+
+    function ActivateMaterial(matIndex) {
+        props.setActiveCategory(props.index)
+        setActiveMaterialField(matIndex)
+    }
+
+    function SetCatValueWithDropDown(name) {
+        props.setCatValue(name)
+        props.setActiveCategory(null)
+        setActiveMaterialField(null)
+    }
+
+    function SetMatValueWithDropDown(name, index) {
+        handleChangeMatName(name, index)
+        props.setActiveCategory(null)
+        setActiveMaterialField(null)
+    }
+
     return (
-        <div className="add-client-window__category">
+        <div className="add-client-window__category" onClick={(e) => e.stopPropagation()}>
             <div className="add-category">
                 {props.index === props.lastIndex ?
                     <div className="plus" onClick={props.onAdd}>+</div> :
                     <div className="nothing"/>}
 
-                <textarea className="input input-category"
-                          placeholder="Категория"
-                          rows={1}
-                          value={props.catValue}
-                          onChange={(e) => props.setCatValue(e)}/>
+                <div className="input-category__block">
+                    {props.index === props.activeCategory && !activeMaterialField &&
+                        <DropDown data={['Порошок', 'SoColor', 'SoColor Sync']}
+                                  setInputValue={(name) => SetCatValueWithDropDown(name)}/>}
+
+                    <textarea className="input input-category"
+                              placeholder="Категория"
+                              rows={1}
+                              value={props.catValue}
+                              onChange={(e) => props.setCatValue(e.target.value)}
+                              onFocus={ActivateCategory}/>
+                </div>
+
             </div>
             <div className="materials">
                 {materialList && materialList.map((mat, matIndex) => {
                     return <div className="add-material" key={mat['index']}>
+
+                        {props.activeCategory === props.index && mat['index'] === activeMaterialField &&
+                            <DropDown data={['7n', '8b', '9MN']}
+                                      setInputValue={(name) => SetMatValueWithDropDown(
+                                          name, activeMaterialField)}/>}
+
                         <textarea className="input input-material"
                                   placeholder="Материал"
                                   rows={1}
                                   value={mat['name']}
-                                  onChange={(e) => handleChangeMatName(e, mat['index'])}/>
+                                  onChange={(e) => handleChangeMatName(e.target.value, mat['index'])}
+                                  onFocus={() => ActivateMaterial(mat['index'])}/>
                         {matIndex === 0 ?
                             <span className="plus" onClick={() => handleAddMaterial()}>+</span> :
                             <span className="minus" onClick={() => handleRemoveMaterial(mat['index'])}>-</span>}

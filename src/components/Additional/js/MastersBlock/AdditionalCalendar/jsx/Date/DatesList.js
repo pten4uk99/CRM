@@ -5,8 +5,9 @@ import { getCalendar } from '../../utils/calendar'
 import Date from './Date'
 
 function DatesList(props) {
-  let year = props.store.currentDate.getFullYear()
-  let month = props.store.currentDate.getMonth()
+  let mastersCalendar = props.store.mastersCalendar
+  let year = mastersCalendar.currentDate.getFullYear()
+  let month = mastersCalendar.currentDate.getMonth()
   let calendar = getCalendar(year, month)
 
   return (
@@ -23,10 +24,7 @@ function DatesList(props) {
 }
 
 export default connect(
-  state => ({ store: state.calendar }),
+  state => ({ store: state }),
   dispatch => ({})
 )(DatesList)
 
-function getUnderlines() {
-  return [1, 2, 3, 4, 5]
-}

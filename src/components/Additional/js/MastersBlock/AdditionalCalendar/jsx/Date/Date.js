@@ -52,13 +52,13 @@ function Date(props) {
   }
 
   return (
-    <div className={getClassName(props)} 
-         onClick={() => clickHandler(props)} 
-         onMouseEnter={() => {hoverHandler(props, true)}} 
+    <div className={getClassName(props)}
+         onClick={() => clickHandler(props)}
+         onMouseEnter={() => {hoverHandler(props, true)}}
          onMouseLeave={() => {hoverHandler(props, false)}}>
       <span>{props.date.getDate()}</span>
 
-      {(props.date.getDate() === 9 ||props.date.getDate() === 15 ||props.date.getDate() === 18) &&
+      {(props.date.getDate() === 9 || props.date.getDate() === 15 || props.date.getDate() === 18) &&
           <div className="calendar-masters">
             {props.activeList.map((name, index) => {
               return <div className="calendar-master"

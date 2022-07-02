@@ -51,7 +51,7 @@ function Coloring(props) {
             <div className="prices">
                 <div className="price">
                     <span>Набор клиента:</span>
-                    <textarea rows={1} className="input price-input" defaultValue={350}/>
+                    350р
                 </div>
                 <div className="price">
                     <span>Порошок:</span>

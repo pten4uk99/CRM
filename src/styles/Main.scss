@@ -4,24 +4,37 @@ main {
   overflow: hidden;
 
   .journal {
-    display: flex;
-    position: relative;
+    & > .date-icon {
+      margin-top: 5px;
+      margin-left: 20px;
+      width: 30px;
+      cursor: pointer;
+    }
 
-    width: $main-size;
-    height: calc(100vh - 40px);
-    
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
+    & > .journal-wrapper {
+      width: $main-size;
+      height: calc(100vh - 60px);
 
-    border: 2px solid $border-color;
+      margin-top: 5px;
+      margin-left: 20px;
+      margin-right: 20px;
 
-    overflow-x: hidden;
-    overflow-y: auto;
+      border: 2px solid $border-color;
+
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      & > .day-detail__block {
+        display: flex;
+        position: relative;
+
+      }
+    }
   }
 }
 
 @import "Journal/Time";
+@import "Journal/WorkSchedule";
 @import "../components/Warehouse/styles/Warehouse";
 @import "../components/PriceList/styles/PriceList";
 @import "../components/Additional/styles/Additional";

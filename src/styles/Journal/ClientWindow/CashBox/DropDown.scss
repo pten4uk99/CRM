@@ -1,0 +1,13 @@
+.add-client-window__dropdown {
+  top: 28px;
+  position: absolute;
+  padding: 10px;
+  border: 1px solid $border-color;
+  background-color: white;
+  font-weight: 500;
+  z-index: 10;
+
+  .dropdown-elem {
+
+  }
+}
