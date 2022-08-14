@@ -1,10 +1,14 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 
+import leftArrow from '/src/assets/img/left-arrow.svg'
+import rightArrow from '/src/assets/img/right-arrow.svg'
+import close from '/src/assets/img/journal/journal-close.svg'
 import {DeactivateBackground} from "../../../redux/actions/Main/addClientWindow_actions";
 import {SwapTableItemToInactive} from "../../../redux/actions/Main/masters_actions";
-import CashBox from "./CashBox/CashBox";
-import ClientInfo from "./ClientInfo/ClientInfo";
+import CashBox from "./CashBox";
+import ClientInfo from "./ClientInfo";
+import back from "../../../assets/img/journal/journal-back.svg";
 
 
 function AddClientWindow(props) {
@@ -29,7 +33,7 @@ function AddClientWindow(props) {
         let elem = e.currentTarget.parentElement
         elem.style.transform = 'scale(1.005) translate(-50%, -50%)'
         elem.onmousemove = e => {
-            elem.style.top = elem.offsetTop + e.movementY +  'px'
+            elem.style.top = elem.offsetTop + e.movementY + 'px'
             elem.style.left = elem.offsetLeft + e.movementX + 'px'
             document.onmouseup = () => {
                 elem.onmousemove = null
@@ -51,16 +55,16 @@ function AddClientWindow(props) {
                  onDrag={() => false}
                  ref={addClientWindow}>
 
-                <div className="header-line" onMouseDown={(e) => {handleMouseDown(e)}}/>
+                <div className="header-line" onMouseDown={(e) => {
+                    handleMouseDown(e)
+                }}/>
+                <img className='close' src={close} alt="закрыть" onClick={deactivateWindow}/>
 
-                <div className="tabs">
-                    <div className={clientInfoActive ? "client active" : "client"}
-                         onClick={() => setClientInfoActive(true)}>Клиент</div>
-                    <div className={clientInfoActive ? "cashbox" : "cashbox active"}
-                         onClick={() => setClientInfoActive(false)}>Оплата</div>
-                </div>
-
-                <p className="day">15 янв. суббота</p>
+                <p className="day">
+                    <span className="left-arrow"><img src={leftArrow} alt="назад"/></span>
+                    <span>15 янв. суббота</span>
+                    <span className="right-arrow"><img src={rightArrow} alt="вперед"/></span>
+                </p>
 
                 {clientInfoActive ?
                     <ClientInfo chosenMaster={chosenMaster}
@@ -68,8 +72,13 @@ function AddClientWindow(props) {
                                 master={props.master}
                                 setMaster={setChosenMaster}
                                 clientInfo={props.clientInfo}
-                                tableItem={props.tableItem}/> :
-                    <CashBox/>}
+                                tableItem={props.tableItem}
+                                clientInfoActive={clientInfoActive}
+                                setClientInfoActive={setClientInfoActive}/> :
+                    <>
+                        <img className='back-icon' src={back} alt="назад" onClick={() => setClientInfoActive(true)}/>
+                        <CashBox/>
+                    </>}
             </div>
         </>
     )

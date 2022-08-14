@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
 
 import {connect} from "react-redux";
-import {useIMask} from "react-imask";
+
+import plus from '/src/assets/img/journal/journal-plus.svg'
+import minus from '/src/assets/img/journal/journal-minus.svg'
 import {SetChosenDuration} from "../../../../redux/actions/Main/addClientWindow_actions";
 
 
@@ -114,11 +116,11 @@ function Time(props) {
                 </div>
             </div>
             <div className="change-time">
-                <span className="minus" onClick={() => handleSetDuration(duration - 15)}>-</span>
+                <img className='minus' src={minus} onClick={() => handleSetDuration(duration - 15)} alt="минус"/>
                 <span className="quantity">
                     {duration >= 60 ? `${Math.trunc(duration / 60)} ч.` : ""} {duration % 60} мин.
                 </span>
-                <span className="plus" onClick={() => handleSetDuration(duration + 15)}>+</span>
+                <img className='plus' src={plus} onClick={() => handleSetDuration(duration + 15)} alt="плюс"/>
             </div>
         </div>
     )

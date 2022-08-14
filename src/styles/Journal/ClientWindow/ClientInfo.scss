@@ -1,0 +1,157 @@
+.add-client-window > .client-info {
+  display: grid;
+  grid-template-rows: repeat(20, 25px);
+  grid-template-columns: repeat(18, 50px);
+
+  flex-direction: column;
+
+  font-size: 20px;
+
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 10px;
+
+    margin-left: 25px;
+    // ------up-right-down-left-;
+    padding: 7px 17px 19px 17px;
+    box-sizing: border-box;
+
+    width: 240px;
+    height: 80px;
+
+    font-size: 17px;
+    color: rgba(90, 90, 90, 1);
+    font-weight: 300;
+
+    & > .client-info__input {
+      margin-top: 10px;
+
+      width: 200px;
+      height: 25px;
+      border-bottom: 1px solid rgb(237, 237, 237);
+
+      font-size: 1.1em;
+    }
+
+    &.name {
+      grid-row: 1;
+    }
+
+    &.last-name {
+      margin-top: 17px;
+      grid-row: 4;
+    }
+
+    &.phone {
+      margin-top: 10px;
+      grid-row: 8;
+    }
+
+    &.comment {
+      margin-top: 4px;
+      grid-row: 12;
+
+      height: 152px;
+    }
+  }
+
+  & > .master {
+    position: relative;
+    justify-self: center;
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    grid-column: 13 / span 4;
+    grid-row: 9 / span 3;
+
+    width: 200px;
+    height: 70px;
+
+    margin-left: 30px;
+    padding: 7px;
+    box-sizing: border-box;
+
+    font-size: .9em;
+    font-family: sans-serif;
+    font-weight: 500;
+
+    background-color: white;
+    border-radius: 10px;
+
+    z-index: 3;
+
+    .master-name {
+      box-sizing: border-box;
+      padding: 3px 5px;
+      margin-top: 5px;
+
+      font-weight: 300;
+
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+
+  form {
+    grid-column: 1 / span 11;
+    grid-row: 2 / span 5;
+
+    display: grid;
+    grid-auto-rows: 25px;
+    grid-auto-columns: 50px;
+
+    .time {
+      justify-self: flex-start;
+      align-self: flex-start;
+
+      grid-column: 12 / span 6;
+      grid-row: 1 / span 5;
+
+      margin-left: 28px;
+    }
+
+    .confirm, .payment {
+      grid-column: 13;
+
+      box-sizing: border-box;
+      width: 220px;
+      height: 40px;
+
+      margin-left: 5px;
+      padding: 5px 10px;
+
+      color: white;
+      font-size: .85em;
+      font-weight: 300;
+
+      border-radius: 10px;
+      background-color: white;
+      cursor: pointer;
+
+      &:focus {
+        border-bottom: 1px solid $border-color;
+      }
+    }
+
+    .confirm {
+      grid-row: 16;
+      background-color: $blue;
+    }
+
+    .payment {
+      grid-row: 13;
+      color: $black;
+    }
+  }
+}
+
+@import "ClientInfo/LastVisit";
+@import "ClientInfo/Time";
+@import "ClientInfo/MastersDropDown";
+@import "ClientInfo/ClientsTooltip";

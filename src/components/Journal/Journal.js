@@ -8,7 +8,7 @@ import WorkSchedule from "./WorkSchedule";
 
 
 function Journal(props) {
-    let [isDay, setIsDay] = useState(false);
+    let [isDay, setIsDay] = useState(true);
 
     return (
         <article className="journal">

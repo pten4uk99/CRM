@@ -5,27 +5,59 @@
 
   .service-list {
     display: flex;
-    font-size: 14px;
-    margin-top: 10px;
-    margin-bottom: 27px; // выровнено по верхней части "Итога"
+
+    font-size: 16px;
+    font-weight: 500;
+
+    margin-top: 15px;
+    margin-left: 98px;
+    margin-bottom: 20px; // выровнено по верхней части "Итога"
+
+
+
     .service-list__item {
+      width: 150px;
+      height: 40px;
+
       box-sizing: border-box;
       margin-right: 5px;
       padding: 10px;
-      background-color: $blue;
-      border-radius: 5px;
-      color: $white;
+
+      background-color: white;
+      border-radius: 10px;
+      border: 1px solid #E0E0E0;
+
+      text-align: center;
       cursor: pointer;
       user-select: none;
 
-      &.coloring {
-        margin-right: 30px;
-      }
       &.active {
-        background-color: $white;
-        box-shadow: inset 0 0 0 1px $border-color;
-        color: $black;
+        background-color: $blue;
+        color: white;
       }
+    }
+
+  }
+
+  & > .coloring {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 74px;
+
+    width: 40px;
+    height: 40px;
+
+    background-color: white;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    &.active {
+      background-color: $blue;
     }
   }
 
@@ -55,6 +87,7 @@
     font-size: 16px;
     font-weight: 500;
     margin: 15px 0 10px 10px;
+
     .checkbox {
       margin-top: 4px;
       margin-left: 10px;

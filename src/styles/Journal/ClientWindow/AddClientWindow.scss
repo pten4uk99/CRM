@@ -31,6 +31,7 @@ $add-client-window__header-size: 50px;
 
     background-color: $white;
     box-shadow: 0 0 5px $border-color;
+    border-radius: 10px;
 
     transition: transform .1s, opacity .1s;
     z-index: 10;
@@ -41,6 +42,7 @@ $add-client-window__header-size: 50px;
       border: none;
       resize: none;
     }
+
     .input:focus {
       border-bottom: 2px solid $blue;
     }
@@ -53,11 +55,25 @@ $add-client-window__header-size: 50px;
       height: $add-client-window__header-size;
       width: 100%;
 
-      background-color: $blue;
+      background-color: transparent;
       z-index: 2;
       cursor: move;
       user-select: none;
     }
+
+    & > .close, & > .back-icon {
+      position: absolute;
+      top: 17px;
+      right: 17px;
+
+      cursor: pointer;
+    }
+
+    & > .back-icon {
+      left: 17px;
+      right: inherit;
+    }
+
 
     .tabs {
       position: absolute;
@@ -95,20 +111,35 @@ $add-client-window__header-size: 50px;
       align-items: center;
 
       position: absolute;
-      top: 0;
-      right: 10px;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
 
       height: $add-client-window__header-size;
 
-      color: $white;
       font-size: .8em;
-      font-family: sans-serif;
 
       z-index: 3;
       user-select: none;
+
+      & > .left-arrow, & > .right-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+      }
+
+      span {
+        text-align: center;
+        width: 200px;
+        -webkit-user-drag: none;
+      }
     }
   }
 }
 
-@import "CashBox/CashBox";
-@import "ClientInfo/ClientInfo";
+@import "CashBox";
+@import "ClientInfo";

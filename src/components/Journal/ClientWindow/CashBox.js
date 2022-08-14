@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 
-import Service from "./Service";
-import minus from "/src/assets/img/cash/cash-minus.svg"
-import {RemoveCashPosition} from "../../../../redux/actions/Main/cashResult";
+import Service from "./CashBox/Service";
+import minus from "/src/assets/img/journal/journal-minus.svg"
+import {RemoveCashPosition} from "../../../redux/actions/Main/cashResult";
 
 
 function CashBox(props) {
@@ -31,6 +31,7 @@ function CashBox(props) {
 
     return (
         <section className="add-client-window__cashbox">
+
             <Service/>
 
             <div className="total">
@@ -47,14 +48,14 @@ function CashBox(props) {
                     })}
                 </div>
                 <div className="result">
-                    Итог:
+                    Сумма:
                     <textarea className="input result-input"
                               rows={1}
                               value={calculatorResult}
                               onChange={(e) => handleChangeResult(e)}/>
                 </div>
             </div>
-            <button className="confirm" onClick={() => localStorage.clear()}>Оплачено</button>
+            <button className="confirm" onClick={() => localStorage.clear()}>Оплатить</button>
         </section>
     )
 }

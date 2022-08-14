@@ -1,74 +1,185 @@
 .add-client-window__coloring {
   display: flex;
 
-  &>.prices {
-    margin-left: 10px;
-    &>.price {
+  margin-left: 51px;
+
+  background-color: white;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+
+  width: 580px;
+  height: 400px;
+
+  & > .prices {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 222px;
+
+    border-left: 1px solid $border-color;
+
+    & > .price {
       display: flex;
       align-items: center;
 
+      margin-top: 20px;
+      padding-left: 8px;
+      box-sizing: border-box;
+
+      width: 196px;
       height: 40px;
 
-      font-size: 16px;
-      font-weight: 400;
+      font-size: 14px;
+      font-weight: 500;
 
-      &>span {
-        width: 150px;
-        font-weight: 600;
+      border: 1px solid $border-color;
+      border-radius: 10px;
+
+      &.price__client-set {
+        span {
+          font-weight: 300;
+          width: 116px;
+        }
       }
 
-      .work-input, .price-input, .total-input {
-        text-align: center;
+      &.price__sum-materials {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        margin-top: 10px;
+
+        height: 70px;
+
+        .elem {
+          display: flex;
+          align-items: center;
+
+          &:first-of-type {
+            margin-bottom: 5px;
+          }
+
+          .input {
+            width: 30px;
+
+            padding: 3px;
+            box-sizing: border-box;
+
+            border: 1px solid $border-color;
+            border-radius: 5px;
+          }
+
+          p {
+            width: 20px;
+          }
+
+          span {
+            width: 100px;
+            font-weight: 300;
+          }
+
+          img {
+            margin: 0 10px;
+          }
+        }
+      }
+
+      &.price__sum-paints {
+        margin-top: 40px;
+        span {
+          width: 120px;
+          font-weight: 300;
+        }
+      }
+
+      &.price__sum-work {
+        display: flex;
+        flex-direction: column;
+
+        margin-top: 10px;
+        height: 80px;
+
+        .elem {
+          align-self: flex-start;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          margin-top: 10px;
+          span {
+            font-weight: 300;
+            width: 120px;
+          }
+        }
+
+        .change-time {
+          display: flex;
+          justify-content: center;
+
+          margin: 10px 0 30px;
+
+          font-size: 16px;
+          user-select: none;
+
+          & > .minus, & > .plus {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 20px;
+            height: 20px;
+
+            cursor: pointer;
+          }
+
+          & > .quantity {
+            text-align: center;
+            font-weight: 300;
+            width: 100px;
+          }
+
+        }
+      }
+
+      .sum-input {
+        width: 60px;
+        height: 25px;
+
+        padding: 2px 4px;
         box-sizing: border-box;
-        padding: 3px 5px;
 
-        width: 75px;
-        height: 30px;
+        border: 1px solid $border-color;
+        border-radius: 5px;
 
-        font-size: 18px;
+        font-size: 14px;
+
+        &:focus {
+          border: 1px solid $border-color;
+        }
       }
-
       .price-input {
         width: 60px;
       }
-
-      &.mt-30 {
-        margin-top: 30px;
-      }
-
-      .total-input {
-        color: green;
-      }
     }
 
-    .change-time {
+    & > .coloring__btn-add {
       display: flex;
+      align-items: center;
       justify-content: center;
 
-      margin: 10px 0 30px;
+      width: 196px;
+      height: 35px;
 
-      font-size: 16px;
-      user-select: none;
+      margin-top: 10px;
 
-      &>.minus, &>.plus {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 20px;
-        height: 20px;
-        border: 1px solid $border-color;
-        cursor: pointer;
+      border-radius: 10px;
+
+      font-weight: 300;
+      img {
+        margin-left: 10px;
       }
-      &>.quantity {
-        text-align: center;
-        font-weight: 500;
-        width: 120px;
-      }
-
-    }
-
-    &>button {
-      margin-top: 20px;
     }
   }
 }

@@ -10,16 +10,16 @@ function WorkSchedule(props) {
     let [year, setYear] = useState(2022)
     let [month, setMonth] = useState(7)
 
+    let mastersList = ['Саша', 'Марина', 'Ангелина']
+
     function setCurrentMonth(newMonth) {
         if (newMonth < 1) {
             setYear(year - 1)
             setMonth(12)
-        }
-        else if (newMonth > 12) {
+        } else if (newMonth > 12) {
             setYear(year + 1)
             setMonth(1)
-        }
-        else setMonth(newMonth)
+        } else setMonth(newMonth)
     }
 
     function getDatesList(year, month) {
@@ -48,31 +48,17 @@ function WorkSchedule(props) {
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="master">Сашок</div>
-                    <div className="dates">
-                        {getDatesList(year, month).map((elem) => {
-                            return <div className="cell" key={elem} onClick={(e) => e.target.style.backgroundColor = 'green'}/>
-                        })}
+                {mastersList.map((master, index) => {
+                    return <div className="row" key={index}>
+                        <div className="master">{master}</div>
+                        <div className="dates">
+                            {getDatesList(year, month).map((elem) => {
+                                return <div className="cell" key={elem}
+                                            onClick={(e) => e.target.style.backgroundColor = 'green'}/>
+                            })}
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="master">Ангелинок</div>
-                    <div className="dates">
-                        {getDatesList(year, month).map((elem) => {
-                            return <div className="cell" key={elem} onClick={(e) => e.target.style.backgroundColor = 'green'}/>
-                        })}
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="master">Марина</div>
-                    <div className="dates">
-                        {getDatesList(year, month).map((elem) => {
-                            return <div className="cell" key={elem} onClick={(e) => e.target.style.backgroundColor = 'green'}
-                            />
-                        })}
-                    </div>
-                </div>
+                })}
             </div>
         </section>
     )

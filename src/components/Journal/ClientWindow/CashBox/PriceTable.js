@@ -42,7 +42,7 @@ function PriceTable(props) {
                         </div>
                     })}
                 </div>}
-            {service === 'Стрижка женская' && <WomanPriceTable data={data}/>}
+            {service === 'Женский зал' && <WomanPriceTable data={data}/>}
         </div>
     )
 }

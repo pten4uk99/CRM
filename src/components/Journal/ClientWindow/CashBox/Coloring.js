@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 
+import minus from '/src/assets/img/journal/journal-minus.svg'
+import addIcon from '/src/assets/img/journal/right-arrow-bordered.svg'
+import plus from '/src/assets/img/journal/journal-plus.svg'
+import cross from '/src/assets/img/journal/coloring-cross.svg'
 import Materials from "./Materials";
 import {AddCashPosition} from "../../../../redux/actions/Main/cashResult";
 
 
 function Coloring(props) {
-    const paintPrice = 12
-    const flourPrice = 9
+    let [paintPrice, setPaintPrice] = useState(12)
+    let [flourPrice, setFlourPrice] = useState(9)
 
     let [duration, setDuration] = useState(120)
 
@@ -19,6 +23,12 @@ function Coloring(props) {
     useEffect(() => {
         setWorkSumPrice(String(250 * duration / 15))
     }, [duration])
+
+    useEffect(() => {
+        let paint = Number(paintSumValue) * paintPrice
+        let flour = Number(flourSumValue) * flourPrice
+        setPaintSumPrice(paint + flour)
+    }, [paintPrice, flourPrice])
 
     function setNumberValue(e, setValue) {
         if (!isNaN(Number(e.target.value))) setValue(e.target.value)
@@ -40,6 +50,12 @@ function Coloring(props) {
         if (newDuration >= 15 && newDuration <= 720) setDuration(newDuration)
     }
 
+    function handleChangeMaterialsQuantity(e, setValue) {
+        let value = Number(e.target.value)
+
+        if (!isNaN(value) && value[value.length - 1] !== 0) setValue(value)
+    }
+
     return (
         <div className="add-client-window__coloring">
             <Materials setPaintSumPrice={setPaintSumPrice}
@@ -49,43 +65,63 @@ function Coloring(props) {
                        paintPrice={paintPrice}/>
 
             <div className="prices">
-                <div className="price">
+
+                <div className="price price__client-set">
                     <span>Набор клиента:</span>
                     350р
                 </div>
-                <div className="price">
-                    <span>Порошок:</span>
-                    {flourSumValue}г
-                </div>
-                <div className="price">
-                    <span>Краска:</span>
-                    {paintSumValue}г
+
+                <div className="price price__sum-materials">
+                    <div className="elem">
+                        <span>Порошок:</span>
+                        <p>{flourSumValue}г</p>
+                        <img src={cross} alt="умножить"/>
+                        <textarea className='input'
+                                  rows="1"
+                                  value={flourPrice}
+                                  onChange={(e) => handleChangeMaterialsQuantity(e, setFlourPrice)}/>
+                    </div>
+                    <div className="elem">
+                        <span>Краска:</span>
+                        <p>{paintSumValue}г</p>
+                        <img src={cross} alt="умножить"/>
+                        <textarea className='input'
+                                  rows="1"
+                                  value={paintPrice}
+                                  onChange={(e) => handleChangeMaterialsQuantity(e, setPaintPrice)}/>
+                    </div>
                 </div>
 
-                <div className="price mt-30">
-                    <span>Работа:</span>
-                    <textarea rows={1}
-                              className="input work-input"
-                              value={workSumPrice}
-                              onChange={(e) => setNumberValue(e, setWorkSumPrice)}/>
-                </div>
-
-                <div className="change-time">
-                    <span className="minus" onClick={() => handleSetDuration(duration - 15)}>-</span>
-                    <span className="quantity">
-                        {duration >= 60 ? `${Math.trunc(duration / 60)} ч.` : ""} {duration % 60} мин.
-                    </span>
-                    <span className="plus" onClick={() => handleSetDuration(duration + 15)}>+</span>
-                </div>
-
-                <div className="price">
+                <div className="price price__sum-paints">
                     <span>Сумма красок:</span>
                     <textarea rows={1}
-                              className="input total-input"
+                              className="input sum-input"
                               value={paintSumPrice}
                               onChange={(e) => setNumberValue(e, setPaintSumPrice)}/>
                 </div>
-                <button className="main-btn" onClick={handleAddInCash}>Добавить в итог -></button>
+
+                <div className="price price__sum-work">
+                    <div className="elem">
+                        <span>Работа:</span>
+                        <textarea rows={1}
+                                  className="input sum-input"
+                                  value={workSumPrice}
+                                  onChange={(e) => setNumberValue(e, setWorkSumPrice)}/>
+                    </div>
+
+                    <div className="change-time">
+                        <img className="minus" src={minus} onClick={() => handleSetDuration(duration - 15)}/>
+                        <span className="quantity">
+                        {duration >= 60 ? `${Math.trunc(duration / 60)} ч.` : ""} {duration % 60} мин.
+                    </span>
+                        <img className="plus" src={plus} onClick={() => handleSetDuration(duration + 15)}/>
+                    </div>
+                </div>
+
+                <button className="main-btn coloring__btn-add" onClick={handleAddInCash}>
+                    Добавить в итог
+                    <img src={addIcon} alt="добавить"/>
+                </button>
             </div>
         </div>
     )

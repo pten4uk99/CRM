@@ -2,12 +2,10 @@
   display: flex;
   flex-direction: column;
 
-  padding: 5px;
+  padding: 20px 5px;
 
-  width: 370px;
+  width: 358px;
   height: 388px; // выровнено по кнопке Услуга Оплачена
-
-  border: 1px solid $border-color;
 
   font-size: 16px;
   overflow: auto;

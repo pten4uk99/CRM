@@ -1,5 +1,10 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
+
+import plusUnBordered from '/src/assets/img/journal/coloring-plus-without-border.svg'
+import minusUnBordered from '/src/assets/img/journal/coloring-minus-without-border.svg'
+import plus from '/src/assets/img/journal/coloring-plus.svg'
+import minus from '/src/assets/img/journal/coloring-minus.svg'
 import {roundFifty} from "./Coloring";
 import DropDown from "./DropDown";
 
@@ -133,7 +138,7 @@ function AddCategory(props) {
         <div className="add-client-window__category" onClick={(e) => e.stopPropagation()}>
             <div className="add-category">
                 {props.index === props.lastIndex ?
-                    <div className="plus" onClick={props.onAdd}>+</div> :
+                    <img className='plus-category' src={plus} alt="добавить" onClick={props.onAdd}/> :
                     <div className="nothing"/>}
 
                 <div className="input-category__block">
@@ -166,19 +171,22 @@ function AddCategory(props) {
                                   onChange={(e) => handleChangeMatName(e.target.value, mat['index'])}
                                   onFocus={() => ActivateMaterial(mat['index'])}/>
                         {matIndex === 0 ?
-                            <span className="plus" onClick={() => handleAddMaterial()}>+</span> :
-                            <span className="minus" onClick={() => handleRemoveMaterial(mat['index'])}>-</span>}
+                            <div className='plus' onClick={() => handleAddMaterial()}>
+                                <img src={plusUnBordered} alt='добавить'/>
+                            </div> :
+                            <div className='minus' onClick={() => handleRemoveMaterial(mat['index'])}>
+                                <img className="minus" src={minusUnBordered} alt='убрать'/>
+                            </div>}
 
                         <div className="quantity">
                             <textarea rows={1}
                                       className="input input-quantity"
                                       value={mat['quantity']}
                                       onChange={(e) => handleChangeQuantity(e, mat['index'])}/>
-                            <span>г</span>
                         </div>
 
                         {props.index !== 1 && matIndex === 0 &&
-                            <div className="remove-category" onClick={props.onRemove}><span>-</span></div>}
+                            <img className="remove-category" src={minus} onClick={props.onRemove} alt='удалить'/>}
                     </div>
                 })}
             </div>

@@ -16,13 +16,15 @@
 
     .input-category {
       box-sizing: border-box;
-      width: 110px;
-      padding: 5px;
+      width: 105px;
+      padding: 5px 8px;
       height: 28px;
+
+      border: 1px solid $border-color;
+      border-radius: 5px;
     }
 
-    &>.plus, &>.minus, &>.nothing {
-      margin-top: 5px;
+    & > .plus-category, & > .minus, & > .nothing {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -30,6 +32,7 @@
       width: 20px;
       height: 20px;
 
+      margin-top: 4px;
       margin-right: 5px;
       box-sizing: border-box;
 
@@ -42,18 +45,20 @@
       cursor: pointer;
     }
 
-    &>.minus {
+    & > .minus {
       align-items: center;
       border: 1px solid $red;
       background-color: $white;
       font-size: 22px;
       color: $red;
+
       span {
         transform: translateY(-1px);
       }
     }
-    &>.nothing {
-      background-color: $white;
+
+    & > .nothing {
+      background-color: white;
       cursor: default;
     }
   }
@@ -61,59 +66,69 @@
   .materials {
     display: flex;
     flex-direction: column;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+
     user-select: none;
 
     .add-material {
       position: relative;
       display: flex;
       align-items: center;
+
       .input-material, .input-quantity {
+        margin-bottom: 10px;
         box-sizing: border-box;
-        padding: 5px;
-        width: 90px;
+        padding: 5px 8px;
+
+        width: 105px;
         height: 28px;
+
+        background-color: white;
+        border: 1px solid $border-color;
+        border-radius: 5px;
       }
+
+      &>.plus, &>.minus {
+        align-self: start;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 15px;
+        height: 15px;
+
+        margin-top: 7px;
+
+        cursor: pointer;
+      }
+
       .quantity {
         display: flex;
         align-items: end;
+
         .input-quantity {
-          margin-left: 20px;
+          margin-left: 13px;
           margin-right: 3px;
           width: 40px;
         }
       }
 
-      &>span {
+      & > span {
         width: 20px;
         text-align: center;
         font-size: 18px;
         color: $blue;
         cursor: pointer;
       }
-      &>.minus {
+
+      & > .minus {
         font-size: 20px;
         color: red;
       }
 
-      &>.remove-category {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        width: 20px;
-        height: 20px;
-
-        margin-right: 5px;
-        margin-left: 10px;
+      & > .remove-category {
+        margin-bottom: 10px;
+        margin-left: 3px;
         box-sizing: border-box;
-
-        border: 1px solid $red;
-        border-radius: 5px;
-        color: $red;
-        font-size: 18px;
 
         user-select: none;
         cursor: pointer;
