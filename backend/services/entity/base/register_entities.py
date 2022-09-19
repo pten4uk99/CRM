@@ -1,6 +1,7 @@
 from services.entity import *
 from services.entity.base.entity_collector import EntityCollector
 
+EntityCollector.register(AllowedIpAddress)
 EntityCollector.register(Visit)
 EntityCollector.register(Client)
 EntityCollector.register(Administrator)

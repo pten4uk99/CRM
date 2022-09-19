@@ -1,3 +1,4 @@
+from .allowed_ip_address import AllowedIpAddress
 from .client import Client
 from .visit import Visit
 from .administrator import Administrator
