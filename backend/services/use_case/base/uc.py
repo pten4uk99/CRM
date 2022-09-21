@@ -8,8 +8,11 @@ class UseCase:
     """
     Класс представляющий сценарий использования приложения.
 
+    При наследовании:
+    self._perform_run() - основная логика сценария прописывается тут.
+
     Использование:
-    При инициализации передаются параметры на вход из внешней среды.
+    При инициализации передаются сущности (Entity) на вход из внешней среды.
 
     self.run_case() - интерфейсный метод. Выполняет определенные действия
     с переданными при инициализации сущностями (Entity),
@@ -20,7 +23,7 @@ class UseCase:
 
     __changed_entities: list[Entity] = []
 
-    def __init__(self, *args: list[Entity], **kwargs: dict[str, Entity]):
+    def __init__(self, *args, **kwargs):
         pass
 
     @property
@@ -35,14 +38,17 @@ class UseCase:
 
         self.__changed_entities = entities
 
-    def _check_run_allowed(self):
+    def __check_run_allowed(self):
         if self.__changed_entities is None:
             raise SingleRunException()
 
     def _perform_run(self) -> Union[list[Entity], None]:
         """
         Выполняет непосредственно запуск сценария использования.
-        Работает с переданными при инициализации Entity
+        Работает с переданными при инициализации Entity.
+
+        Может возвращать какой либо результат (например, если нужно просто получить объект из бд)
+        Или записывать результат изменения в self.changed_entities
         """
 
         raise NotImplementedError()
@@ -53,7 +59,7 @@ class UseCase:
         Лучше не переопределять.
         """
 
-        self._check_run_allowed()
+        self.__check_run_allowed()
         result = self._perform_run()
 
         if not self.__changed_entities and not result:

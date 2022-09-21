@@ -33,7 +33,7 @@ class Repository:
         """ Возвращает либо Entity, либо None, если obj не передан  """
 
         if obj is not None:
-            return cls.adapter_class.from_model(obj)
+            return cls.adapter_class.to_entity(obj)
         return None
 
     @classmethod

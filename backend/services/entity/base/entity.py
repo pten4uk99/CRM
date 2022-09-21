@@ -2,7 +2,7 @@ from services.entity.base.exceptions import EntityHasNoAttribute
 
 
 class Entity:
-    def __init__(self, pk, **kwargs):
+    def __init__(self, pk=None, **kwargs):
         self.pk = pk
 
         for key, value in kwargs.items():

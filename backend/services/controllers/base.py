@@ -30,9 +30,9 @@ class UseCaseController:
 
     def _get_use_case_init_kwargs(self) -> dict[str, Union[Entity, list[Entity]]]:
         """
-        Возвращает словарь, ключами которого являются параметры инициализации self.use_case_class,
-        А значения - сущности (Entity).
+        Возвращает словарь, ключами которого являются параметры инициализации self.use_case_class.
         """
+
         raise NotImplementedError()
 
     def _init_use_case(self) -> UseCase:

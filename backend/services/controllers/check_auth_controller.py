@@ -1,7 +1,7 @@
 from services.controllers.base import UseCaseController
 from services.entity import AllowedIpAddress
 from services.repository.allowed_ip_address_repo import AllowedIpAddressRepository
-from services.response.core import CheckAuthControllerResponse
+from services.response.response_core import CheckAuthControllerResponse
 from services.use_case.check_auth_uc import CheckAuthUseCase
 
 
@@ -26,4 +26,4 @@ class CheckAuthController(UseCaseController):
 if __name__ == '__main__':
     controller = CheckAuthController('123.123.123.1')
     result = controller.handle()
-    print(result)
+    print(result['data'][0]['ip'])
