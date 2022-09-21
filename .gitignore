@@ -5,5 +5,5 @@
 
 __pycache__/
 venv/
-local_settings.py
+config/local_settings.py
 
