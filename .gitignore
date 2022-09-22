@@ -6,4 +6,4 @@
 __pycache__/
 venv/
 local_settings.py
-
+.pytest_cache/
