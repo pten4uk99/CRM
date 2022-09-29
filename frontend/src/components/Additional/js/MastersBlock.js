@@ -29,12 +29,13 @@ function MastersBlock(props) {
         <section className="masters__block">
             <AddMasterModal/>
             <div className="masters">
-                <div className="masters-list">
-                    {mastersList.length > 0 ?
-                        mastersList.map((master, index) => <AdditionalMaster name={master.name}
-                                                                             last_name={master.last_name}/>) :
-                        <span>Список мастеров пуст</span>}
-                </div>
+                {mastersList.length > 0 ?
+                    <div className="masters-list">
+                        {mastersList.map((master, index) => <AdditionalMaster name={master.name}
+                                                                             last_name={master.last_name}/>)}
+                    </div> :
+                    <span className='empty-list'>Список мастеров пуст</span>}
+
                 {canAddMaster && <div className="add-master" onClick={onAddMaster}>Добавить мастера</div>}
             </div>
         </section>

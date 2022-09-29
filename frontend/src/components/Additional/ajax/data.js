@@ -11,10 +11,10 @@ export function getMasterList(setMasterList) {
         .catch(error => console.log(error))
 }
 
-export function createNewMaster(masterObj) {
+export function createNewMaster({masterObj, error}) {
     fetchCreateMaster(masterObj)
         .then(data => {
-            if (data.status === STATUS_RESPONSE.error) console.log('ERROR', data)
+            if (data?.status === STATUS_RESPONSE.error) error(data.detail)
         })
         .catch(error => console.log(error))
 }

@@ -1,3 +1,4 @@
+from services.aggregates.base.exceptions import ValidationError
 from services.aggregates.master.entity import Master
 from services.use_case.base import UseCase
 from services.use_case.base.uc_changed import MasterCreateUseCaseChanged
@@ -17,8 +18,18 @@ class MasterCreateUseCase(UseCase):
             'При инициализации переданы не все обязательные атрибуты'
         )
 
+    def _validate_name(self, name):
+        if not name:
+            raise ValidationError('Поле не может быть пустым')
+
+        return name.strip()
+
     def _create_master(self):
-        master = Master(name=self._init.name, last_name=self._init.last_name)
+        master = Master(
+            name=self._validate_name(self._init.name),
+            last_name=self._validate_name(self._init.last_name)
+        )
+
         self.changed_entities = MasterCreateUseCaseChanged(master=master)
 
     def _perform_run(self):

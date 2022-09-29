@@ -19,5 +19,3 @@ class EntityHasNoAttribute(EntityException):
 class ValidationError(EntityException):
     """ Ошибка валидации объекта-значения """
 
-    def __str__(self):
-        return 'Ошибка валидации объекта-значения'

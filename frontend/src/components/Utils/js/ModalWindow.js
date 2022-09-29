@@ -1,9 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
 import {SetActiveModalWindow} from "../redux/modalWindow/modalWindowAction";
+import Loader from "./Loader";
 
 
-function ModalWindow({styleBody, onCancel, buttonText, onConfirm, ...props}) {
+function ModalWindow({styleBody, onCancel, buttonText, onConfirm, loading, ...props}) {
     let windowActive = props.modalWindow.active
 
     function onClose() {
@@ -16,6 +17,7 @@ function ModalWindow({styleBody, onCancel, buttonText, onConfirm, ...props}) {
         <div className='modal-window'>
             <div className="modal-window__wrapper">
 
+                {loading && <Loader size={10} top={15} left={15}/>}
                 <div className="close" onClick={onClose}>Закрыть</div>
 
                 <div className="modal-window__body">

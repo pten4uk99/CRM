@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://192.168.1.196:8000'
+export const BASE_URL = 'http://192.168.1.40:8000'
 
 export const STATUS_RESPONSE = {
     success: 'success',
