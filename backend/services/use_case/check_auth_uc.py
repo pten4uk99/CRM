@@ -1,17 +1,22 @@
-from services.entity import AllowedIpAddress
+from services.use_case.response.response_core import CheckAuthUseCaseResponse
 from services.use_case.base import UseCase
 from services.use_case.base.exceptions import UseCaseException
+from services.use_case.base.uc_init import CheckAuthUseCaseInit
+from services.use_case.base.uc_out import CheckAuthUseCaseOut
 
 
 class CheckAuthUseCase(UseCase):
-    def __init__(self, allowed_ip: AllowedIpAddress):
-        super().__init__()
-        self._allowed_ip = allowed_ip
+    _init: CheckAuthUseCaseInit
+    response_class = CheckAuthUseCaseResponse
+
+    def __init__(self, init: CheckAuthUseCaseInit):
+        super().__init__(init)
 
     def __check_ip(self) -> None:
-        if self._allowed_ip is None:
-            raise UseCaseException('IP адрес не передан')
+        if self._init.allowed_ip is None:
+            raise UseCaseException('Не найдено совпадений по переданному IP адресу')
 
     def _perform_run(self):
         self.__check_ip()
-        return [self._allowed_ip]
+        return CheckAuthUseCaseOut(allowed_ip=self._init.allowed_ip)
+
