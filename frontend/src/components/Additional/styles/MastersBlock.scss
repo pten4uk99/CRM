@@ -2,28 +2,48 @@
   display: flex;
   margin-top: 30px;
 
-  &>.masters {
+  .add-master-modal {
+    .add-master-modal__header {
+      margin-bottom: 20px;
+    }
+
+    .add-master-modal__data {
+      display: flex;
+      flex-direction: column;
+
+      .add-master-modal__input {
+        border-radius: 10px;
+        border: 1px solid $border-color;
+        background-color: white;
+
+        margin-bottom: 5px;
+        padding: 5px 10px;
+      }
+    }
+
+  }
+
+  & > .masters {
     display: flex;
     align-items: center;
     flex-direction: column;
 
     position: relative;
-    padding: 30px 20px;
+    padding: 30px 20px 15px;
 
     border: 1px solid $border-color;
     border-radius: 10px;
     //background-color: $blue;
     //box-shadow: 0 0 5px rgba(0, 0, 0, .4);
 
-    width: max-content;
+    width: 450px;
     height: max-content;
 
-    font-size: 20px;
-    font-weight: 800;
+    font-size: 18px;
     user-select: none;
 
     .masters-list {
-      .master {
+      .additional-master {
         display: flex;
         margin-bottom: 10px;
 
@@ -34,11 +54,12 @@
 
           padding: 10px 15px;
 
-          width: 160px;
+          width: 260px;
 
           background-color: white;
           border: 1px solid $border-color;
           border-radius: 10px;
+
           text-align: center;
           cursor: pointer;
         }
@@ -65,6 +86,22 @@
             transform: scale(1.5);
           }
         }
+
+        .delete-master {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          background-color: $red;
+          border-radius: 10px;
+
+          margin-left: 10px;
+          padding: 7px;
+
+          font-size: .8em;
+          font-weight: 500;
+          color: white;
+        }
       }
     }
 
@@ -72,87 +109,28 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 80px;
-      height: 40px;
-      background-color: white;
+      //width: 80px;
+      //height: 40px;
+      background-color: $blue;
       border-radius: 10px;
 
-      &::after {
-        display: block;
-        content: '+';
-        color: green;
-        font-size: 40px;
-        font-weight: 600;
-      }
-    }
-  }
+      margin-top: 10px;
+      padding: 10px 15px;
 
-  .calendar__wrapper.masters-calendar {
-    $masters-calendar-width: 800px;
-
-    margin-left: 30px;
-    border: 1px solid $border-color;
-    border-radius: 10px;
-
-    .calendar__container {
-      width: $masters-calendar-width;
-      height: 570px;
-      background-color: white;
-
-      .inside__container {
-        .month-nav {
-          margin-bottom: 15px;
-        }
-        .days-of-week__container {
-          width: $masters-calendar-width - 30px;
-
-          .day-of-week {
-            font-size: 14px;
-          }
-          .days-of-week__underline {
-            width: $masters-calendar-width - 30px;
-          }
-        }
-        .dates__list {
-          grid-template-columns: repeat(7, $masters-calendar-width / 7.2);
-          grid-template-rows: repeat(6, $masters-calendar-width / 10.6);
-
-          .calendar-date {
-            flex-direction: row;
-            align-items: flex-start;
-            justify-content: flex-start;
-            width: $masters-calendar-width / 7.2 - 5px;
-            height: $masters-calendar-width / 10.6 - 5px;
-
-            &:hover, &.active, &.today {
-              font-weight: inherit;
-              &>span {
-                font-size: 13px;
-              }
-            }
+      font-weight: 500;
+      font-size: .8em;
+      color: white;
+      cursor: pointer;
 
 
-            &>span {
-              width: 20px;
-              padding: 5px;
-            }
-            
-            .calendar-masters {
-              margin-top: 2px;
-
-              font-size: 12px;
-              color: white;
-              .calendar-master {
-                margin-top: 2px;
-                padding: 2px 5px;
-                background-color: green;
-                border-radius: 10px;
-                text-align: center;
-              }
-            }
-          }
-        }
-      }
+      //&::after {
+      //  display: block;
+      //  content: '+';
+      //  color: green;
+      //  font-size: 40px;
+      //  font-weight: 600;
+      //  margin-bottom: 7px;
+      //}
     }
   }
 }

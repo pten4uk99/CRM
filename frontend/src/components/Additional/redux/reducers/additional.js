@@ -1,5 +1,5 @@
 let initialState = {
-    masters: false,
+    masters: true,
     cashBox: false,
     clients: false,
 }

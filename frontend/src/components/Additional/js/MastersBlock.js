@@ -1,55 +1,41 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 
-import edit from "/src/assets/img/edit.svg"
-import AdditionalCalendar from "./MastersBlock/AdditionalCalendar/jsx/AdditionalCalendar";
+import AdditionalMaster from "./MastersBlock/AdditionalMaster";
+import {getMasterList} from "../ajax/data";
+import ModalWindow from "../../Utils/js/ModalWindow";
+import {SetActiveModalWindow} from "../../Utils/redux/modalWindow/modalWindowAction";
+import AddMasterModal from "./MastersBlock/AddMasterModal";
 
 
 function MastersBlock(props) {
-    let mastersList = ['Саша', 'Вика', 'Ира', 'Марина', 'Ангелина']
-    let colorsList = ['rgb(0, 128, 0)', 'rgb(255, 165, 0)', 'rgb(255, 20, 147)']
-    let [activeList, setActiveList] = useState([])
-    let [editName, setEditName] = useState('')
+    let [mastersList, setMastersList] = useState([])
 
-    function handleSetActiveList(name) {
-        if (activeList.includes(name)) {
-            return setActiveList(activeList.filter(elem => elem !== name))
-        }
-        if (activeList.length >= 3) return false
-        setActiveList([...activeList, name])
-    }
+    useEffect(() => {
+        getMasterList(setMastersList)
+    }, [])
 
-    function handleSetEditName(name) {
-        if (editName === name) setEditName('')
-        else setEditName(name)
+    let [canAddMaster, setCanAddMaster] = useState(true)
+
+    useEffect(() => {
+        if (mastersList.length >= 5) setCanAddMaster(false)
+    }, mastersList)
+
+    function onAddMaster() {
+        props.SetActiveModalWindow(true)
     }
 
     return (
         <section className="masters__block">
+            <AddMasterModal/>
             <div className="masters">
-
                 <div className="masters-list">
-                    {mastersList.map((name, index) => {
-                        return <div className="master">
-                            <span className="name"
-                                  onClick={() => handleSetActiveList(name)}
-                                  style={activeList.includes(name) ?
-                                      {
-                                          backgroundColor: colorsList[activeList.indexOf(name)],
-                                          color: "white"
-                                      } : {}}>{name}</span>
-                            <img className={`edit ${editName === name && 'active'}`}
-                                 src={edit}
-                                 alt="Редактировать"
-                                 onClick={() => handleSetEditName(name)}/>
-                        </div>
-                    })}
+                    {mastersList.length > 0 ?
+                        mastersList.map((master, index) => <AdditionalMaster name={master.name}
+                                                                             last_name={master.last_name}/>) :
+                        <span>Список мастеров пуст</span>}
                 </div>
-
-            </div>
-
-            <div className="calendar__wrapper masters-calendar">
-                <AdditionalCalendar activeList={activeList} colorsList={colorsList} editName={editName}/>
+                {canAddMaster && <div className="add-master" onClick={onAddMaster}>Добавить мастера</div>}
             </div>
         </section>
     )
@@ -57,5 +43,7 @@ function MastersBlock(props) {
 
 export default connect(
     state => ({store: state}),
-    dispatch => ({})
+    dispatch => ({
+        SetActiveModalWindow: (active) => dispatch(SetActiveModalWindow(active))
+    })
 )(MastersBlock);

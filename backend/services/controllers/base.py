@@ -63,4 +63,11 @@ class UseCaseController:
 
         use_case = self._init_use_case()
         self._handle_use_case(use_case)
+
+        if use_case.changed_entities:
+            self._save_use_case_result(use_case.changed_entities)
+
+        if use_case.entities_to_delete:
+            self._delete_entities_result(use_case.entities_to_delete)
+
         return use_case.response

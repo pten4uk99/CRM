@@ -15,14 +15,14 @@ admin_router = APIRouter(
 
 
 @admin_router.post('/master', response_model=DefaultResponseSchema)
-def create_master(request: Request, master: MasterCreateIn, session: Session = Depends(get_db_session)):
+async def create_master(request: Request, master: MasterCreateIn, session: Session = Depends(get_db_session)):
     controller = MasterCreateController(session=session, name=master.name, last_name=master.last_name)
     result = controller.handle()
     return result
 
 
 @admin_router.get('/master', response_model=MasterListResponseModel)
-def get_master_list(request: Request, session: Session = Depends(get_db_session)):
+async def get_master_list(request: Request, session: Session = Depends(get_db_session)):
     controller = MasterListController(session=session)
     result = controller.handle()
     return result

@@ -1,3 +1,10 @@
+export const BASE_URL = 'http://192.168.1.196:8000'
+
+export const STATUS_RESPONSE = {
+    success: 'success',
+    error: 'error'
+}
+
 export const REPLACER = {
     "q": "й", "w": "ц", "e": "у", "r": "к", "t": "е", "y": "н", "u": "г",
     "i": "ш", "o": "щ", "p": "з" , "[": "х" , "]": "ъ", "a": "ф", "s": "ы",
