@@ -1,30 +1,33 @@
 const initialState = {
-    className: "background",
-    chosenDuration: 30
+    active: false,
+    tableItem: null,
+    defaultTimeStart: {
+        hour: undefined,
+        minutes: undefined
+    },
+    defaultMaster: {
+        pk: undefined,
+        name: undefined,
+        lastName: undefined,
+    },
+    chosenDuration: 30,
+    mastersList: [],
 }
 
 export default function addClientWindow(state = initialState, action) {
     switch (action.type) {
-        case "ACTIVATE_BACKGROUND":
-            return {...state, className: "background active"}
-        case "DEACTIVATE_BACKGROUND":
-            return {...state, className: "background"}
-        case "SWAP_ORIENTATION_TO_TOP":
-            return {
-                ...state,
-                orientation: "active-top",
-                offsetTop: action.payload.offsetTop - 315,
-                offsetLeft: action.payload.offsetLeft
-            }
-        case "SWAP_ORIENTATION_TO_BOTTOM":
-            return {
-                ...state,
-                orientation: "active-bottom",
-                offsetTop: action.payload.offsetTop - 10,
-                offsetLeft: action.payload.offsetLeft
-            }
+        case "SET_ADD_CLIENT_WINDOW_TABLE_ITEM":
+            return {...state, tableItem: action.payload.tableItemId}
+        case "SET_ADD_CLIENT_WINDOW_ACTIVE":
+            return {...state, active: action.payload}
+        case "SET_ADD_CLIENT_WINDOW_DEFAULT_TIME_START":
+            return {...state, defaultTimeStart: {hour: action.payload.hour, minutes: action.payload.minutes}}
+        case "SET_ADD_CLIENT_WINDOW_DEFAULT_MASTER":
+            return {...state, defaultMaster: {pk: action.pk, name: action.name, lastName: action.lastName}}
         case "SET_CHOSEN_DURATION":
             return {...state, chosenDuration: action.payload}
+        case "SET_ADD_CLIENT_WINDOW_MASTERS_LIST":
+            return {...state, mastersList: action.payload}
         default:
             return state
     }

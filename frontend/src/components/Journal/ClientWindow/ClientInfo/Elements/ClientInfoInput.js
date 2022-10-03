@@ -8,12 +8,16 @@ function ClientInfoInput({label, defaultValue, name, phoneMask, onChange, classN
     const [opts, setOpts] = React.useState({mask: "+{7}(000)000-00-00"});
     const {ref, maskRef} = useIMask(opts);
 
+    function change(e) {
+        if (onChange) onChange(e)
+    }
+
     return (
         <InputWrapper classNameModifier={classNameModifier}>
             <div className="label">{label}</div>
             <textarea className="input client-info__input"
                       defaultValue={defaultValue}
-                      onChange={(e) => onChange(e)}
+                      onChange={(e) => change(e)}
                       name={name}
                       rows={1}
                       ref={phoneMask && ref}/>

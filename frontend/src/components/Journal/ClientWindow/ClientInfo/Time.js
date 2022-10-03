@@ -79,7 +79,7 @@ function Time(props) {
             <div className="time-range">
                 <div className="time-start">
                     <input className="hours"
-                           name="start-hours"
+                           name="start_hours"
                            type="text"
                            value={hourStart}
                            onFocus={(e) => {handleFocus(e)}}
@@ -88,7 +88,7 @@ function Time(props) {
                                e, {max: 24, setValue: setHourStart, setNextValue: setMinutesStart})}/>
                     <span className="colon">:</span>
                     <input className="minutes"
-                           name="start-minutes"
+                           name="start_minutes"
                            type="text"
                            value={minutesStart}
                            onFocus={(e) => {handleFocus(e)}}
@@ -98,7 +98,7 @@ function Time(props) {
                 <span className="minus">-</span>
                 <div className="time-end">
                     <input className="hours"
-                           name="end-hours"
+                           name="end_hours"
                            type="text"
                            value={hourEnd}
                            onFocus={(e) => {handleFocus(e)}}
@@ -107,7 +107,7 @@ function Time(props) {
                                e, {max: 24, setValue: setHourEnd, setNextValue: setMinutesEnd})}/>
                     <span className="colon">:</span>
                     <input className="minutes"
-                           name="end-minutes"
+                           name="end_minutes"
                            type="text"
                            value={minutesEnd}
                            onFocus={(e) => {handleFocus(e)}}

@@ -1,8 +1,7 @@
-from services.aggregates.master.entity import Master
 from services.aggregates.master.repository import MasterRepository
 from services.controllers.base import UseCaseController
-from services.use_case.base.uc_changed import MasterCreateUseCaseChanged, SetMasterTimeTableUseCaseChanged
-from services.use_case.base.uc_init import MasterCreateUseCaseInit, SetMasterTimeTableUseCaseInit
+from services.use_case.base.uc_changed import SetMasterTimeTableUseCaseChanged
+from services.use_case.base.uc_init import SetMasterTimeTableUseCaseInit
 from services.use_case.base.uc_to_delete import SetMasterTimeTableToDelete
 from services.use_case.set_master_timetable_uc import SetMasterTimeTableUseCase
 
@@ -34,16 +33,22 @@ class SetMasterTimeTableController(UseCaseController):
 
     def _save_use_case_result(self, use_case_changed: SetMasterTimeTableUseCaseChanged):
         repo = MasterRepository(self.session)
+        master = repo.get(self._master_id)
+        repo.set_instance(master)
 
         for work_day in use_case_changed.work_days:
             repo.add_work_day_to_instance(work_day, commit=False)
 
         repo.commit()
+        return use_case_changed
 
     def _delete_entities_result(self, use_case_to_delete: SetMasterTimeTableToDelete):
         repo = MasterRepository(self.session)
+        master = repo.get(self._master_id)
+        repo.set_instance(master)
 
         for work_day in use_case_to_delete.work_days:
             repo.remove_work_day_from_instance(work_day, commit=False)
-            
+
         repo.commit()
+        return use_case_to_delete

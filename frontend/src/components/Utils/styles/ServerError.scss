@@ -1,0 +1,26 @@
+.server-error-tooltip {
+  display: flex;
+  align-items: center;
+
+  position: fixed;
+
+  width: calc(100% - $header-size);
+  height: 70px;
+
+  box-sizing: border-box;
+  padding: 10px;
+
+  background-color: red;
+
+  color: $white;
+
+  z-index: 101;
+
+  h2 {
+    font-weight: 600;
+  }
+
+  p {
+    margin-left: 20px;
+  }
+}

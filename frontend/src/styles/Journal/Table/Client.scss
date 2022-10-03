@@ -6,20 +6,26 @@
   padding: 5px;
   box-sizing: border-box;
 
-  background-color: rgb(189, 200, 231);
+
   border: 1px solid $border-color;
   z-index: 4;
 
   font-size: 16px;
   font-weight: 400;
+  text-align: left;
   overflow: hidden;
 
   transform-origin: center;
   transition: transform .1s, height .1s;
 
-  &.done {
-    //background-color: rgb(174, 211, 174);
+  &.confirmed {
+    background-color: rgb(189, 200, 231);
+  }
+  &.need_confirm {
     background-color: rgb(203, 203, 203);
+  }
+  &.completed {
+    background-color: rgb(255, 255, 255);
   }
 
   &:hover {

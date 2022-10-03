@@ -1,23 +1,39 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 
-import {ActivateBackground} from "../../../redux/actions/Main/addClientWindow_actions";
+import {
+    ActivateBackground,
+    SetAddClientWindowActive, SetDefaultMaster,
+    SetDefaultTimeStart, SetTableItemId
+} from "../../../redux/actions/Main/addClientWindow_actions";
 import {SwapTableItemToActive} from "../../../redux/actions/Main/masters_actions";
 import AddClientWindow from "../ClientWindow/AddClientWindow";
 import Client from "./Client";
 
 
-function TableItem(props) {
-    const currentItem = props.store.masters[props.master][props.index];
-    const clients = props.store.clients;
+function TableItem({master, ...props}) {
+    const currentItem = props.store.masters[master.pk].tableItems[props.index];
+    const clients = props.store.clients[master.pk];
 
     let [currentClient, setCurrentClient] = useState(null);
 
+    let timeStart = currentClient ? getTime(currentClient.time_start) : null
+    let timeEnd = currentClient ? getTime(currentClient.time_end) : null
+
+    function getTime(time) {
+        let formatted = time.split(':')
+        return {
+            hour: Number(formatted[0]),
+            minutes: Number(formatted[1])
+        }
+    }
+
     useEffect(() => {
         setCurrentClient(clients.filter((elem) => {
-            return elem.master === props.master &&
-                Number(elem.timeStart.hour) === Number(currentItem.hour) &&
-                Number(elem.timeStart.minutes) === Number(currentItem.minutes)})[0])
+            let elemTimeStart = getTime(elem.time_start)
+            return elem.master.pk === master.pk &&
+                Number(elemTimeStart.hour) === Number(currentItem.hour) &&
+                Number(elemTimeStart.minutes) === Number(currentItem.minutes)})[0])
     }, [clients])
 
     let [underlineClass, setUnderlineClass] = useState('underline');
@@ -28,20 +44,31 @@ function TableItem(props) {
         setUnderlineClass('underline');
     }
 
+    function activateWindow() {
+        props.SetTableItemId(props.index)
+        props.SetDefaultTimeStart(Number(currentItem.hour), Number(currentItem.minutes))
+        props.SetDefaultMaster(master.pk, master.name, master.last_name)
+        props.SwapTableItemToActive(master.pk, props.index)
+        props.SetAddClientWindowActive(true)
+    }
+
+    function getUnderlineLength(props) {
+        return 15 + 222 * Object.keys(props.masters).length;
+    }
+
     return (
         <>
             {currentClient && <Client key={props.index}
-                                      master={props.master}
-                                      params={currentClient}
+                                      master={master}
+                                      timeStart={timeStart}
+                                      timeEnd={timeEnd}
+                                      clientInfo={currentClient}
                                       onClick={(event) => activateWindow(event, props, props.index)}/>}
 
             <div className={props.className}
-                 onClick={(event) => activateWindow(event, props, props.index)}
+                 onClick={activateWindow}
                  onMouseEnter={activateUnderline} onMouseLeave={deactivateUnderline}/>
-            {currentItem.active ? <AddClientWindow tableItem={currentItem}
-                                                   master={props.master}
-                                                   index={props.index}
-                                                   clientInfo={currentClient}/> : ""}
+
             {props.index % 4 === 0 ? <hr className="bold-border"/> : <></>}
             <hr className={underlineClass} style={{width: getUnderlineLength(props.store)}}/>
         </>
@@ -51,17 +78,10 @@ function TableItem(props) {
 export default connect(
     state => ({store: state.Main}),
     dispatch => ({
-        ActivateBackground: () => dispatch(ActivateBackground()),
+        SetTableItemId: (id) => dispatch(SetTableItemId(id)),
+        SetDefaultMaster: (pk, name, lastName) => dispatch(SetDefaultMaster(pk, name, lastName)),
+        SetDefaultTimeStart: (hour, minutes) => dispatch(SetDefaultTimeStart(hour, minutes)),
+        SetAddClientWindowActive: (active) => dispatch(SetAddClientWindowActive(active)),
         SwapTableItemToActive: (i, name) => dispatch(SwapTableItemToActive(i, name)),
     })
 )(TableItem);
-
-function activateWindow(event, props, index) {
-    props.SwapTableItemToActive(index, props.master);
-    props.ActivateBackground()
-}
-
-
-function getUnderlineLength(props) {
-    return 15 + 222 * Object.keys(props.masters).length;
-}

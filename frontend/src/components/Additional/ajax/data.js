@@ -1,20 +1,30 @@
-import {fetchCreateMaster, fetchMasterList} from "./server";
-import {STATUS_RESPONSE} from "../../../constants";
+import {fetchCreateMaster, fetchDeleteMaster, fetchMasterList} from "./server";
+import {handleResponse, STATUS_RESPONSE} from "../../../constants";
 import {adaptMasterList} from "./adapters";
 
-export function getMasterList(setMasterList) {
+export function getMasterList({success, clientError, serverError}) {
     fetchMasterList()
-        .then(data => {
-            if (data.status === STATUS_RESPONSE.success) setMasterList(adaptMasterList(data.data))
-            else if (data.status === STATUS_RESPONSE.error) console.log('ERROR', data)
+        .then(data => handleResponse({data, success, clientError, serverError}))
+        .catch(error => {
+            serverError(error.message)
+            console.log(error)
         })
-        .catch(error => console.log(error))
 }
 
-export function createNewMaster({masterObj, error}) {
+export function createNewMaster({masterObj, success, clientError, serverError}) {
     fetchCreateMaster(masterObj)
-        .then(data => {
-            if (data?.status === STATUS_RESPONSE.error) error(data.detail)
+        .then(data => handleResponse({data, success, clientError, serverError}))
+        .catch(error => {
+            serverError(error.message)
+            console.log(error)
         })
-        .catch(error => console.log(error))
+}
+
+export function deleteMaster({masterId, success, clientError, serverError}) {
+    fetchDeleteMaster(masterId)
+        .then(data => handleResponse({data, success, clientError, serverError}))
+        .catch(error => {
+            serverError(error.message)
+            console.log(error)
+        })
 }

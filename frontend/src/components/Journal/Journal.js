@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import calendarMonth from "/src/assets/img/journal/calendar-month.svg"
 import calendarDate from "/src/assets/img/journal/calendar-date.svg"
 import DayDetail from "./DayDetail";
-import WorkSchedule from "./WorkSchedule";
+import WorkScheduleRequest from "./WorkScheduleRequest";
 
 
 function Journal(props) {
@@ -29,8 +29,9 @@ function Journal(props) {
                          src={calendarMonth}
                          alt="месяц"
                          onClick={() => setIsDay(true)}/>
+
                     <div className="journal-wrapper">
-                        <WorkSchedule/>
+                        <WorkScheduleRequest/>
                     </div>
                 </>}
         </article>

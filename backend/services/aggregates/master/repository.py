@@ -1,4 +1,4 @@
-from sqlalchemy import and_
+from sqlalchemy import and_, extract
 
 from infrastructure.database.models import MasterDB, WorkDayDB, MasterWorkDayDB
 from services.aggregates.base.repository.base import Repository
@@ -50,9 +50,12 @@ class MasterRepository(Repository):
             self.session.commit()
 
     def _delete_master_work_day(self, master_db: MasterDB, work_day_db: WorkDayDB):
-        query = self.session.query(MasterWorkDayDB)
+        query = self.session.query(MasterWorkDayDB).join(MasterDB).join(WorkDayDB)
         filtered_query = query.filter(and_(MasterDB.pk == master_db.pk, WorkDayDB.pk == work_day_db.pk))
-        filtered_query.delete()
+
+        for elem in filtered_query:
+            self.session.delete(elem)
+        self.session.commit()
 
     def remove_work_day_from_instance(self, work_day: WorkDay, commit: bool = True):
         """
@@ -80,10 +83,12 @@ class MasterRepository(Repository):
     def get_associate_master_work_days(self, master_id: int, year: int, month: int) -> list[WorkDay]:
         """ Возвращает все объекты WorkDay, взятые из ассоциативных таблиц мастера """
 
-        query = self.session.query(MasterWorkDayDB)
+        query = self.session.query(MasterWorkDayDB).join(WorkDayDB).join(MasterDB)
         filtered_query = query.filter(and_(
-            MasterDB.pk == master_id, WorkDayDB.date.year == year, WorkDayDB.date.month == month)
-        )
+            MasterDB.pk == master_id,
+            extract('year', WorkDayDB.date) == year,
+            extract('month', WorkDayDB.date) == month
+        )).all()
 
         work_days = []
         for work_day in filtered_query:
@@ -100,4 +105,15 @@ class MasterRepository(Repository):
 
     def _create(self, adapted_model: MasterDB):
         self.session.add(adapted_model)
+        self.session.commit()
+        return adapted_model
+
+    def _delete(self):
+        master_work_days = self.session.query(MasterWorkDayDB).join(MasterDB)\
+            .filter(MasterDB.pk == self._instance_db.pk).all()
+
+        for wd in master_work_days:
+            self.session.delete(wd)
+
+        self.session.delete(self._instance_db)
         self.session.commit()

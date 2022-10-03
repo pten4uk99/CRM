@@ -1,25 +1,25 @@
 import React, {useEffect, useRef, useState} from "react";
 import {connect} from "react-redux";
 import {SetClientInfo} from "../../../redux/actions/Main/clients_actions";
+import {CLIENT_STATUS} from "../../../constants";
 
-function Client(props) {
+function Client({master, clientInfo, timeStart, timeEnd, ...props}) {
     let [tableItem, setTableItem] = useState(null);
-    let currentClient = props.store.masters[props.master];
+    let currentClient = props.store.masters[master.pk];
     let [style, setStyle] = useState({});
     let elem = useRef();
     let [fullSize, setFullSize] = useState(false);
-    let data = props.params;
 
     useEffect(() => {
-        if (props.params) setStyle({
-            height: props.params.duration / 15 * 25 + props.params.duration / 15
+        if (clientInfo) setStyle({
+            height: clientInfo.duration / 15 * 25 + clientInfo.duration / 15
         })
-    }, [props.params])
+    }, [clientInfo])
 
     useEffect(() => {
-        setTableItem(currentClient.filter((elem) => {
-            return elem.hour === props.params.timeStart.hour &&
-                elem.minutes === props.params.timeStart.minutes})[0])
+        setTableItem(currentClient.tableItems.filter((item) => {
+            return (Number(item.hour) === Number(timeStart.hour)) &&
+                (Number(item.minutes) === Number(timeStart.minutes))})[0])
         }, [])
 
     useEffect(() => {
@@ -35,10 +35,14 @@ function Client(props) {
         setFullSize(!fullSize)
     }
 
+    function padStart(number) {
+        return String(number).padStart(2, '0')
+    }
+
     return tableItem && (
         <>
             <div className={`background ${fullSize && "active"}`} onClick={() => setFullSize(false)}/>
-            <div className={`client ${data.isDone && "done"}`}
+            <div className={`client ${CLIENT_STATUS[clientInfo.status]}`}
                  tabIndex={1}
                  style={fullSize ? {...style,
                      boxShadow: "0 0 10px rgba(0, 0, 0, .5)",
@@ -49,37 +53,37 @@ function Client(props) {
                  ref={elem}>
                 {!fullSize ?
                     <div className="client__content">
-                        <p className="name">{data.toMaster ?
+                        <p className="name">{!clientInfo?.either_master ?
                             <span className="master-client"/> :
                             <span className="non-master-client"/>}
-                            {data.name}</p>
-                        <p className="phone">{data.phone}</p>
+                            {clientInfo?.client?.name}</p>
+                        <p className="phone">{clientInfo?.client?.phone}</p>
                     </div> :
                     <div className="client__content">
                         <p className="time">
-                            {data.timeStart.hour}:{data.timeStart.minutes} - {' '}
-                            {data.timeEnd.hour}:{data.timeEnd.minutes}
+                            {padStart(timeStart.hour)}:{padStart(timeStart.minutes)} -
+                            {padStart(timeEnd.hour)}:{padStart(timeEnd.minutes)}
                         </p>
                         <p className="name wrap">
-                            {data.toMaster ?
+                            {!clientInfo?.either_master ?
                             <span className="master-client"/> :
                             <span className="non-master-client"/>}
-                            {data.name}</p>
-                        <p className="last-name">{data.lastName}</p>
-                        <p className="phone mt-10">{data.phone}</p>
+                            {clientInfo?.client?.name}</p>
+                        <p className="last-name">{clientInfo?.client?.last_name}</p>
+                        <p className="phone mt-10">{clientInfo?.client?.phone}</p>
                         {/*<p className="service">{data.service}</p>*/}
-                        <p className="comment">{data.comment}</p>
+                        <p className="comment">{clientInfo?.comment}</p>
 
                         <div className="underline"/>
 
                         <p className="last-visit">
                             <p className="header">Последнее посещение:</p>
-                            {data.lastVisit ?
+                            {clientInfo?.lastVisit ?
                                 <>
-                                    <div className="date">{data.lastVisit.date}</div>
-                                    <div className="time">{data.lastVisit.time}</div>
-                                    <div className="service">{data.lastVisit.service}</div>
-                                    <div className="duration">{data.lastVisit.duration / 60} ч.</div>
+                                    <div className="date">{clientInfo?.lastVisit.date}</div>
+                                    <div className="time">{clientInfo?.lastVisit.time}</div>
+                                    <div className="service">{clientInfo?.lastVisit.service}</div>
+                                    <div className="duration">{clientInfo?.lastVisit.duration / 60} ч.</div>
                                     <button className="detail">Подробнее...</button>
                                 </> :
                                 <span>Нет</span>

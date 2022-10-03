@@ -2,13 +2,16 @@ from services.aggregates.administrator.adapters.response_adapter import Response
     AdministratorListResponseDict
 from services.aggregates.allowed_ip_address.adapters.response_adapter import ResponseAllowedIpAddressAdapter, \
     AllowedIpAddressResponseDict
-from services.aggregates.master.adapters.response_adapter import MasterListResponseDict, ResponseMasterListAdapter, \
-    MasterListWithTimeTableResponseDict
+from services.aggregates.master.adapters.response_adapter import MasterResponseDict, ResponseMasterAdapter, \
+    MasterWithTimeTableResponseDict
 from services.aggregates.price_list.adapters.response_adapter import PriceListResponseDict, ResponsePriceListAdapter
-from services.aggregates.visit.adapters.response_adapter import ResponseVisitAdapter, VisitResponseDict
-from services.use_case.response.base import UseCaseResponse
+from services.aggregates.visit.adapters.response_adapter import ResponseVisitAdapter, VisitResponseDict, \
+    MasterWithVisitsResponseDict
+from services.use_case.base.uc_changed import MasterCreateUseCaseChanged, SetMasterTimeTableUseCaseChanged
 from services.use_case.base.uc_out import CheckAuthUseCaseOut, AdministratorListUseCaseOut, MasterListUseCaseOut, \
     GetTimeTableUseCaseOut, GetPriceListUseCaseOut, GetVisitListUseCaseOut
+from services.use_case.base.uc_to_delete import MasterDeleteUseCaseToDelete, SetMasterTimeTableUseCaseToDelete
+from services.use_case.response.base import UseCaseResponse
 
 
 class CheckAuthUseCaseResponse(UseCaseResponse):
@@ -47,12 +50,26 @@ class AdministratorListUseCaseResponse(UseCaseResponse):
 
 
 class MasterCreateUseCaseResponse(UseCaseResponse):
-    pass
+    @classmethod
+    def _ok(cls, use_case_changed: MasterCreateUseCaseChanged = None) -> list[MasterResponseDict]:
+        if use_case_changed is not None:
+            adapted = ResponseMasterAdapter.from_entity(use_case_changed.master)
+            return [adapted]
+        return []
+
+
+class MasterDeleteUseCaseResponse(UseCaseResponse):
+    @classmethod
+    def _ok(cls, use_case_to_delete: MasterDeleteUseCaseToDelete = None) -> list:
+        if use_case_to_delete is not None:
+            adapted = ResponseMasterAdapter.from_entity(use_case_to_delete.master)
+            return [adapted]
+        return []
 
 
 class MasterListUseCaseResponse(UseCaseResponse):
     @classmethod
-    def _ok(cls, use_case_out: MasterListUseCaseOut = None) -> list[MasterListResponseDict]:
+    def _ok(cls, use_case_out: MasterListUseCaseOut = None) -> list[MasterResponseDict]:
         if use_case_out is None:
             # прописано условие, чтобы сигнатура этого метода совпадала с сигнатурой метода в базовом классе
             raise ValueError(f'"use_case_out" параметр не может быть None')
@@ -60,7 +77,7 @@ class MasterListUseCaseResponse(UseCaseResponse):
         masters_list = []
 
         for master in use_case_out.masters:
-            adapted = ResponseMasterListAdapter.from_entity(master)
+            adapted = ResponseMasterAdapter.from_entity(master)
             masters_list.append(adapted)
 
         return masters_list
@@ -68,7 +85,7 @@ class MasterListUseCaseResponse(UseCaseResponse):
 
 class GetTimeTableUseCaseResponse(UseCaseResponse):
     @classmethod
-    def _ok(cls, use_case_out: GetTimeTableUseCaseOut = None) -> list[MasterListWithTimeTableResponseDict]:
+    def _ok(cls, use_case_out: GetTimeTableUseCaseOut = None) -> list[MasterWithTimeTableResponseDict]:
         if use_case_out is None:
             # прописано условие, чтобы сигнатура этого метода совпадала с сигнатурой метода в базовом классе
             raise ValueError(f'"use_case_out" параметр не может быть None')
@@ -76,9 +93,22 @@ class GetTimeTableUseCaseResponse(UseCaseResponse):
         response = []
 
         for master in use_case_out.masters:
-            response.append(ResponseMasterListAdapter.from_entity_with_timetable(master))
+            response.append(ResponseMasterAdapter.from_entity_with_timetable(master))
 
         return response
+
+
+class SetMasterTimeTableUseCaseResponse(UseCaseResponse):
+    @classmethod
+    def response_with_changed_entities(cls, use_case_changed: SetMasterTimeTableUseCaseChanged = None,
+                                       use_case_to_delete: SetMasterTimeTableUseCaseToDelete = None) -> list[int]:
+        work_days = []
+
+        if use_case_changed is not None:
+            for work_day in use_case_changed.work_days:
+                work_days.append(work_day.date.day)
+
+        return work_days
 
 
 class AddOnePriceItemUseCaseResponse(UseCaseResponse):
@@ -114,10 +144,10 @@ class CloseWorkShiftUseCaseResponse(UseCaseResponse):
 
 class GetVisitListUseCaseResponse(UseCaseResponse):
     @classmethod
-    def _ok(cls, use_case_out: GetVisitListUseCaseOut = None) -> list[VisitResponseDict]:
+    def _ok(cls, use_case_out: GetVisitListUseCaseOut = None) -> list[MasterWithVisitsResponseDict]:
         result = []
 
-        for visit in use_case_out.visits:
-            result.append(ResponseVisitAdapter.from_entity(visit))
+        for master in use_case_out.masters_with_visits:
+            result.append(ResponseVisitAdapter.from_master_with_visits(master))
 
         return result

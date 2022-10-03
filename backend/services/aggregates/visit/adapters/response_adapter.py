@@ -12,7 +12,6 @@ class ClientResponseDict(TypedDict):
     name: str
     last_name: str
     phone: int
-    comment: str
 
 
 class MasterResponseDict(TypedDict):
@@ -28,6 +27,20 @@ class VisitResponseDict(TypedDict):
     client: ClientResponseDict
     master: MasterResponseDict
 
+    duration: int
+    either_master: bool
+    status: str
+    comment: str
+    paid: int
+    discount: int
+    card: int
+    delete_reason: str
+
+
+class MasterWithVisitsResponseDict(TypedDict):
+    master: MasterResponseDict
+    visits: list[VisitResponseDict]
+
 
 class ResponseVisitAdapter(ResponseEntityAdapter):
     @classmethod
@@ -42,8 +55,17 @@ class ResponseVisitAdapter(ResponseEntityAdapter):
             phone=obj.phone,
             name=obj.name,
             last_name=obj.last_name,
-            comment=obj.comment,
         )
+
+    @classmethod
+    def from_master_with_visits(cls, obj: Master) -> MasterWithVisitsResponseDict:
+        master = cls._get_master_dict(obj)
+        visits = []
+
+        for visit in obj.visits:
+            visits.append(cls.from_entity(visit))
+
+        return MasterWithVisitsResponseDict(master=master, visits=visits)
 
     @classmethod
     def from_entity(cls, obj: Visit) -> VisitResponseDict:
@@ -61,4 +83,12 @@ class ResponseVisitAdapter(ResponseEntityAdapter):
             time_end=obj.datetime_end.time(),
             master=master,
             client=client,
+            card=obj.card,
+            comment=obj.comment,
+            delete_reason=obj.delete_reason,
+            discount=obj.discount,
+            duration=obj.duration,
+            either_master=obj.either_master,
+            paid=obj.paid,
+            status=obj.status.name
         )

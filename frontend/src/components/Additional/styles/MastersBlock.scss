@@ -20,7 +20,19 @@
         padding: 5px 10px;
       }
     }
+  }
 
+  .delete-master-modal {
+    .delete-master-modal__header {
+      color: red;
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 30px;
+    }
+
+    .delete-master-modal__data {
+      text-align: center;
+    }
   }
 
   & > .masters {

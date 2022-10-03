@@ -1,18 +1,17 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {connect} from "react-redux";
+
 import Master from "./Master";
 
 
-function Masters(props) {
+function Masters({responseLoaded, setResponseLoaded, workDayMastersList, ...props}) {
+
     return (
         <>
-            <div className="masters-line">
-
-            </div>
+            <div className="masters-line"/>
             <section className="masters">
-                <Master name="Саша"/>
-                <Master name="Вика"/>
-                <Master name="Ира"/>
+                {workDayMastersList.map((masterVisit) => <Master key={masterVisit.master.pk}
+                                                                 masterData={masterVisit}/>)}
             </section>
         </>
 
@@ -20,6 +19,6 @@ function Masters(props) {
 }
 
 export default connect(
-    state => ({store: state.Main.addClientWindow}),
+    state => ({store_calendar: state.calendar}),
     dispatch => ({})
 )(Masters);

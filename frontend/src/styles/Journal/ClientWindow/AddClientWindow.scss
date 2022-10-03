@@ -1,6 +1,6 @@
 $add-client-window__header-size: 50px;
 
-.table-items {
+.day-detail__block {
   .background {
     display: none;
 
@@ -21,7 +21,7 @@ $add-client-window__header-size: 50px;
     }
   }
 
-  .add-client-window {
+  & > .add-client-window {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -117,7 +117,7 @@ $add-client-window__header-size: 50px;
 
       height: $add-client-window__header-size;
 
-      font-size: .8em;
+      font-size: 1.1em;
 
       z-index: 3;
       user-select: none;

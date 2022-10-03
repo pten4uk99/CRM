@@ -1,6 +1,7 @@
-export function UpdateClients(data) {
-    return {type: "UPDATE_CLIENTS", payload: data}
+export function AddMasterClients(masterId, clients) {
+    return {type: "ADD_MASTER_CLIENTS", payload: {masterId: masterId, clients: clients}}
 }
+
 export function SetClientInfo(master, hour, minutes, data) {
     return {
         type: "SET_CLIENT_INFO",

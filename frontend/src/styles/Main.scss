@@ -12,6 +12,8 @@ main {
     }
 
     & > .journal-wrapper {
+      position: relative;
+
       width: $main-size;
       height: calc(100vh - 60px);
 

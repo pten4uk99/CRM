@@ -6,9 +6,11 @@ import {handleInputChange} from "../../../Journal/ClientWindow/ClientInfo";
 import {createNewMaster} from "../../ajax/data";
 import {SetActiveModalWindow} from "../../../Utils/redux/modalWindow/modalWindowAction";
 import {SetClientErrorDetail} from "../../../Utils/redux/clientError/clientErrorActions";
+import {SetServerErrorDetail} from "../../../Utils/redux/serverError/serverErrorActions";
+import {adaptMasterList} from "../../ajax/adapters";
 
 
-function AddMasterModal({...props}) {
+function AddMasterModal({addMaster, onClose, ...props}) {
 
     let [name, setName] = useState('')
     let [lastName, setLastName] = useState('')
@@ -18,22 +20,33 @@ function AddMasterModal({...props}) {
         let master = {name: name, last_name: lastName}
 
         setResponseLoaded(false)
-        createNewMaster({masterObj: master, error: errorResponse})
+        createNewMaster({
+            masterObj: master,
+            success: successResponse,
+            clientError: clientError,
+            serverError: serverError
+        })
     }
 
-    function successResponse() {
+    function successResponse(data) {
         setResponseLoaded(true)
+        addMaster(adaptMasterList(data.data)[0])
         props.SetActiveModalWindow(false)
     }
 
-    function errorResponse(detail) {
+    function clientError(detail) {
         setResponseLoaded(true)
         props.SetClientErrorDetail(detail)
     }
 
+    function serverError(detail) {
+        setResponseLoaded(true)
+        props.SetServerErrorDetail(detail)
+    }
+
     return (
         <div className='add-master-modal'>
-            <ModalWindow onConfirm={handleConfirm} loading={!responseLoaded}>
+            <ModalWindow onConfirm={handleConfirm} loading={!responseLoaded} onCancel={onClose}>
                 <h3 className="add-master-modal__header">Создание нового мастера</h3>
                 <div className="add-master-modal__data">
                     <input className='input add-master-modal__input'
@@ -59,5 +72,6 @@ export default connect(
     dispatch => ({
         SetActiveModalWindow: (active) => dispatch(SetActiveModalWindow(active)),
         SetClientErrorDetail: (detail) => dispatch(SetClientErrorDetail(detail)),
+        SetServerErrorDetail: (detail) => dispatch(SetServerErrorDetail(detail)),
     })
 )(AddMasterModal);

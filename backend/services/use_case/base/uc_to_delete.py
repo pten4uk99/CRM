@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from services.aggregates.master.entity import Master
 from services.aggregates.work_day.entity import WorkDay
 
 
@@ -17,3 +18,8 @@ class SetMasterTimeTableToDelete(UseCaseToDelete):
 @dataclass
 class SetMasterTimeTableUseCaseToDelete(UseCaseToDelete):
     work_days: list[WorkDay]
+
+
+@dataclass
+class MasterDeleteUseCaseToDelete(UseCaseToDelete):
+    master: Master

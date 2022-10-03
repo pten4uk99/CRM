@@ -23,3 +23,14 @@ export function fetchCreateMaster(data) {
     }
     return fetch(`${BASE_URL}/admin/master`, options).then(response => response.json())
 }
+
+
+export function fetchDeleteMaster(masterId) {
+    const options = {
+        method: 'DELETE',
+        headers: HEADERS,
+        credentials: 'include',
+    }
+    return fetch(`${BASE_URL}/admin/master/${masterId}`, options).then(response => response.json())
+}
+

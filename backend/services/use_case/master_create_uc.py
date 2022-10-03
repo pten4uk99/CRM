@@ -13,6 +13,9 @@ class MasterCreateUseCase(UseCase):
     def __init__(self, init: MasterCreateUseCaseInit):
         super().__init__(init)
 
+    def modify_response(self, use_case_changed: MasterCreateUseCaseChanged = None, use_case_to_delete=None):
+        self.response = self.response_class.ok(use_case_changed)
+
     def _check_can_create_master(self):
         assert self._init.name is not None and self._init.last_name is not None, (
             'При инициализации переданы не все обязательные атрибуты'

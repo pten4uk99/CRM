@@ -16,13 +16,14 @@ class NewVisitController(UseCaseController):
     use_case_class = NewVisitUseCase
 
     def __init__(self, session, datetime_start: datetime.datetime,
-                 datetime_end: datetime.datetime, phone: int = None,
-                 name: str = None, last_name: str = None, comment: str = None,
-                 client_id: int = None, master_id: int = None):
+                 datetime_end: datetime.datetime, either_master: bool, master_id: int,
+                 phone: str = None, name: str = None, last_name: str = None,
+                 comment: str = None, client_id: int = None):
         super().__init__(session=session)
 
         self._datetime_start = datetime_start
         self._datetime_end = datetime_end
+        self._either_master = either_master
         self._phone = phone
         self._name = name
         self._last_name = last_name
@@ -36,14 +37,19 @@ class NewVisitController(UseCaseController):
             return repo.get(self._client_id)
 
     def __get_master(self) -> Optional[Master]:
-        if self._master_id is not None:
-            repo = MasterRepository(self.session)
-            return repo.get(self._master_id)
+        repo = MasterRepository(self.session)
+        return repo.get(self._master_id)
+
+    def __get_day_visit_list(self):
+        repo = VisitRepository(self.session)
+        return repo.getlist(date=self._datetime_start.date())
 
     def _get_use_case_init(self):
         return NewVisitUseCaseInit(
+            day_visits=self.__get_day_visit_list(),
             datetime_start=self._datetime_start,
             datetime_end=self._datetime_end,
+            either_master=self._either_master,
             phone=self._phone,
             name=self._name,
             last_name=self._last_name,
@@ -55,7 +61,6 @@ class NewVisitController(UseCaseController):
     def _save_use_case_result(self, use_case_changed: NewVisitUseCaseChanged) -> None:
         if use_case_changed.client:
             client_repo = ClientRepository(self.session)
-            use_case_changed.visit.client = client_repo.create(use_case_changed.client)
+            use_case_changed.visit.client = client_repo.get_or_create(use_case_changed.client)
         repo = VisitRepository(self.session)
         repo.create(use_case_changed.visit)
-

@@ -4,6 +4,14 @@ from sqlalchemy.orm import relationship
 from infrastructure.database.base import BaseModel
 from services.aggregates.visit.entity import StatusChoice
 
+BaseModel.metadata.naming_convention = {
+    "ix": 'ix_%(column_0_label)s',
+    "uq": "uq_%(table_name)s_%(column_0_name)s",
+    "ck": "ck_%(table_name)s_%(constraint_name)s",
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+    "pk": "pk_%(table_name)s"
+}
+
 
 class AllowedIpAddressDB(BaseModel):
     __tablename__ = 'allowed_ip_address'
@@ -43,8 +51,8 @@ class WorkDayDB(BaseModel):
 class MasterWorkDayDB(BaseModel):
     __tablename__ = 'master_work_day'
 
-    master_id = Column(ForeignKey('master.pk'), primary_key=True)
-    work_day_id = Column(ForeignKey('work_day.pk'), primary_key=True)
+    master_id = Column(ForeignKey('master.pk', ondelete='CASCADE'), primary_key=True)
+    work_day_id = Column(ForeignKey('work_day.pk', ondelete='CASCADE'), primary_key=True)
     master = relationship('MasterDB', back_populates='work_days')
     work_day = relationship('WorkDayDB', back_populates='masters')
 
@@ -120,10 +128,12 @@ class VisitDB(BaseModel):
     datetime_start = Column(DateTime, nullable=False)
     datetime_end = Column(DateTime, nullable=False)
     client_id = Column(Integer, ForeignKey('client.pk'))
-    master_id = Column(Integer, ForeignKey('master.pk'))
+    master_id = Column(Integer, ForeignKey('master.pk'), nullable=False)
+    either_master = Column(Boolean, nullable=False)
     work_shift_id = Column(Integer, ForeignKey('work_shift.pk'))
     status = Column(String, Enum(StatusChoice), nullable=False)
-    delete_reason = Column(String, nullable=False)
+    delete_reason = Column(String)
+    comment = Column(Text)
     paid = Column(Integer)
     discount = Column(Integer)
     card = Column(Integer)
@@ -140,7 +150,6 @@ class ClientDB(BaseModel):
     pk = Column(Integer, primary_key=True, index=True)
     name = Column(String)
     last_name = Column(String)
-    phone = Column(BigInteger, nullable=False)
-    comment = Column(Text)
+    phone = Column(BigInteger, nullable=False, unique=True)
 
     visits = relationship('VisitDB', back_populates='client')

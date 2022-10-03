@@ -4,60 +4,120 @@ import {connect} from "react-redux";
 import ClientsTooltip from "./ClientInfo/ClientsTooltip";
 import Time from "./ClientInfo/Time";
 import {REPLACER} from "../../../constants";
-import {useIMask} from "react-imask";
-import {SetClientInfo, UpdateClients} from "../../../redux/actions/Main/clients_actions";
-import {DeactivateBackground} from "../../../redux/actions/Main/addClientWindow_actions";
+import {SetClientInfo} from "../../../redux/actions/Main/clients_actions";
 import {SwapTableItemToInactive} from "../../../redux/actions/Main/masters_actions";
 import MastersDropDown from "./ClientInfo/MastersDropDown";
-import {onFormSubmit} from "./ClientInfo/services/utils";
 import ClientInfoInput from "./ClientInfo/Elements/ClientInfoInput";
 import LastVisit from "./ClientInfo/Elements/LastVisit";
+import {addNewVisit} from "./ajax/data";
+import {SetClientErrorDetail} from "../../Utils/redux/clientError/clientErrorActions";
+import {SetServerErrorDetail} from "../../Utils/redux/serverError/serverErrorActions";
 
 
-function ClientInfo(props) {
-    let chosenMaster = props.chosenMaster;
-    let chosenDuration = props.store.Main.addClientWindow.chosenDuration;
+function ClientInfo({chosenMasterId, setMasterId, currentDate, deactivateWindow, requestMastersWithVisits, ...props}) {
+    let addClientWindow = props.store_add_client_window
+    let defaultTimeStart = addClientWindow.defaultTimeStart
+    let [chosenMaster, setChosenMaster] = useState(getChosenMaster(chosenMasterId))
+    let chosenDuration = addClientWindow.chosenDuration
     let form = useRef();
     let [dropDownVisible, setDropDownVisible] = useState(false)
+    let [eitherMaster, setEitherMaster] = useState(true)
+    let [responseLoaded, setResponseLoaded] = useState(true)
 
 
-    function handleSubmitForm(e) {
-        props.deactivateWindow()
-        e.preventDefault()
-        onFormSubmit(
-            e, chosenMaster, chosenDuration, props.clientInfo,
-            props.SetClientInfo, props.UpdateClients
-        )
+    useEffect(() => {setChosenMaster(getChosenMaster(chosenMasterId))}, [chosenMasterId])
+
+    function getChosenMaster(masterId) {
+        let mastersList = addClientWindow.mastersList
+        for (let master of mastersList) if (master.pk === chosenMasterId) return master
     }
 
+    function getDatetime(hours, minutes) {
+        return `${currentDate.year}-${currentDate.month}-${currentDate.day}T${hours}:${minutes}`
+    }
+
+    function handleSubmitForm(e) {
+        setResponseLoaded(false)
+        e.preventDefault()
+
+        let formData = new FormData(e.target)
+        let startHours = formData.get('start_hours')
+        let startMinutes = formData.get('start_minutes')
+        let endHours = formData.get('end_hours')
+        let endMinutes = formData.get('end_minutes')
+
+        let datetimeStart = getDatetime(startHours, startMinutes)
+        let datetimeEnd = getDatetime(endHours, endMinutes)
+
+        formData.set('datetime_start', datetimeStart)
+        formData.set('datetime_end', datetimeEnd)
+        formData.set('master_id', chosenMasterId)
+        formData.set('either_master', eitherMaster)
+
+
+        addNewVisit({
+            formData: formData,
+            success: successAddVisit,
+            clientError: clientError,
+            serverError: serverError
+        })
+
+        // onFormSubmit(
+        //     e, chosenMaster, chosenDuration, props.clientInfo,
+        //     props.SetClientInfo, props.UpdateClients
+        // )
+    }
+
+    function activateMastersDropdown(e) {
+        e.stopPropagation();
+        setDropDownVisible(true)
+    }
+
+    function successAddVisit() {
+        deactivateWindow()
+        requestMastersWithVisits()
+        setResponseLoaded(true)
+    }
+
+    function clientError(detail) {
+        setResponseLoaded(true)
+        props.SetClientErrorDetail(detail)
+    }
+
+    function serverError(detail) {
+        setResponseLoaded(true)
+        props.SetServerErrorDetail(detail)
+    }
     return (
         <div className="client-info" onClick={() => setDropDownVisible(false)}>
 
             <div className="master">
                 <span>Мастер</span>
                 <div className="master-name"
-                     onClick={(e) => {
-                         e.stopPropagation();
-                         setDropDownVisible(true)
-                     }}>{chosenMaster}</div>
+                     onClick={(e) => activateMastersDropdown(e)}>{chosenMaster?.name} {chosenMaster?.last_name}</div>
                 {dropDownVisible && <MastersDropDown setVisible={setDropDownVisible}
-                                                     setMaster={props.setMaster}/>}
+                                                     setMasterId={setMasterId}/>}
+                <div className="either-master">
+                    <label>Именно к этому мастеру: <input name='either_master'
+                                                          onClick={() => setEitherMaster(!eitherMaster)}
+                                                          type="checkbox"/></label>
+                </div>
             </div>
 
             <form onSubmit={(e) => handleSubmitForm(e)} ref={form} autoComplete="off">
 
                 <Time clientInfo={props.clientInfo}
-                      hoursStart={props.tableItem.hour}
-                      minutesStart={props.tableItem.minutes}/>
+                      hoursStart={defaultTimeStart.hour}
+                      minutesStart={defaultTimeStart.minutes}/>
 
                 <ClientInfoInput label='Имя'
                                  defaultValue={props.clientInfo?.name}
-                                 name='first-name'
+                                 name='name'
                                  onChange={handleInputChange}
                                  classNameModifier='name'/>
                 <ClientInfoInput label='Фамилия'
                                  defaultValue={props.clientInfo?.lastName}
-                                 name='last-name'
+                                 name='last_name'
                                  onChange={handleInputChange}
                                  classNameModifier='last-name'/>
                 <ClientInfoInput label='Телефон'
@@ -72,8 +132,8 @@ function ClientInfo(props) {
                                  classNameModifier='comment'/>
 
 
-
-                <input className="payment" type="button" value="Оплата" onClick={() => props.setClientInfoActive(false)}/>
+                <input className="payment" type="button" value="Оплата"
+                       onClick={() => props.setClientInfoActive(false)}/>
                 <input className="confirm" type="submit" value={props.clientInfo ? "Изменить" : "Добавить клиента"}/>
             </form>
 
@@ -85,12 +145,12 @@ function ClientInfo(props) {
 
 
 export default connect(
-    state => ({store: state}),
+    state => ({store_add_client_window: state.Main.addClientWindow}),
     dispatch => ({
-        UpdateClients: (data) => dispatch(UpdateClients(data)),
-        DeactivateBackground: () => dispatch(DeactivateBackground()),
         SetClientInfo: (master, hour, minutes, data) => dispatch(SetClientInfo(master, hour, minutes, data)),
-        SwapTableItemToInactive: (name, index) => dispatch(SwapTableItemToInactive(name, index))
+        SwapTableItemToInactive: (name, index) => dispatch(SwapTableItemToInactive(name, index)),
+        SetClientErrorDetail: (detail) => dispatch(SetClientErrorDetail(detail)),
+        SetServerErrorDetail: (detail) => dispatch(SetServerErrorDetail(detail)),
     })
 )(ClientInfo);
 

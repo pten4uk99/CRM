@@ -18,4 +18,6 @@ class MasterCreateController(UseCaseController):
 
     def _save_use_case_result(self, use_case_changed: MasterCreateUseCaseChanged):
         repo = MasterRepository(session=self.session)
-        repo.create(use_case_changed.master)
+        use_case_changed.master = repo.create(use_case_changed.master)
+        return use_case_changed
+

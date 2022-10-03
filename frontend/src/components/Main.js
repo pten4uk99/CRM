@@ -6,6 +6,7 @@ import Warehouse from "./Warehouse/js/Warehouse";
 import PriceList from "./PriceList/js/PriceList";
 import Additional from "./Additional/js/Additional";
 import ClientError from "./Utils/js/ClientError";
+import ServerError from "./Utils/js/ServerError";
 
 
 function Main(props) {
@@ -13,7 +14,9 @@ function Main(props) {
 
     return (
         <main>
+            <ServerError/>
             <ClientError/>
+
             {menu.journal && <Journal/>}
             {menu.warehouse && <Warehouse/>}
             {menu.priceList && <PriceList/>}

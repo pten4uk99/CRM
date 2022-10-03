@@ -101,10 +101,15 @@ class UseCase:
             assert isinstance(result, UseCaseOut), (
                 f'"_perform_run()" метод должен возвращать объект типа {UseCaseOut}')
 
-        assert self.__changed_entities or result, (
+        assert self.__changed_entities or result or self.__entities_to_delete, (
             'Не получен никакой результат после запуска UseCase. '
             'Необходимо добавить измененные сущности в self.changed_entities '
             'или self._perform_run должен возвратить список сущностей')
+
+    def modify_response(self, use_case_changed: UCChanged = None, use_case_to_delete: UCToDelete = None):
+        """ Позволяет изменить self.response """
+
+        pass
 
     def run_case(self):
         """

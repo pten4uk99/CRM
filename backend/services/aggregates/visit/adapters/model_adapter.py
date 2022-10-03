@@ -1,5 +1,4 @@
-from infrastructure.database.models import AllowedIpAddressDB, VisitDB, ClientDB, MasterDB
-from services.aggregates.allowed_ip_address import AllowedIpAddress
+from infrastructure.database.models import VisitDB, ClientDB, MasterDB
 from services.aggregates.base.adapters.base import EntityAdapter
 from services.aggregates.client.entity import Client
 from services.aggregates.master.entity import Master
@@ -14,7 +13,6 @@ class VisitAdapter(EntityAdapter):
             name=obj.name,
             last_name=obj.last_name,
             phone=obj.phone,
-            comment=obj.comment,
         )
 
     @classmethod
@@ -40,26 +38,31 @@ class VisitAdapter(EntityAdapter):
             datetime_start=obj.datetime_start,
             datetime_end=obj.datetime_end,
             status=getattr(StatusChoice, obj.status),
+            either_master=obj.either_master,
             client=client,
             delete_reason=obj.delete_reason,
             master=master,
             paid=obj.paid,
             discount=obj.discount,
-            card=obj.card
+            card=obj.card,
+            comment=obj.comment,
         )
 
     @classmethod
     def from_entity(cls, obj: Visit):
-        client_id = obj.client.id if obj.client else None
+        client_id = obj.client.pk if obj.client else None
 
         return VisitDB(
             pk=obj.pk,
             datetime_start=obj.datetime_start,
             datetime_end=obj.datetime_end,
+            either_master=obj.either_master,
             client_id=client_id,
+            master_id=obj.master.pk,
             status=obj.status.name,
             delete_reason=obj.delete_reason,
             paid=obj.paid,
             discount=obj.discount,
             card=obj.card,
+            comment=obj.comment,
         )

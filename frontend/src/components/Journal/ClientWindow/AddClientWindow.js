@@ -4,17 +4,33 @@ import {connect} from "react-redux";
 import leftArrow from '/src/assets/img/left-arrow.svg'
 import rightArrow from '/src/assets/img/right-arrow.svg'
 import close from '/src/assets/img/journal/journal-close.svg'
-import {DeactivateBackground} from "../../../redux/actions/Main/addClientWindow_actions";
+import {SetAddClientWindowActive} from "../../../redux/actions/Main/addClientWindow_actions";
 import {SwapTableItemToInactive} from "../../../redux/actions/Main/masters_actions";
 import CashBox from "./CashBox";
 import ClientInfo from "./ClientInfo";
 import back from "../../../assets/img/journal/journal-back.svg";
+import {DateTime} from "luxon";
+import {MONTHS} from "../../../constants";
+import {SetCheckedDate} from "../../Header/Calendar/redux/actions/calendar";
 
 
-function AddClientWindow(props) {
+function AddClientWindow({requestMastersWithVisits, ...props}) {
+    let master = props.store.defaultMaster
+    let tableItemId = props.store.tableItem
+    let checkedCalendarDate = props.store_calendar.checkedDate
     const addClientWindow = React.useRef();
-    let [chosenMaster, setChosenMaster] = useState(props.master)
+    let [chosenMasterId, setChosenMasterId] = useState(master.pk)
     let [clientInfoActive, setClientInfoActive] = useState(true)
+
+    let [currentDate, setCurrentDate] = useState(null)
+
+    useEffect(() => {
+        let year = checkedCalendarDate.getFullYear()
+        let month = checkedCalendarDate.getMonth() + 1
+        let day = checkedCalendarDate.getDate()
+        let date = DateTime.local(year, month, day)
+        setCurrentDate(date)
+    }, [checkedCalendarDate])
 
     useEffect(() => {
         let eventHandler = (e) => e.code === 'Escape' && deactivateWindow()
@@ -43,13 +59,25 @@ function AddClientWindow(props) {
     }
 
     function deactivateWindow() {
-        props.SwapTableItemToInactive(props.master, props.index)
-        props.DeactivateBackground()
+        props.SwapTableItemToInactive(master.pk, tableItemId)
+        props.SetAddClientWindowActive(false)
+    }
+
+    function plusDay() {
+        let newDate = currentDate.plus({days: 1})
+        setCurrentDate(newDate)
+        props.SetCheckedDate(new Date(newDate.year, newDate.month - 1, newDate.day))
+    }
+
+    function minusDay() {
+        let newDate = currentDate.minus({days: 1})
+        setCurrentDate(newDate)
+        props.SetCheckedDate(new Date(newDate.year, newDate.month - 1, newDate.day))
     }
 
     return (
         <>
-            <div className={props.store.className} onClick={deactivateWindow}/>
+            <div className={`background ${props.store.active && 'active'}`} onClick={deactivateWindow}/>
             <div className="add-client-window"
                  style={{top: props.store.offsetTop, left: props.store.offsetLeft}}
                  onDrag={() => false}
@@ -60,21 +88,27 @@ function AddClientWindow(props) {
                 }}/>
                 <img className='close' src={close} alt="закрыть" onClick={deactivateWindow}/>
 
-                <p className="day">
-                    <span className="left-arrow"><img src={leftArrow} alt="назад"/></span>
-                    <span>15 янв. суббота</span>
-                    <span className="right-arrow"><img src={rightArrow} alt="вперед"/></span>
-                </p>
+                {currentDate &&
+                    <p className="day">
+                        <span className="left-arrow" onClick={minusDay}><img src={leftArrow} alt="назад"/></span>
+                        <span>
+                            {currentDate.day} {MONTHS[currentDate.month].slice(0, 3).toLowerCase()}. <br/>
+                            {currentDate.weekdayLong}
+                        </span>
+                        <span className="right-arrow" onClick={plusDay}><img src={rightArrow} alt="вперед"/></span>
+                    </p>}
 
                 {clientInfoActive ?
-                    <ClientInfo chosenMaster={chosenMaster}
+                    <ClientInfo chosenMasterId={chosenMasterId}
                                 deactivateWindow={deactivateWindow}
+                                currentDate={currentDate}
                                 master={props.master}
-                                setMaster={setChosenMaster}
+                                setMasterId={setChosenMasterId}
                                 clientInfo={props.clientInfo}
                                 tableItem={props.tableItem}
                                 clientInfoActive={clientInfoActive}
-                                setClientInfoActive={setClientInfoActive}/> :
+                                setClientInfoActive={setClientInfoActive}
+                                requestMastersWithVisits={requestMastersWithVisits}/> :
                     <>
                         <img className='back-icon' src={back} alt="назад" onClick={() => setClientInfoActive(true)}/>
                         <CashBox/>
@@ -85,9 +119,10 @@ function AddClientWindow(props) {
 }
 
 export default connect(
-    state => ({store: state.Main.addClientWindow}),
+    state => ({store: state.Main.addClientWindow, store_calendar: state.calendar}),
     dispatch => ({
-        DeactivateBackground: () => dispatch(DeactivateBackground()),
+        SetCheckedDate: (date) => dispatch(SetCheckedDate(date)),
+        SetAddClientWindowActive: (active) => dispatch(SetAddClientWindowActive(active)),
         SwapTableItemToInactive: (name, index) => dispatch(SwapTableItemToInactive(name, index)),
     })
 )(AddClientWindow);

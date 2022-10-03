@@ -1,8 +1,11 @@
-from typing import Type
+from typing import Type, TypeVar
 
 from services.use_case.base import UseCase, UseCaseChanged, UseCaseToDelete
 from services.use_case.base.uc_init import UseCaseInit
 from services.use_case.response.response_types import ResponseDict
+
+UCChanged = TypeVar('UCChanged', bound=UseCaseChanged)
+UCToDelete = TypeVar('UCToDelete', bound=UseCaseToDelete)
 
 
 class UseCaseController:
@@ -44,12 +47,12 @@ class UseCaseController:
 
         use_case.run_case()
 
-    def _save_use_case_result(self, use_case_changed: UseCaseChanged) -> None:
+    def _save_use_case_result(self, use_case_changed: UCChanged) -> UCChanged:
         """ Сохраняет результат use_case в БД """
 
         raise NotImplementedError()
 
-    def _delete_entities_result(self, use_case_to_delete: UseCaseToDelete) -> None:
+    def _delete_entities_result(self, use_case_to_delete: UCToDelete) -> UCToDelete:
         """ Удаляет сущности переданные в use_case_to_delete """
 
         raise NotImplementedError()
@@ -64,10 +67,16 @@ class UseCaseController:
         use_case = self._init_use_case()
         self._handle_use_case(use_case)
 
+        changed_entities = None
+        entities_to_delete = None
+
         if use_case.changed_entities:
-            self._save_use_case_result(use_case.changed_entities)
+            changed_entities = self._save_use_case_result(use_case.changed_entities)
 
         if use_case.entities_to_delete:
-            self._delete_entities_result(use_case.entities_to_delete)
+            entities_to_delete = self._delete_entities_result(use_case.entities_to_delete)
+
+        if entities_to_delete or changed_entities:
+            use_case.modify_response(changed_entities, entities_to_delete)
 
         return use_case.response

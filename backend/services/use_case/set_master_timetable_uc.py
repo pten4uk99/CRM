@@ -5,12 +5,12 @@ from services.use_case.base import UseCase
 from services.use_case.base.uc_changed import SetMasterTimeTableUseCaseChanged
 from services.use_case.base.uc_init import SetMasterTimeTableUseCaseInit
 from services.use_case.base.uc_to_delete import SetMasterTimeTableUseCaseToDelete
-from services.use_case.response.response_core import MasterCreateUseCaseResponse
+from services.use_case.response.response_core import SetMasterTimeTableUseCaseResponse
 
 
 class SetMasterTimeTableUseCase(UseCase):
     _init: SetMasterTimeTableUseCaseInit
-    response_class = MasterCreateUseCaseResponse
+    response_class = SetMasterTimeTableUseCaseResponse
 
     def __init__(self, init: SetMasterTimeTableUseCaseInit):
         super().__init__(init)

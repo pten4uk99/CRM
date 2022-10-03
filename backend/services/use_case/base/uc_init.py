@@ -45,6 +45,11 @@ class MasterCreateUseCaseInit(UseCaseInit):
 
 
 @dataclass
+class MasterDeleteUseCaseInit(UseCaseInit):
+    master: Master
+
+
+@dataclass
 class MasterListUseCaseInit(UseCaseInit):
     masters: list[Master]
 
@@ -102,9 +107,11 @@ class CloseWorkShiftUseCaseInit(UseCaseInit):
 
 @dataclass
 class NewVisitUseCaseInit(UseCaseInit):
+    day_visits: list[Visit]
     datetime_start: datetime.datetime
     datetime_end: datetime.datetime
-    phone: int = None
+    either_master: bool
+    phone: str = None
     name: str = None
     last_name: str = None
     comment: str = None
@@ -114,7 +121,8 @@ class NewVisitUseCaseInit(UseCaseInit):
 
 @dataclass
 class GetVisitListUseCaseInit(UseCaseInit):
-    visits: list[Visit]
+    date: datetime.date
+    masters_with_visits: list[Master]
 
 
 if __name__ == '__main__':

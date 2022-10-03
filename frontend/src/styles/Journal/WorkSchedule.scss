@@ -1,3 +1,13 @@
+.journal-wrapper > .work-schedule__empty-list {
+  position: relative;
+  top: 100px;
+
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgb(115, 115, 115);
+}
+
 .journal-wrapper > .work-schedule__block {
   display: flex;
   flex-direction: column;
@@ -9,46 +19,117 @@
     justify-content: center;
     user-select: none;
 
-    &>.month {
+    & > .month {
       text-align: center;
-      width: 120px;
+      width: 160px;
 
       font-size: 18px;
       font-weight: 600;
+    }
+
+    & > img {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
     }
   }
 
   & > .table {
     margin-top: 30px;
 
-    & > .row {
-      display: flex;
-
-      & > .master {
+    & > .work-schedule__row-wrapper {
+      & > .row {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 120px;
-        height: 34px;
-        border: 1px solid $border-color;
-        box-sizing: border-box;
 
-        font-size: 18px;
-        font-weight: 600;
-        word-break: break-all;
-      }
+        &.head {
+          & > .master {
+            border: none;
+          }
 
-      & > .dates {
-        height: 34px;
-        line-height: 34px;
+          & > .dates {
+            & > .cell {
+              border: none;
+            }
+          }
+        }
 
-        & > .cell {
-          display: inline-block;
-          text-align: center;
-          width: 34px;
-          height: 100%;
+        & > .master {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          
+          width: 160px;
+          height: 34px;
+          
           border: 1px solid $border-color;
           box-sizing: border-box;
+
+          font-size: 16px;
+          font-weight: 500;
+          color: $blue;
+          
+          word-break: break-all;
+        }
+
+        & > .dates {
+          height: 34px;
+          line-height: 34px;
+
+          & > .cell {
+            display: inline-block;
+            text-align: center;
+            width: 34px;
+            height: 100%;
+            border: 1px solid $border-color;
+            box-sizing: border-box;
+            cursor: pointer;
+
+            &.weekend {
+              color: $red;
+            }
+
+            &.active {
+              &::after {
+                position: relative;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                display: block;
+                content: '';
+
+                width: 10px;
+                height: 10px;
+
+                background-color: green;
+                border-radius: 50%;
+
+              }
+            }
+          }
+        }
+      }
+
+      & > .buttons-block {
+        display: flex;
+        justify-content: flex-end;
+
+        margin-top: 10px;
+        margin-bottom: 15px;
+
+        .work-schedule__button {
+          border: none;
+          outline: none;
+
+          margin-left: 10px;
+          padding: 5px 10px;
+
+          color: $white;
+
+          background-color: $blue;
+          border-radius: 5px;
+
+          cursor: pointer;
         }
       }
     }

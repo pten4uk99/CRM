@@ -22,6 +22,7 @@ class Visit(Entity):
     datetime_start: datetime.datetime
     datetime_end: datetime.datetime
     status: StatusChoice
+    either_master: bool
 
     pk: int = None
     delete_reason: str = None
@@ -29,6 +30,8 @@ class Visit(Entity):
     client: Client = None
     master: Master = None
     work_shift: WorkShift = None
+    comment: str = None
+    duration: int = None
 
     paid: int = None
     discount: int = None

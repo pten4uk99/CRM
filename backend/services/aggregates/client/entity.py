@@ -9,5 +9,4 @@ class Client(Entity):
     pk: int = None
     name: str = None
     last_name: str = None
-    comment: str = None
     visits: list[Entity] = None

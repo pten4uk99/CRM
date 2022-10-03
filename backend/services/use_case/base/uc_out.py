@@ -40,7 +40,8 @@ class GetPriceListUseCaseOut(UseCaseOut):
 
 @dataclass
 class GetVisitListUseCaseOut(UseCaseOut):
-    visits: list[Visit]
+    masters_with_visits: list[Master]
+
 
 if __name__ == '__main__':
     u = CheckAuthUseCaseOut(allowed_ip='dd')

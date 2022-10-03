@@ -9,12 +9,19 @@ from services.aggregates.visit.adapters.model_adapter import VisitAdapter
 
 class VisitRepository(Repository):
     adapter_class = VisitAdapter
+    db_model = VisitDB
 
     def _getlist(self, date: datetime.date) -> list[VisitDB]:
-        return self.session.query(VisitDB).filter(and_(
-            VisitDB.datetime_start.date() == date,
-            VisitDB.delete_reason is None,
+        dt_start = datetime.datetime(date.year, date.month, date.day, 0, 0)
+        dt_end = datetime.datetime(date.year, date.month, date.day, 23, 59)
+
+        visits = self.session.query(VisitDB).filter(and_(
+            VisitDB.datetime_start >= dt_start,
+            VisitDB.datetime_end <= dt_end,
+            VisitDB.delete_reason == None,
         )).all()
+
+        return visits
 
     def _create(self, adapted_model: VisitDB):
         self.session.add(adapted_model)

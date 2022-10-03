@@ -4,9 +4,10 @@ import {connect} from "react-redux";
 import edit from "/src/assets/img/edit.svg"
 
 
-function AdditionalMaster({name, last_name, }) {
+function AdditionalMaster({pk, name, lastName, onDelete}) {
 
     let [editName, setEditName] = useState('')
+
 
 
     function handleSetEditName(name) {
@@ -16,12 +17,13 @@ function AdditionalMaster({name, last_name, }) {
 
     return (
         <div className="additional-master">
-            <span className="name">{name} {last_name}</span>
+            <span className="name">{name} {lastName}</span>
             {/*<img className={`edit ${editName === name && 'active'}`}*/}
             {/*     src={edit}*/}
             {/*     alt="Редактировать"*/}
             {/*     onClick={() => handleSetEditName(name)}/>*/}
-            <div className="delete-master">Удалить</div>
+            <div className="delete-master"
+                 onClick={() => onDelete({pk: pk, name: name, lastName: lastName})}>Удалить</div>
         </div>
 
     )

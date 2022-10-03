@@ -1,5 +1,5 @@
-from services.use_case.response.response_types import ResponseType, ResponseDict
 from services.use_case.base.uc_out import UseCaseOut
+from services.use_case.response.response_types import ResponseType, ResponseDict
 
 
 class UseCaseResponse:
