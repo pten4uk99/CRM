@@ -9,6 +9,7 @@ from services.aggregates.visit.repository import VisitRepository
 from services.controllers.base import UseCaseController
 from services.use_case.base.uc_changed import NewVisitUseCaseChanged
 from services.use_case.base.uc_init import NewVisitUseCaseInit
+from services.use_case.base.utils import parse_phone
 from services.use_case.new_visit_uc import NewVisitUseCase
 
 
@@ -36,6 +37,11 @@ class NewVisitController(UseCaseController):
             repo = ClientRepository(self.session)
             return repo.get(self._client_id)
 
+    def __get_existing_client(self):
+        if self._phone is not None:
+            repo = ClientRepository(self.session)
+            return repo.get_by_phone(parse_phone(self._phone))
+
     def __get_master(self) -> Optional[Master]:
         repo = MasterRepository(self.session)
         return repo.get(self._master_id)
@@ -46,6 +52,7 @@ class NewVisitController(UseCaseController):
 
     def _get_use_case_init(self):
         return NewVisitUseCaseInit(
+            existing_client=self.__get_existing_client(),
             day_visits=self.__get_day_visit_list(),
             datetime_start=self._datetime_start,
             datetime_end=self._datetime_end,

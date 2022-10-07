@@ -1,11 +1,37 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import ClientDetail from "./ClientsBlock/ClientDetail";
-
+import {getClientList} from "../../Journal/ClientWindow/ajax/data";
+import {phoneToPresentation} from "../../Journal/Table/Client";
 
 
 function ClientsBlock(props) {
     let [detailActive, setDetailActive] = useState(false)
+    let [clientsList, setClientsList] = useState([])
+
+    useEffect(() => {
+        getClientList({
+            name: '',
+            lastName: '',
+            phone: '',
+            success: successGetClients,
+            clientError: clientError,
+            serverError: serverError,
+        })
+    }, [])
+
+    function successGetClients(data) {
+        setClientsList(data.data)
+    }
+
+    function clientError(msg) {
+        console.log(msg)
+    }
+
+    function serverError(msg) {
+        console.log(msg)
+    }
+
 
     return (
         <div className="clients-list__block">
@@ -13,23 +39,12 @@ function ClientsBlock(props) {
 
             {!detailActive ?
                 <div className="clients-list">
-                    <div className="client" onClick={() => setDetailActive(true)}>
-                        <p className="name">Георгий Иванов</p>
-                        <p className="phone">+7(926)-986-13-24</p>
-                    </div>
-                    <div className="client" onClick={() => setDetailActive(true)}>
-                        <p className="name">Василий Пупочкин</p>
-                        <p className="phone">+7(926)-986-13-24</p>
-                    </div>
-                    <div className="client" onClick={() => setDetailActive(true)}>
-                        <p className="name">Станислав Ярушин</p>
-                        <p className="phone">+7(926)-986-13-24</p>
-                    </div>
-                    <div className="client" onClick={() => setDetailActive(true)}>
-                        <p className="name">Константин Бабушкин</p>
-                        <p className="phone">+7(926)-986-13-24</p>
-                    </div>
+                    {clientsList.map((client) => <div className="client" onClick={() => setDetailActive(true)}>
+                        <p className="name">{client.name} {client.last_name}</p>
+                        <p className="phone">{phoneToPresentation(client.phone)}</p>
+                    </div>)}
                 </div> :
+
                 <ClientDetail setActive={setDetailActive}/>}
         </div>
     )

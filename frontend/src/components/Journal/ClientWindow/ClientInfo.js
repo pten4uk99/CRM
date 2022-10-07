@@ -6,26 +6,61 @@ import Time from "./ClientInfo/Time";
 import {REPLACER} from "../../../constants";
 import {SetClientInfo} from "../../../redux/actions/Main/clients_actions";
 import {SwapTableItemToInactive} from "../../../redux/actions/Main/masters_actions";
-import MastersDropDown from "./ClientInfo/MastersDropDown";
 import ClientInfoInput from "./ClientInfo/Elements/ClientInfoInput";
 import LastVisit from "./ClientInfo/Elements/LastVisit";
-import {addNewVisit} from "./ajax/data";
+import {addNewVisit, editVisit} from "./ajax/data";
 import {SetClientErrorDetail} from "../../Utils/redux/clientError/clientErrorActions";
 import {SetServerErrorDetail} from "../../Utils/redux/serverError/serverErrorActions";
+import Loader from "../../Utils/js/Loader";
+import {phoneToPresentation} from "../Table/Client";
+import MasterBlock from "./ClientInfo/Elements/MasterBlock";
+import ConfirmDeleteVisit from "./ClientInfo/Elements/ConfirmDeleteVisit";
+import {SetActiveModalWindow} from "../../Utils/redux/modalWindow/modalWindowAction";
 
 
 function ClientInfo({chosenMasterId, setMasterId, currentDate, deactivateWindow, requestMastersWithVisits, ...props}) {
     let addClientWindow = props.store_add_client_window
     let defaultTimeStart = addClientWindow.defaultTimeStart
-    let [chosenMaster, setChosenMaster] = useState(getChosenMaster(chosenMasterId))
-    let chosenDuration = addClientWindow.chosenDuration
-    let form = useRef();
+    let [visitInfo, setVisitInfo] = useState(null)
     let [dropDownVisible, setDropDownVisible] = useState(false)
+    let [chosenMaster, setChosenMaster] = useState(getChosenMaster(chosenMasterId))
+    let [chosenClient, setChosenClient] = useState(null)
+    let [confirmDeleteActive, setConfirmDeleteActive] = useState(false)
+
+    let form = useRef();
+
+    let [filterClientsData, setFilterClientsData] = useState({
+        name: '',
+        lastName: '',
+        phone: ''
+    })
+
     let [eitherMaster, setEitherMaster] = useState(true)
     let [responseLoaded, setResponseLoaded] = useState(true)
 
+    useEffect(() => {
+        if (confirmDeleteActive) props.SetActiveModalWindow(true)
+    }, [confirmDeleteActive])
 
-    useEffect(() => {setChosenMaster(getChosenMaster(chosenMasterId))}, [chosenMasterId])
+    useEffect(() => {
+        if (addClientWindow.chosenVisitId) {
+            let masterVisits = props.store_clients[addClientWindow.defaultMaster.pk]
+            for (let visit of masterVisits) {
+                if (visit?.pk === addClientWindow.chosenVisitId) setVisitInfo(visit)
+            }
+        }
+    }, [addClientWindow.chosenVisitId])
+
+    useEffect(() => {
+        if (visitInfo) {
+            setEitherMaster(visitInfo.either_master)
+            setChosenClient(visitInfo?.client)
+        }
+    }, [visitInfo])
+
+    useEffect(() => {
+        setChosenMaster(getChosenMaster(chosenMasterId))
+    }, [chosenMasterId])
 
     function getChosenMaster(masterId) {
         let mastersList = addClientWindow.mastersList
@@ -34,6 +69,20 @@ function ClientInfo({chosenMasterId, setMasterId, currentDate, deactivateWindow,
 
     function getDatetime(hours, minutes) {
         return `${currentDate.year}-${currentDate.month}-${currentDate.day}T${hours}:${minutes}`
+    }
+
+    function onNameChange(e) {
+        handleInputChange(e)
+        setFilterClientsData({...filterClientsData, name: e.target.value})
+    }
+
+    function onLastNameChange(e) {
+        handleInputChange(e)
+        setFilterClientsData({...filterClientsData, lastName: e.target.value})
+    }
+
+    function onPhoneChange(e) {
+        setFilterClientsData({...filterClientsData, phone: e.target.value})
     }
 
     function handleSubmitForm(e) {
@@ -53,24 +102,24 @@ function ClientInfo({chosenMasterId, setMasterId, currentDate, deactivateWindow,
         formData.set('datetime_end', datetimeEnd)
         formData.set('master_id', chosenMasterId)
         formData.set('either_master', eitherMaster)
+        formData.set('client_id', chosenClient?.pk || '')
 
-
-        addNewVisit({
-            formData: formData,
-            success: successAddVisit,
-            clientError: clientError,
-            serverError: serverError
-        })
-
-        // onFormSubmit(
-        //     e, chosenMaster, chosenDuration, props.clientInfo,
-        //     props.SetClientInfo, props.UpdateClients
-        // )
-    }
-
-    function activateMastersDropdown(e) {
-        e.stopPropagation();
-        setDropDownVisible(true)
+        if (!visitInfo) {
+            addNewVisit({
+                formData: formData,
+                success: successAddVisit,
+                clientError: clientError,
+                serverError: serverError
+            })
+        } else {
+            editVisit({
+                visitId: visitInfo.pk,
+                formData: formData,
+                success: successAddVisit,
+                clientError: clientError,
+                serverError: serverError
+            })
+        }
     }
 
     function successAddVisit() {
@@ -88,65 +137,77 @@ function ClientInfo({chosenMasterId, setMasterId, currentDate, deactivateWindow,
         setResponseLoaded(true)
         props.SetServerErrorDetail(detail)
     }
+
+    function modalBlur() {
+        if (dropDownVisible) setDropDownVisible(false)
+        if (confirmDeleteActive) setConfirmDeleteActive(false)
+    }
+
     return (
-        <div className="client-info" onClick={() => setDropDownVisible(false)}>
+        <>
+            {confirmDeleteActive && <ConfirmDeleteVisit visitId={visitInfo?.pk}
+                                                        requestMastersWithVisits={requestMastersWithVisits}/>}
+            <div className="client-info" onClick={modalBlur}>
 
-            <div className="master">
-                <span>Мастер</span>
-                <div className="master-name"
-                     onClick={(e) => activateMastersDropdown(e)}>{chosenMaster?.name} {chosenMaster?.last_name}</div>
-                {dropDownVisible && <MastersDropDown setVisible={setDropDownVisible}
-                                                     setMasterId={setMasterId}/>}
-                <div className="either-master">
-                    <label>Именно к этому мастеру: <input name='either_master'
-                                                          onClick={() => setEitherMaster(!eitherMaster)}
-                                                          type="checkbox"/></label>
-                </div>
+                <MasterBlock chosenMaster={chosenMaster}
+                             eitherMaster={eitherMaster}
+                             setEitherMaster={setEitherMaster}
+                             setMasterId={setMasterId}
+                             dropDownVisible={dropDownVisible}
+                             setDropDownVisible={setDropDownVisible}/>
+
+                <form onSubmit={(e) => handleSubmitForm(e)} ref={form} autoComplete="off">
+
+                    <Time visitInfo={visitInfo}
+                          hoursStart={defaultTimeStart.hour}
+                          minutesStart={defaultTimeStart.minutes}/>
+
+                    <ClientInfoInput label='Имя'
+                                     defaultValue={chosenClient?.name}
+                                     name='name'
+                                     onChange={onNameChange}
+                                     disabled={chosenClient}
+                                     classNameModifier={`name ${chosenClient && 'disabled'}`}/>
+                    <ClientInfoInput label='Фамилия'
+                                     defaultValue={chosenClient?.last_name}
+                                     name='last_name'
+                                     onChange={onLastNameChange}
+                                     disabled={chosenClient}
+                                     classNameModifier={`last-name ${chosenClient && 'disabled'}`}/>
+                    <ClientInfoInput label='Телефон'
+                                     defaultValue={chosenClient?.phone && phoneToPresentation(chosenClient.phone)}
+                                     name='phone'
+                                     onChange={onPhoneChange}
+                                     disabled={chosenClient}
+                                     classNameModifier={`phone ${chosenClient && 'disabled'}`}
+                                     phoneMask={true}/>
+                    <ClientInfoInput label='Комментарий'
+                                     defaultValue={visitInfo?.comment}
+                                     name='comment'
+                                     onChange={handleInputChange}
+                                     classNameModifier='comment'/>
+
+                    {visitInfo && <input className="delete"
+                                         type="button"
+                                         value="Удалить"
+                                         onClick={() => setConfirmDeleteActive(true)}/>}
+                    <input className="confirm" type="submit" value={visitInfo ? "Сохранить" : "Добавить клиента"}/>
+                    {!responseLoaded && <Loader size={10} right={30} bottom={70}/>}
+                </form>
+
+                <ClientsTooltip filterClientsData={filterClientsData}
+                                setChosenClient={setChosenClient}/>
+                <LastVisit/>
             </div>
-
-            <form onSubmit={(e) => handleSubmitForm(e)} ref={form} autoComplete="off">
-
-                <Time clientInfo={props.clientInfo}
-                      hoursStart={defaultTimeStart.hour}
-                      minutesStart={defaultTimeStart.minutes}/>
-
-                <ClientInfoInput label='Имя'
-                                 defaultValue={props.clientInfo?.name}
-                                 name='name'
-                                 onChange={handleInputChange}
-                                 classNameModifier='name'/>
-                <ClientInfoInput label='Фамилия'
-                                 defaultValue={props.clientInfo?.lastName}
-                                 name='last_name'
-                                 onChange={handleInputChange}
-                                 classNameModifier='last-name'/>
-                <ClientInfoInput label='Телефон'
-                                 defaultValue={props.clientInfo?.phone}
-                                 name='phone'
-                                 classNameModifier='phone'
-                                 phoneMask={true}/>
-                <ClientInfoInput label='Комментарий'
-                                 defaultValue={props.clientInfo?.comment}
-                                 name='comment'
-                                 onChange={handleInputChange}
-                                 classNameModifier='comment'/>
-
-
-                <input className="payment" type="button" value="Оплата"
-                       onClick={() => props.setClientInfoActive(false)}/>
-                <input className="confirm" type="submit" value={props.clientInfo ? "Изменить" : "Добавить клиента"}/>
-            </form>
-
-            <ClientsTooltip/>
-            <LastVisit/>
-        </div>
+        </>
     )
 }
 
 
 export default connect(
-    state => ({store_add_client_window: state.Main.addClientWindow}),
+    state => ({store_add_client_window: state.Main.addClientWindow, store_clients: state.Main.clients}),
     dispatch => ({
+        SetActiveModalWindow: (active) => dispatch(SetActiveModalWindow(active)),
         SetClientInfo: (master, hour, minutes, data) => dispatch(SetClientInfo(master, hour, minutes, data)),
         SwapTableItemToInactive: (name, index) => dispatch(SwapTableItemToInactive(name, index)),
         SetClientErrorDetail: (detail) => dispatch(SetClientErrorDetail(detail)),

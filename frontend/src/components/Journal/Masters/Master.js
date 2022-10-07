@@ -6,7 +6,7 @@ import TableItem from "../Table/TableItem";
 import {AddMasterClients} from "../../../redux/actions/Main/clients_actions";
 
 
-function Master({masterData, ...props}) {
+function Master({masterData, requestMastersWithVisits, ...props}) {
     let clients = props.store_clients
 
     let master = {
@@ -32,6 +32,7 @@ function Master({masterData, ...props}) {
                             (elem, index) => <TableItem key={index}
                                                         className={props.store[master.pk].tableItems[index].className}
                                                         master={master}
+                                                        requestMastersWithVisits={requestMastersWithVisits}
                                                         index={index}/>)}
                     </div>
                 </div> : ""}

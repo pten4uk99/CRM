@@ -8,7 +8,7 @@ from services.use_case.new_visit_uc import NewVisitUseCase
 
 
 def get_use_case_result(datetime_start: datetime.datetime,
-                        datetime_end: datetime.datetime, phone: int = None,
+                        datetime_end: datetime.datetime, phone: str = None,
                         name: str = None, last_name: str = None, comment: str = None,
                         client: Client = None, master: Master = None):
     init = NewVisitUseCaseInit(
@@ -20,6 +20,8 @@ def get_use_case_result(datetime_start: datetime.datetime,
         comment=comment,
         client=client,
         master=master,
+        either_master=True,
+        day_visits=[]
     )
     use_case = NewVisitUseCase(init)
     use_case.run_case()

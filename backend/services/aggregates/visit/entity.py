@@ -15,6 +15,7 @@ class StatusChoice(Enum):
     completed = 'completed'
     confirmed = 'confirmed'
     need_confirm = 'need_confirm'
+    not_called = 'not_called'
 
 
 @dataclass

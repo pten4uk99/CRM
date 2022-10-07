@@ -4,7 +4,7 @@ import InputWrapper from "./InputWrapper";
 import {useIMask} from "react-imask";
 
 
-function ClientInfoInput({label, defaultValue, name, phoneMask, onChange, classNameModifier}) {
+function ClientInfoInput({label, defaultValue, name, phoneMask, onChange, classNameModifier, disabled}) {
     const [opts, setOpts] = React.useState({mask: "+{7}(000)000-00-00"});
     const {ref, maskRef} = useIMask(opts);
 
@@ -16,6 +16,7 @@ function ClientInfoInput({label, defaultValue, name, phoneMask, onChange, classN
         <InputWrapper classNameModifier={classNameModifier}>
             <div className="label">{label}</div>
             <textarea className="input client-info__input"
+                      disabled={disabled}
                       defaultValue={defaultValue}
                       onChange={(e) => change(e)}
                       name={name}

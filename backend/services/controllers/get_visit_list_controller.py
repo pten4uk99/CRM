@@ -1,8 +1,6 @@
 import datetime
 
 from services.aggregates.master.entity import Master
-from services.aggregates.visit.entity import Visit
-from services.aggregates.visit.repository import VisitRepository
 from services.aggregates.work_day.entity import WorkDay
 from services.aggregates.work_day.repository import WorkDayRepository
 from services.controllers.base import UseCaseController

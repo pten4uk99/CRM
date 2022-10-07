@@ -1,6 +1,8 @@
 const initialState = {
     active: false,
+    clientInfoActive: true,
     tableItem: null,
+    chosenVisitId: null,
     defaultTimeStart: {
         hour: undefined,
         minutes: undefined
@@ -16,9 +18,14 @@ const initialState = {
 
 export default function addClientWindow(state = initialState, action) {
     switch (action.type) {
+        case "SET_ADD_CLIENT_WINDOW_CLIENT_INFO_ACTIVE":
+            return {...state, clientInfoActive: action.payload}
+        case "SET_ADD_CLIENT_WINDOW_CHOSEN_CLIENT_ID":
+            return {...state, chosenVisitId: action.payload}
         case "SET_ADD_CLIENT_WINDOW_TABLE_ITEM":
             return {...state, tableItem: action.payload.tableItemId}
         case "SET_ADD_CLIENT_WINDOW_ACTIVE":
+            if (action.payload === false) return {...state, active: action.payload, chosenVisitId: null}
             return {...state, active: action.payload}
         case "SET_ADD_CLIENT_WINDOW_DEFAULT_TIME_START":
             return {...state, defaultTimeStart: {hour: action.payload.hour, minutes: action.payload.minutes}}

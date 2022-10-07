@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from services.aggregates.administrator.entity import Administrator
 from services.aggregates.allowed_ip_address import AllowedIpAddress
+from services.aggregates.client.entity import Client
 from services.aggregates.master.entity import Master
 from services.aggregates.price_list.entity import PriceList
 from services.aggregates.visit.entity import Visit
@@ -41,6 +42,11 @@ class GetPriceListUseCaseOut(UseCaseOut):
 @dataclass
 class GetVisitListUseCaseOut(UseCaseOut):
     masters_with_visits: list[Master]
+
+
+@dataclass
+class GetClientListUseCaseOut(UseCaseOut):
+    clients: list[Client]
 
 
 if __name__ == '__main__':

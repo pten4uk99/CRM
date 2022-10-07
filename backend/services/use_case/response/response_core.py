@@ -2,14 +2,14 @@ from services.aggregates.administrator.adapters.response_adapter import Response
     AdministratorListResponseDict
 from services.aggregates.allowed_ip_address.adapters.response_adapter import ResponseAllowedIpAddressAdapter, \
     AllowedIpAddressResponseDict
+from services.aggregates.client.adapters.response_adapter import ResponseClientAdapter, ClientResponseDict
 from services.aggregates.master.adapters.response_adapter import MasterResponseDict, ResponseMasterAdapter, \
     MasterWithTimeTableResponseDict
 from services.aggregates.price_list.adapters.response_adapter import PriceListResponseDict, ResponsePriceListAdapter
-from services.aggregates.visit.adapters.response_adapter import ResponseVisitAdapter, VisitResponseDict, \
-    MasterWithVisitsResponseDict
+from services.aggregates.visit.adapters.response_adapter import ResponseVisitAdapter, MasterWithVisitsResponseDict
 from services.use_case.base.uc_changed import MasterCreateUseCaseChanged, SetMasterTimeTableUseCaseChanged
 from services.use_case.base.uc_out import CheckAuthUseCaseOut, AdministratorListUseCaseOut, MasterListUseCaseOut, \
-    GetTimeTableUseCaseOut, GetPriceListUseCaseOut, GetVisitListUseCaseOut
+    GetTimeTableUseCaseOut, GetPriceListUseCaseOut, GetVisitListUseCaseOut, GetClientListUseCaseOut
 from services.use_case.base.uc_to_delete import MasterDeleteUseCaseToDelete, SetMasterTimeTableUseCaseToDelete
 from services.use_case.response.base import UseCaseResponse
 
@@ -151,3 +151,26 @@ class GetVisitListUseCaseResponse(UseCaseResponse):
             result.append(ResponseVisitAdapter.from_master_with_visits(master))
 
         return result
+
+
+class EditVisitUseCaseResponse(UseCaseResponse):
+    pass
+
+
+class GetClientListUseCaseResponse(UseCaseResponse):
+    @classmethod
+    def _ok(cls, use_case_out: GetClientListUseCaseOut = None) -> list[ClientResponseDict]:
+        clients = []
+
+        for client in use_case_out.clients:
+            clients.append(ResponseClientAdapter.from_entity(client))
+
+        return clients
+
+
+class SetVisitStatusUseCaseResponse(UseCaseResponse):
+    pass
+
+
+class ClientDetailUseCaseResponse(UseCaseResponse):
+    pass

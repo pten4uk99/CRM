@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-
 import {connect} from "react-redux";
 
 import plus from '/src/assets/img/journal/journal-plus.svg'
@@ -7,7 +6,7 @@ import minus from '/src/assets/img/journal/journal-minus.svg'
 import {SetChosenDuration} from "../../../../redux/actions/Main/addClientWindow_actions";
 
 
-function Time(props) {
+function Time({visitInfo, ...props}) {
     let duration = props.store.chosenDuration
     let [hourStart, setHourStart] = useState(getValue(props.hoursStart));
     let [minutesStart, setMinutesStart] = useState(getValue(props.minutesStart));
@@ -17,8 +16,8 @@ function Time(props) {
     function calculateEndTime(startHours, startMinutes) {
         let startSeconds = startHours * 3600 + startMinutes * 60
         let endSeconds = startSeconds + duration * 60
-        setHourEnd(String(Math.trunc(endSeconds / 3600)).padStart(2, '0'))
-        setMinutesEnd(String(Math.trunc((endSeconds % 3600) / 60)).padStart(2, '0'))
+        setHourEnd(getValue(Math.trunc(endSeconds / 3600)))
+        setMinutesEnd(getValue(Math.trunc((endSeconds % 3600) / 60)))
     }
 
     useEffect(() => {
@@ -26,19 +25,17 @@ function Time(props) {
     }, [duration, hourStart, minutesStart])
 
     useEffect(() => {
-        props.clientInfo ?
-            props.SetChosenDuration(props.clientInfo.duration) :
-            props.SetChosenDuration(30)
-    }, [])
+        if (visitInfo) {
+            props.SetChosenDuration(visitInfo.duration)
 
-    useEffect(() => {
-        if (props.clientInfo) {
-            setHourStart(props.clientInfo.timeStart.hour)
-            setMinutesStart(props.clientInfo.timeStart.minutes)
-            setHourEnd(props.clientInfo.timeEnd.hour)
-            setMinutesEnd(props.clientInfo.timeEnd.minutes)
-        }
-    }, [props.clientInfo])
+            let timeStart = visitInfo.time_start.split(':')
+            let timeEnd = visitInfo.time_end.split(':')
+            setHourStart(timeStart[0])
+            setMinutesStart(timeStart[1])
+            setHourEnd(timeEnd[0])
+            setMinutesEnd(timeEnd[1])
+        } else props.SetChosenDuration(30)
+    }, [visitInfo])
 
     function handleChange(e, {max, setValue, setNextValue}) {
         let value = e.target.value
@@ -46,16 +43,15 @@ function Time(props) {
 
         if (isNaN(Number(value)) || (value.length === 1 && value[0] > first)) return
         else if (value.length === 2) {
-            if (!(value[0] > first || value[1] > second)) setValue(value)
-        }
-        else if (value.length > 2) {
+            if (value[0] < first) setValue(value)
+            else if (value[0] === first && value[1] <= second) setValue(value)
+        } else if (value.length > 2) {
             if (e.target.nextSibling) {
                 let next = e.target.nextSibling.nextSibling
                 next.focus()
                 setNextValue(value[2])
             }
-        }
-        else setValue(value)
+        } else setValue(value)
     }
 
     function handleBlur(e, value) {
@@ -82,7 +78,9 @@ function Time(props) {
                            name="start_hours"
                            type="text"
                            value={hourStart}
-                           onFocus={(e) => {handleFocus(e)}}
+                           onFocus={(e) => {
+                               handleFocus(e)
+                           }}
                            onBlur={(e) => handleBlur(e, props.hoursStart)}
                            onChange={e => handleChange(
                                e, {max: 24, setValue: setHourStart, setNextValue: setMinutesStart})}/>
@@ -91,7 +89,9 @@ function Time(props) {
                            name="start_minutes"
                            type="text"
                            value={minutesStart}
-                           onFocus={(e) => {handleFocus(e)}}
+                           onFocus={(e) => {
+                               handleFocus(e)
+                           }}
                            onBlur={(e) => handleBlur(e, props.minutesStart)}
                            onChange={e => handleChange(e, {max: 59, setValue: setMinutesStart})}/>
                 </div>
@@ -100,19 +100,14 @@ function Time(props) {
                     <input className="hours"
                            name="end_hours"
                            type="text"
-                           value={hourEnd}
-                           onFocus={(e) => {handleFocus(e)}}
-                           onBlur={(e) => handleBlur(e, props.hoursStart)}
-                           onChange={e => handleChange(
-                               e, {max: 24, setValue: setHourEnd, setNextValue: setMinutesEnd})}/>
+                           onChange={() => false}
+                           value={hourEnd}/>
                     <span className="colon">:</span>
                     <input className="minutes"
                            name="end_minutes"
                            type="text"
-                           value={minutesEnd}
-                           onFocus={(e) => {handleFocus(e)}}
-                           onBlur={(e) => handleBlur(e, props.minutesStart)}
-                           onChange={e => handleChange(e, {max: 59, setValue: setMinutesEnd})}/>
+                           onChange={() => false}
+                           value={minutesEnd}/>
                 </div>
             </div>
             <div className="change-time">

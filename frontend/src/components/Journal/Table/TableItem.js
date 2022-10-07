@@ -11,7 +11,7 @@ import AddClientWindow from "../ClientWindow/AddClientWindow";
 import Client from "./Client";
 
 
-function TableItem({master, ...props}) {
+function TableItem({master, requestMastersWithVisits, ...props}) {
     const currentItem = props.store.masters[master.pk].tableItems[props.index];
     const clients = props.store.clients[master.pk];
 
@@ -63,6 +63,7 @@ function TableItem({master, ...props}) {
                                       timeStart={timeStart}
                                       timeEnd={timeEnd}
                                       clientInfo={currentClient}
+                                      requestMastersWithVisits={requestMastersWithVisits}
                                       onClick={(event) => activateWindow(event, props, props.index)}/>}
 
             <div className={props.className}

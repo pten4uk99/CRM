@@ -1,34 +1,35 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
+import OneItemPrice from "./OneItemPrice";
+import ThreeItemPrice from "./ThreeItemPrice";
 
 
 function PriceList(props) {
     let priceList = props.store.priceList
-    let [chosenCategory, setChosenCategory] = useState(priceList[0]?.category)
+    let categories = Object.keys(priceList)
+    let [chosenCategory, setChosenCategory] = useState(null)
+    let [priceItems, setPriceItems] = useState([])
+
+    let isOnePriceItem = priceItems[0]?.price
+    let isThreePriceItem = priceItems[0]?.shirt_price || priceItems[0]?.middle_price || priceItems[0]?.long_price
+
+    useEffect(() => {
+        if (chosenCategory) setPriceItems(priceList[chosenCategory]?.price_items)
+    }, [chosenCategory])
+
 
     return (
         <article className="price-list">
             <div className="block__categories">
-                {priceList.map((elem, index) => {
-                    return <h1 key={index}
-                               className={`category ${chosenCategory === elem.category && "active"}`}
-                               onClick={() => setChosenCategory(elem.category)}>{elem.category}</h1>
-                })}
+                {categories.map((elem) => <h1 key={elem}
+                                              className={`category ${chosenCategory === elem && "active"}`}
+                                              onClick={() => setChosenCategory(elem)}>{priceList[elem].name}</h1>)}
             </div>
 
             <div className="table">
-                {priceList.map((elem) => {
-                    if (elem.category === chosenCategory) {
-                        return elem.positions.map((e, index) => {
-                            return <div key={index} className="table-row">
-                                <div className="header">
-                                    <div className="name">{e.name}</div>
-                                    <div className="description">{e.description}</div>
-                                </div>
-                                <div className="price">{e.price}</div>
-                            </div>
-                        })
-                    }
+                {priceItems.map((elem, index) => {
+                    if (isOnePriceItem) return <OneItemPrice key={index} priceItem={elem}/>
+                    else if (isThreePriceItem) return <ThreeItemPrice key={index} priceItem={elem}/>
                 })}
             </div>
         </article>

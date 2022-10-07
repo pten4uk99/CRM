@@ -20,6 +20,7 @@
   color: $white;
 
   z-index: 101;
+  animation: animate-move 7s;
 
   h2 {
     font-weight: 600;
@@ -28,5 +29,21 @@
   p {
     text-align: center;
     margin-top: 15px;
+  }
+}
+
+
+@keyframes animate-move {
+  0% {
+    transform: translateY(-200px);
+  }
+  4% {
+    transform: translateY(0px);
+  }
+  96% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-200px);
   }
 }

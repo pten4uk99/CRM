@@ -74,5 +74,20 @@ class NewVisitUseCaseChanged(UseCaseChanged):
     client: Optional[Client] = None
 
 
+@dataclass
+class EditVisitUseCaseChanged(UseCaseChanged):
+    visit: Optional[Visit] = None
+
+
+@dataclass
+class SetVisitStatusUseCaseChanged(UseCaseChanged):
+    visit: Visit
+
+
+@dataclass
+class DeleteVisitUseCaseChanged(UseCaseChanged):
+    visit: Visit
+
+
 if __name__ == '__main__':
     u = CheckAuthUseCaseChanged(allowed_ip='dd')

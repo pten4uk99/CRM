@@ -1,26 +1,4 @@
-const initialState = {
-    0: [
-        {
-            master: "Саша",
-            // клиент именно к этому мастеру
-            toMaster: true,
-            isDone: true,
-            name: "Василевс",
-            lastName: "Василькин",
-            phone: "+7(926)-986-31-49",
-            date: "2021-02-03",
-            timeStart: {
-                hour: 10,
-                minutes: "45"
-            },
-            timeEnd: {
-                hour: 11,
-                minutes: "00"
-            },
-            duration: 30,
-        },
-    ]
-}
+const initialState = {}
 
 
 export default function clients(state = initialState, action) {

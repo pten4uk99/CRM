@@ -68,7 +68,8 @@ function DayDetail(props) {
                         <Time/>
                         <Masters responseLoaded={responseLoaded}
                                  setResponseLoaded={setResponseLoaded}
-                                 workDayMastersList={workDayMastersList}/>
+                                 workDayMastersList={workDayMastersList}
+                                 requestMastersWithVisits={requestMastersWithVisits}/>
                     </>}
 
             </section> :

@@ -21,11 +21,19 @@
   &.confirmed {
     background-color: rgb(189, 200, 231);
   }
+
   &.need_confirm {
     background-color: rgb(203, 203, 203);
   }
+
   &.completed {
     background-color: rgb(255, 255, 255);
+  }
+
+  &.not_called {
+    border: 2px solid $red;
+    background-color: rgb(203, 203, 203);
+
   }
 
   &:hover {
@@ -34,8 +42,12 @@
   }
 
   .time {
+    margin-bottom: 5px;
+
     font-size: 14px;
+    animation: appearance .2s;
   }
+
   .name, .last-name {
     font-weight: 600;
 
@@ -46,22 +58,28 @@
       height: 7px;
       margin-right: 3px;
     }
+
     .master-client {
       border: 2px solid rgb(232, 0, 0);
     }
+
     .non-master-client {
       border: 2px solid blue;
     }
   }
+
   .last-name {
     margin-left: 14px;
   }
+
   .phone {
     animation: appearance .2s;
+
     &.mt-10 {
-      margin-top: 10px;
+      margin-top: 5px;
     }
   }
+
   .service {
     animation: appearance .2s;
     font-style: italic;
@@ -70,10 +88,13 @@
   .comment {
     background-color: $white;
     border: 1px solid gray;
-    margin-top: 10px;
+    border-radius: 10px;
+
+    margin-top: 15px;
     font-size: 14px;
     box-sizing: border-box;
-    padding: 5px;
+    padding: 5px 7px;
+
     animation: appearance .2s;
   }
 
@@ -93,20 +114,76 @@
     }
   }
 
-  button.actions {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+  .client-buttons__block {
     margin-top: 20px;
-    padding: 5px;
-    background-color: $blue;
-    border: none;
-    outline: none;
-    color: $white;
-    font-weight: 600;
-    font-size: .95em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    cursor: pointer;
+    button.actions {
+      display: block;
+
+      width: 163px;
+
+      margin-top: 5px;
+      padding: 5px 7px;
+
+      background-color: $white;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+
+      color: $white;
+      font-weight: 500;
+      font-size: .9em;
+
+      cursor: pointer;
+
+      &.change, &.payment {
+        color: $blue;
+        border: 1px solid $blue;
+
+        &:hover {
+          background-color: $blue;
+          color: $white;
+        }
+      }
+
+      &.confirmed {
+        background-color: $blue;
+        border: 1px solid $border-color;
+      }
+
+      &.not-called {
+        background-color: $red;
+        border: 1px solid $border-color;
+      }
+      
+      &.need-confirm {
+        background-color: rgb(203, 203, 203);
+        color: $black;
+        border: 1px solid $border-color;
+      }
+    }
+
+    .buttons-row {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+
+      & > button.actions {
+        font-size: 10px;
+        width: 80px;
+
+        &:nth-of-type(1) {
+          margin-right: 2px;
+        }
+
+        &:nth-of-type(2) {
+          margin-left: 2px;
+        }
+      }
+    }
   }
 }
 

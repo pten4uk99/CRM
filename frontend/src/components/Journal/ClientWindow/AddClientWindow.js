@@ -20,7 +20,7 @@ function AddClientWindow({requestMastersWithVisits, ...props}) {
     let checkedCalendarDate = props.store_calendar.checkedDate
     const addClientWindow = React.useRef();
     let [chosenMasterId, setChosenMasterId] = useState(master.pk)
-    let [clientInfoActive, setClientInfoActive] = useState(true)
+    let clientInfoActive = props.store.clientInfoActive
 
     let [currentDate, setCurrentDate] = useState(null)
 
@@ -37,13 +37,6 @@ function AddClientWindow({requestMastersWithVisits, ...props}) {
         document.addEventListener('keydown', eventHandler)
         return () => document.removeEventListener('keydown', eventHandler)
     }, [])
-
-    useEffect(() => {
-        if (props.clientInfo) {
-            if (!props.clientInfo.toMaster) setChosenMaster("Нет")
-            setClientInfoActive(false)
-        }
-    }, [props.clientInfo])
 
     function handleMouseDown(e) {
         let elem = e.currentTarget.parentElement
@@ -106,8 +99,6 @@ function AddClientWindow({requestMastersWithVisits, ...props}) {
                                 setMasterId={setChosenMasterId}
                                 clientInfo={props.clientInfo}
                                 tableItem={props.tableItem}
-                                clientInfoActive={clientInfoActive}
-                                setClientInfoActive={setClientInfoActive}
                                 requestMastersWithVisits={requestMastersWithVisits}/> :
                     <>
                         <img className='back-icon' src={back} alt="назад" onClick={() => setClientInfoActive(true)}/>

@@ -1,3 +1,64 @@
+.add-client-window > .confirm-delete-visit {
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+  right: 77px;
+  bottom: 170px;
+
+  width: 400px;
+  height: 200px;
+
+  box-sizing: border-box;
+  padding: 10px;
+
+  background-color: $white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+
+  z-index: 10;
+
+  h3 {
+    text-align: center;
+    color: $red;
+  }
+  p {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 13px;
+  }
+  textarea {
+    height: 50px;
+
+    margin-top: 20px;
+    padding: 5px 10px;
+
+    border: none;
+    outline: none;
+    resize: none;
+    border-radius: 10px;
+
+    font-size: 14px;
+  }
+
+  button {
+    align-self: center;
+
+    width: 120px;
+
+    margin-top: 10px;
+    padding: 7px 10px;
+
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background-color: $blue;
+
+    color: $white;
+    cursor: pointer;
+  }
+}
+
 .add-client-window > .client-info {
   display: grid;
   grid-template-rows: repeat(20, 25px);
@@ -25,6 +86,16 @@
     font-size: 17px;
     color: rgba(90, 90, 90, 1);
     font-weight: 300;
+
+    &.disabled {
+      $disabled-grey: rgb(218, 218, 218);
+
+      background-color: $disabled-grey;
+       .client-info__input {
+         background-color: $disabled-grey;
+         color: black;
+       }
+    }
 
     & > .client-info__input {
       margin-top: 10px;
@@ -55,6 +126,10 @@
       grid-row: 12;
 
       height: 152px;
+
+      .input.client-info__input {
+        height: 140px;
+      }
     }
   }
 
@@ -134,7 +209,7 @@
       margin-left: 28px;
     }
 
-    .confirm, .payment {
+    .confirm, .delete {
       grid-column: 13;
 
       box-sizing: border-box;
@@ -162,9 +237,9 @@
       background-color: $blue;
     }
 
-    .payment {
-      grid-row: 13;
-      color: $black;
+    .delete {
+      grid-row: 14;
+      background-color: $red;
     }
   }
 }

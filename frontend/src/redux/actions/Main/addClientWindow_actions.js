@@ -1,3 +1,11 @@
+import {act} from "react-dom/test-utils";
+
+export const SetClientInfoActive = (active) => {
+    return {type: "SET_ADD_CLIENT_WINDOW_CLIENT_INFO_ACTIVE", payload: active}
+}
+export const SetChosenClientId = (clientId) => {
+    return {type: "SET_ADD_CLIENT_WINDOW_CHOSEN_CLIENT_ID", payload: clientId}
+}
 export const SetAddClientWindowActive = (active) => {
     return {type: "SET_ADD_CLIENT_WINDOW_ACTIVE", payload: active}
 }

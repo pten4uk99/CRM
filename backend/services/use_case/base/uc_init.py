@@ -6,7 +6,7 @@ from services.aggregates.allowed_ip_address.entity import AllowedIpAddress
 from services.aggregates.client.entity import Client
 from services.aggregates.master.entity import Master
 from services.aggregates.price_list.entity import PriceList
-from services.aggregates.visit.entity import Visit
+from services.aggregates.visit.entity import Visit, StatusChoice
 from services.aggregates.work_day.entity import WorkDay
 from services.aggregates.work_shift.entity import WorkShift
 
@@ -111,6 +111,7 @@ class NewVisitUseCaseInit(UseCaseInit):
     datetime_start: datetime.datetime
     datetime_end: datetime.datetime
     either_master: bool
+    existing_client: Client = None
     phone: str = None
     name: str = None
     last_name: str = None
@@ -120,9 +121,50 @@ class NewVisitUseCaseInit(UseCaseInit):
 
 
 @dataclass
+class EditVisitUseCaseInit(UseCaseInit):
+    day_visits: list[Visit]
+    old_visit: Visit
+    existing_client: Client = None
+    datetime_start: datetime.datetime = None
+    datetime_end: datetime.datetime = None
+    either_master: bool = None
+    paid: int = None
+    discount: int = None
+    card: int = None
+    phone: str = None
+    name: str = None
+    last_name: str = None
+    comment: str = None
+    master: Master = None
+    client: Client = None
+
+
+@dataclass
 class GetVisitListUseCaseInit(UseCaseInit):
     date: datetime.date
     masters_with_visits: list[Master]
+
+
+@dataclass
+class GetClientListUseCaseInit(UseCaseInit):
+    clients: list[Client]
+
+
+@dataclass
+class SetVisitStatusUseCaseInit(UseCaseInit):
+    visit: Visit
+    status: StatusChoice
+
+
+@dataclass
+class DeleteVisitUseCaseInit(UseCaseInit):
+    visit: Visit
+    delete_reason: str
+
+
+@dataclass
+class ClientDetailUseCaseInit(UseCaseInit):
+    client: Client
 
 
 if __name__ == '__main__':

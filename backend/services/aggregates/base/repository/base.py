@@ -89,7 +89,7 @@ class Repository:
 
         raise NotImplementedError()
 
-    def _update(self):
+    def _update(self, new_entity: SubEntity):
         """
         Тут прописывается непосредственно обновление объекта в БД.
         Обновляется self._instance_db
@@ -132,11 +132,11 @@ class Repository:
         )
         return self._adapted_entity_or_none(self._create(self._adapted_db_model_or_none(instance)))
 
-    def update(self):
+    def update(self, new_entity: SubEntity):
         """ Интерфейсный метод. Обновляет данные соответственного объекта self._instance в базе данных """
 
         assert self._instance_db is not None, 'Метод update() требует вызова add_instance()'
-        return self._update()
+        return self._update(new_entity)
 
     def delete(self):
         """ Удаляет соответственный объект self._instance из базы данных """

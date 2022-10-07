@@ -42,7 +42,7 @@ article.price-list {
 
     .table-row {
       display: grid;
-      grid-template-columns: 450px 60px;
+      grid-template-columns: 450px 60px 60px 60px;
       border: 1px solid $border-color;
       margin-right: 50px;
 
@@ -62,7 +62,6 @@ article.price-list {
       .price {
         border-left: 1px solid $border-color;
         align-self: center;
-        grid-column: 2;
         text-align: center;
       }
     }

@@ -32,8 +32,8 @@ class VisitsMaster(BaseModel):
 
 class Client(BaseModel):
     pk: int
-    name: str
-    last_name: str
+    name: str = None
+    last_name: str = None
     phone: str
 
 
@@ -58,5 +58,6 @@ class MasterWithVisits(BaseModel):
     master: VisitsMaster
     visits: list[Visit]
 
-
+class DeleteVisitIn(BaseModel):
+    delete_reason: str
 

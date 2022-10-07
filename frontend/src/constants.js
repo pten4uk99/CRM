@@ -8,7 +8,8 @@ export const STATUS_RESPONSE = {
 export const CLIENT_STATUS = {
     completed: 'completed',
     confirmed: 'confirmed',
-    need_confirm: 'need_confirm'
+    need_confirm: 'need_confirm',
+    not_called: 'not_called'
 }
 
 export function handleResponse({data, success, clientError, serverError}) {

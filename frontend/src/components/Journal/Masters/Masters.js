@@ -4,14 +4,15 @@ import {connect} from "react-redux";
 import Master from "./Master";
 
 
-function Masters({responseLoaded, setResponseLoaded, workDayMastersList, ...props}) {
+function Masters({responseLoaded, setResponseLoaded, workDayMastersList, requestMastersWithVisits, ...props}) {
 
     return (
         <>
             <div className="masters-line"/>
             <section className="masters">
                 {workDayMastersList.map((masterVisit) => <Master key={masterVisit.master.pk}
-                                                                 masterData={masterVisit}/>)}
+                                                                 masterData={masterVisit}
+                                                                 requestMastersWithVisits={requestMastersWithVisits}/>)}
             </section>
         </>
 
