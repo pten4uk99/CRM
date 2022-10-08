@@ -7,10 +7,8 @@ from services.use_case.get_price_list_uc import GetPriceListUseCase
 class GetPriceListController(UseCaseController):
     use_case_class = GetPriceListUseCase
 
-    def __init__(self, session, price_list_id: int):
+    def __init__(self, session, ):
         super().__init__(session=session)
-
-        self._price_list_id = price_list_id
 
     def __get_one_price_items_list(self):
         repo = PriceListRepository(self.session)

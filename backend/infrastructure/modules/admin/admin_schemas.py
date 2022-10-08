@@ -3,6 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+from services.aggregates.price_list.entity import PriceListType
 from services.aggregates.visit.entity import StatusChoice
 
 
@@ -58,6 +59,28 @@ class MasterWithVisits(BaseModel):
     master: VisitsMaster
     visits: list[Visit]
 
+
 class DeleteVisitIn(BaseModel):
     delete_reason: str
+
+
+class PriceListIn(BaseModel):
+    name: str
+    type: PriceListType
+
+
+class OnePriceItemIn(BaseModel):
+    name: str
+    description: str
+    price: int
+    price_list_id: int
+
+
+class ThreePriceItemIn(BaseModel):
+    name: str
+    description: str
+    shirt_price: int
+    middle_price: int
+    long_price: int
+    price_list_id: int
 

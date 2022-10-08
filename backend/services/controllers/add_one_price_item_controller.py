@@ -1,4 +1,5 @@
 from services.aggregates.price_item.repository import PriceItemRepository
+from services.aggregates.price_list.repository import PriceListRepository
 from services.controllers.base import UseCaseController
 from services.use_case.add_one_price_item_uc import AddOnePriceItemUseCase
 from services.use_case.base.uc_changed import AddOnePriceItemUseCaseChanged
@@ -16,12 +17,16 @@ class AddOnePriceItemController(UseCaseController):
         self._description = description
         self._price_list_id = price_list_id
 
+    def __get_price_list(self):
+        repo = PriceListRepository(self.session)
+        return repo.get(pk=self._price_list_id)
+
     def _get_use_case_init(self):
         return AddOnePriceItemUseCaseInit(
             name=self._name,
             price=self._price,
             description=self._description,
-            price_list_id=self._price_list_id,
+            price_list=self.__get_price_list(),
         )
 
     def _save_use_case_result(self, use_case_changed: AddOnePriceItemUseCaseChanged):

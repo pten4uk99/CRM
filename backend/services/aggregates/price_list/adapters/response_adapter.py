@@ -2,7 +2,7 @@ from typing import TypedDict, Union
 
 from services.aggregates.base.adapters.base import ResponseEntityAdapter
 from services.aggregates.price_item.entity import OnePriceItem, ThreePriceItem
-from services.aggregates.price_list.entity import PriceList
+from services.aggregates.price_list.entity import PriceList, PriceListType
 
 
 class PriceItemResponseDict(TypedDict):
@@ -24,6 +24,7 @@ class ThreePriceItemResponseDict(PriceItemResponseDict):
 class PriceListResponseDict(TypedDict):
     pk: int
     name: str
+    type: PriceListType
     price_items: list[Union[OnePriceItemResponseDict, ThreePriceItemResponseDict]]
 
 
@@ -71,4 +72,4 @@ class ResponsePriceListAdapter(ResponseEntityAdapter):
             elif isinstance(obj.price_items[0], ThreePriceItem):
                 price_items = cls._get_three_price_items_response_list(obj.price_items)
 
-        return PriceListResponseDict(pk=obj.pk, name=obj.name, price_items=price_items)
+        return PriceListResponseDict(pk=obj.pk, name=obj.name, type=obj.type, price_items=price_items)

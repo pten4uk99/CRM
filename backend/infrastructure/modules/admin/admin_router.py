@@ -4,14 +4,19 @@ from fastapi import APIRouter, Depends, Form, Body
 from sqlalchemy.orm import Session
 
 from infrastructure.database.utils import get_db_session
-from infrastructure.modules.admin.admin_schemas import MasterCreateIn, DeleteVisitIn
+from infrastructure.modules.admin.admin_schemas import MasterCreateIn, DeleteVisitIn, PriceListIn, OnePriceItemIn, \
+    ThreePriceItemIn
 from infrastructure.modules.admin.schemas.response_models import MasterListResponseModel
 from infrastructure.schemas import DefaultResponseSchema, MasterDeleteOut, MasterTimeTableOut, MasterWithVisitsOut
 from services.aggregates.visit.entity import StatusChoice
+from services.controllers.add_one_price_item_controller import AddOnePriceItemController
+from services.controllers.add_price_list_controller import AddPriceListController
+from services.controllers.add_three_price_item_controller import AddThreePriceItemController
 from services.controllers.client_detail_controller import ClientDetailController
 from services.controllers.delete_visit_controller import DeleteVisitController
 from services.controllers.edit_visit_controller import EditVisitController
 from services.controllers.get_client_list_controller import GetClientListController
+from services.controllers.get_price_list_controller import GetPriceListController
 from services.controllers.get_timetable_controller import GetTimeTableController
 from services.controllers.get_visit_list_controller import GetVisitListController
 from services.controllers.master_create_controller import MasterCreateController
@@ -127,5 +132,47 @@ async def delete_visit(visit_id: int, body: DeleteVisitIn, session: Session = De
 @admin_router.get('/clients/{client_id}')
 async def client_detail(client_id: int, session: Session = Depends(get_db_session)):
     controller = ClientDetailController(session=session, client_id=client_id)
+    result = controller.handle()
+    return result
+
+
+@admin_router.post('/price_list')
+async def add_price_list(price_list: PriceListIn, session: Session = Depends(get_db_session)):
+    controller = AddPriceListController(session=session, name=price_list.name, type_=price_list.type)
+    result = controller.handle()
+    return result
+
+
+@admin_router.get('/price_list')
+async def get_price_lists(session: Session = Depends(get_db_session)):
+    controller = GetPriceListController(session=session)
+    result = controller.handle()
+    return result
+
+
+@admin_router.post('/price_list/one_price_item', response_model=DefaultResponseSchema)
+async def add_one_price_item(price_item: OnePriceItemIn, session: Session = Depends(get_db_session)):
+    controller = AddOnePriceItemController(
+        session=session,
+        name=price_item.name,
+        price_list_id=price_item.price_list_id,
+        description=price_item.description,
+        price=price_item.price
+    )
+    result = controller.handle()
+    return result
+
+
+@admin_router.post('/price_list/three_price_item', response_model=DefaultResponseSchema)
+async def add_three_price_item(price_item: ThreePriceItemIn, session: Session = Depends(get_db_session)):
+    controller = AddThreePriceItemController(
+        session=session,
+        name=price_item.name,
+        price_list_id=price_item.price_list_id,
+        description=price_item.description,
+        shirt_price=price_item.shirt_price,
+        middle_price=price_item.middle_price,
+        long_price=price_item.long_price
+    )
     result = controller.handle()
     return result

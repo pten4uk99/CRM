@@ -4,14 +4,14 @@ import {connect} from "react-redux";
 
 function ThreeItemPrice({priceItem, ...props}) {
     return (
-        <div className="table-row">
+        <div className="table-row three-price">
             <div className="header">
                 <div className="name">{priceItem.name}</div>
                 <div className="description">{priceItem.description}</div>
             </div>
-            <div className="price">{priceItem.shirt_price}</div>
-            <div className="price">{priceItem.middle_price}</div>
-            <div className="price">{priceItem.long_price}</div>
+            <div className="price shirt-price">{priceItem.shirt_price}</div>
+            <div className="price middle-price">{priceItem.middle_price}</div>
+            <div className="price long-price">{priceItem.long_price}</div>
         </div>
     )
 }

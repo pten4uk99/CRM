@@ -1,0 +1,70 @@
+.price-list .table-row {
+  display: flex;
+  align-items: center;
+
+  border: 1px solid $border-color;
+  background-color: white;
+
+  font-size: 20px;
+  cursor: pointer;
+  
+  &:hover {
+    color: $blue;
+  }
+
+  &.header {
+    background-color: rgb(197, 197, 197);
+
+    height: 50px;
+
+    font-weight: 600;
+
+    &:hover {
+      color: inherit;
+      cursor: default;
+    }
+
+    .header {
+      padding: 0 7px;
+
+      .name {
+        text-align: center;
+        line-height: 50px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .header {
+    width: 500px;
+    border-right: 1px solid $border-color;
+
+    text-align: left;
+
+    box-sizing: border-box;
+    padding: 5px 7px;
+
+    .name {
+      font-weight: 500;
+    }
+
+    .description {
+      font-size: 16px;
+    }
+  }
+
+  .price {
+    width: 70px;
+    text-align: center;
+    line-height: 50px;
+  }
+
+  &.three-price {
+    .shirt-price {
+      border-right: 1px solid $border-color;
+    }
+    .middle-price {
+      border-right: 1px solid $border-color;
+    }
+  }
+}

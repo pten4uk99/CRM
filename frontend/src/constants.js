@@ -12,6 +12,11 @@ export const CLIENT_STATUS = {
     not_called: 'not_called'
 }
 
+export const PRICE_LIST_TYPE = {
+    one_price_item: 'one_price_item',
+    three_price_item: 'three_price_item',
+}
+
 export function handleResponse({data, success, clientError, serverError}) {
     if (data?.status === STATUS_RESPONSE.error) clientError(data.detail)
     else if (data?.status === STATUS_RESPONSE.success) success(data)

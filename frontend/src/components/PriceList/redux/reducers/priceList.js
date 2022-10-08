@@ -1,39 +1,33 @@
-let initialState = {
-    0: {
-        name: 'Мужской зал',
-        price_items: [
-            {
-                name: 'Стрижка невероятная',
-                description: 'Стрижка бубликовская',
-                price: 600
-            },
-            {
-                name: 'Стрижка вероятная',
-                description: 'Вероятность 65%',
-                price: 700
-            },
-        ],
-    },
-    1: {
-        name: 'Женский зал',
-        price_items: [
-            {
-                name: 'Стрижка бублосинская',
-                description: 'Да это та самая бублосинская стрижка',
-                shirt_price: 400,
-                middle_price: 600,
-                long_price: 800
-            },
-            {
-                name: 'Стрижка керамическая',
-                description: 'Цемент в подарок',
-                shirt_price: 700,
-                middle_price: 800,
-                long_price: 900
-            },
-        ]
-    }
-}
+import {PRICE_LIST_TYPE} from "../../../../constants";
+
+let initialState = [
+    // {
+    //     name: 'Мужской зал',
+    //     type: PRICE_LIST_TYPE.one_price_item,
+    //     price_items: [
+    //         {
+    //             pk: 1,
+    //             name: 'Бублики',
+    //             description: 'Жуплики',
+    //             price: 600
+    //         }
+    //     ]
+    // },
+    // {
+    //     name: 'Женский зал',
+    //     type: PRICE_LIST_TYPE.three_price_item,
+    //     price_items: [
+    //         // {
+    //         //     pk: 1,
+    //         //     name: 'Еще бублик',
+    //         //     description: 'Еще жуплик',
+    //         //     shirt_price: 600,
+    //         //     middle_price: 800,
+    //         //     long_price: 1000
+    //         // }
+    //     ]
+    // }
+]
 
 
 export default function priceList(state = initialState, action) {

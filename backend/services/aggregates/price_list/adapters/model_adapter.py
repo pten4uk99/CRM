@@ -1,7 +1,7 @@
 from infrastructure.database.models import OnePriceItemDB, PriceListDB, ThreePriceItemDB
 from services.aggregates.base.adapters.base import EntityAdapter
 from services.aggregates.price_item.entity import OnePriceItem, PriceItem, ThreePriceItem
-from services.aggregates.price_list.entity import PriceList
+from services.aggregates.price_list.entity import PriceList, PriceListType
 
 
 class PriceListAdapter(EntityAdapter):
@@ -26,5 +26,9 @@ class PriceListAdapter(EntityAdapter):
         )
 
     @classmethod
-    def to_entity(cls, obj: PriceListDB, price_items: list[PriceItem]) -> PriceList:
-        return PriceList(pk=obj.pk, name=obj.name, price_items=price_items)
+    def to_entity(cls, obj: PriceListDB) -> PriceList:
+        return PriceList(
+            pk=obj.pk,
+            name=obj.name,
+            type=getattr(PriceListType, obj.type),
+        )

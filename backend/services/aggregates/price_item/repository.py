@@ -7,6 +7,7 @@ from services.aggregates.price_item.entity import OnePriceItem, ThreePriceItem
 
 class PriceItemRepository(Repository):
     adapter_class = PriceItemAdapter
+    db_model = PriceItemGenericLinkDB
 
     def create_one_price_item(self, obj: OnePriceItem) -> None:
         price_item_db = self.adapter_class.to_one_price_item_db(obj)

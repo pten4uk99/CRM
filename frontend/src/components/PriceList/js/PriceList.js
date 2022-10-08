@@ -1,42 +1,68 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
-import OneItemPrice from "./OneItemPrice";
-import ThreeItemPrice from "./ThreeItemPrice";
+import OneItemPriceList from "./OnePriceItem/OneItemPriceList";
+import ThreeItemPriceList from "./ThreePriceItem/ThreeItemPriceList";
+import {PRICE_LIST_TYPE} from "../../../constants";
+import {getPriceLists} from "../ajax/data";
+import AddCategoryModal from "./AddCategoryModal";
+import {SetActiveModalWindow} from "../../Utils/redux/modalWindow/modalWindowAction";
 
 
 function PriceList(props) {
-    let priceList = props.store.priceList
-    let categories = Object.keys(priceList)
+    let [priceList, setPriceList] = useState([])
     let [chosenCategory, setChosenCategory] = useState(null)
-    let [priceItems, setPriceItems] = useState([])
+    let [addCategoryWindowActive, setAddCategoryWindowActive] = useState(false)
 
-    let isOnePriceItem = priceItems[0]?.price
-    let isThreePriceItem = priceItems[0]?.shirt_price || priceItems[0]?.middle_price || priceItems[0]?.long_price
+    useEffect(() => {requestPriceLists()}, [])
+
+    function requestPriceLists() {
+        getPriceLists({
+            success: successGetPriceLists,
+            clientError: console.log,
+            serverError: console.log
+        })
+    }
+
+    function successGetPriceLists(data) {
+        setPriceList(data.data)
+    }
 
     useEffect(() => {
-        if (chosenCategory) setPriceItems(priceList[chosenCategory]?.price_items)
-    }, [chosenCategory])
+        if (priceList.length > 0) setChosenCategory(priceList[0])
+    }, [priceList])
 
+    useEffect(() => {
+        props.SetActiveModalWindow(addCategoryWindowActive)
+    }, [addCategoryWindowActive])
 
     return (
         <article className="price-list">
             <div className="block__categories">
-                {categories.map((elem) => <h1 key={elem}
+                {addCategoryWindowActive && <AddCategoryModal onCancel={() => setAddCategoryWindowActive(false)}
+                                                              requestPriceLists={requestPriceLists}/>}
+                {priceList.map((elem) => <h1 key={elem.pk}
                                               className={`category ${chosenCategory === elem && "active"}`}
-                                              onClick={() => setChosenCategory(elem)}>{priceList[elem].name}</h1>)}
+                                              onClick={() => setChosenCategory(elem)}>{elem.name}</h1>)}
+                <button className="add-category"
+                        onClick={() => setAddCategoryWindowActive(true)}>Добавить категорию</button>
             </div>
 
             <div className="table">
-                {priceItems.map((elem, index) => {
-                    if (isOnePriceItem) return <OneItemPrice key={index} priceItem={elem}/>
-                    else if (isThreePriceItem) return <ThreeItemPrice key={index} priceItem={elem}/>
-                })}
+                {chosenCategory?.type === PRICE_LIST_TYPE.one_price_item &&
+                    <OneItemPriceList requestPriceLists={requestPriceLists}
+                                      chosenCategory={chosenCategory}/>}
+                {chosenCategory?.type === PRICE_LIST_TYPE.three_price_item &&
+                    <ThreeItemPriceList requestPriceLists={requestPriceLists}
+                                        chosenCategory={chosenCategory}/>}
             </div>
+
         </article>
     )
 }
 
 export default connect(
     state => ({store: state}),
-    dispatch => ({})
+    dispatch => ({
+        SetActiveModalWindow: (active) => dispatch(SetActiveModalWindow(active)),
+    })
 )(PriceList);

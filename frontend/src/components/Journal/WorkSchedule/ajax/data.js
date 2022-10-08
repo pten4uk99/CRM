@@ -1,6 +1,5 @@
 import {fetchMasterTimetable, fetchSetMasterTimetable} from "./server";
-import {adaptMasterTimetable} from "./adapters";
-import {handleResponse, STATUS_RESPONSE} from "../../../../constants";
+import {handleResponse} from "../../../../constants";
 
 
 export function getMasterTimetable({year, month, success, clientError, serverError}) {

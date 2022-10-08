@@ -5,7 +5,7 @@ from services.aggregates.administrator.entity import Administrator
 from services.aggregates.allowed_ip_address.entity import AllowedIpAddress
 from services.aggregates.client.entity import Client
 from services.aggregates.master.entity import Master
-from services.aggregates.price_list.entity import PriceList
+from services.aggregates.price_list.entity import PriceList, PriceListType
 from services.aggregates.visit.entity import Visit, StatusChoice
 from services.aggregates.work_day.entity import WorkDay
 from services.aggregates.work_shift.entity import WorkShift
@@ -72,7 +72,7 @@ class AddOnePriceItemUseCaseInit(UseCaseInit):
     name: str
     description: str
     price: int
-    price_list_id: int
+    price_list: PriceList
 
 
 @dataclass
@@ -82,7 +82,7 @@ class AddThreePriceItemUseCaseInit(UseCaseInit):
     shirt_price: int
     middle_price: int
     long_price: int
-    price_list_id: int
+    price_list: PriceList
 
 
 @dataclass
@@ -93,6 +93,8 @@ class GetPriceListUseCaseInit(UseCaseInit):
 @dataclass
 class AddPriceListUseCaseInit(UseCaseInit):
     name: str
+    type: PriceListType
+    existing_price_list: PriceList
 
 
 @dataclass
