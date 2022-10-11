@@ -1,4 +1,4 @@
-from services.aggregates.price_item.entity import OnePriceItem
+from services.aggregates.price_item.entity import PriceItem, PriceItemGroup
 from services.aggregates.price_list.entity import PriceListType
 from services.use_case.base import UseCase, UseCaseException
 from services.use_case.base.uc_changed import AddOnePriceItemUseCaseChanged
@@ -15,7 +15,7 @@ class AddOnePriceItemUseCase(UseCase):
 
     def _validate_data(self):
         if self._init.price_list.type != PriceListType.one_price_item:
-            raise UseCaseException('К выбранному прайс листу невозможно добавить элемент с одной ценой')
+            raise UseCaseException('К выбранному прайс листу невозможно добавить элемент c несколькими ценами')
         if len(self._init.name) > 50:
             raise UseCaseException('Максимальная длина названия - 50 символов')
         if type(self._init.price) != int or not (0 < self._init.price < 10000):
@@ -24,11 +24,11 @@ class AddOnePriceItemUseCase(UseCase):
     def _perform_run(self):
         self._validate_data()
 
-        price_item = OnePriceItem(
-            name=self._init.name.title(),
+        price_item = PriceItem(
+            name=self._init.name.capitalize(),
             description=self._init.description,
             price=self._init.price,
-            price_list_id=self._init.price_list.pk
+            price_group=PriceItemGroup.none
         )
-        self.changed_entities = AddOnePriceItemUseCaseChanged(one_price_item=price_item)
+        self.changed_entities = AddOnePriceItemUseCaseChanged(price_item=price_item, price_list=self._init.price_list)
 

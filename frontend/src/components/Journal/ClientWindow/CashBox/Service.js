@@ -5,86 +5,49 @@ import coloringIcon from '/src/assets/img/journal/coloring-icon.svg'
 import coloringIconWhite from '/src/assets/img/journal/coloring-icon-white.svg'
 import Coloring from "./Coloring";
 import PriceTable from "./PriceTable";
-import {HAIR_LENGTHS} from "../../../../constants";
+import {getPriceLists} from "../../../PriceList/ajax/data";
 
 
-function Service(props) {
+function Service({...props}) {
     let [isColoring, setIsColoring] = useState(false)
     let [activeService, setActiveService] = useState(null)
+    let [serviceList, setServiceList] = useState([])
 
     useEffect(() => {
-        setActiveService(serviceList.filter((elem) => elem?.header === 'Мужской зал')[0])
+        if (serviceList.length > 0) setActiveService(serviceList[0])
+    }, [serviceList])
+
+    useEffect(() => {
+        getPriceLists({
+            success: successGetPriceLists,
+            clientError: console.log,
+            serverError: console.log
+        })
     }, [])
 
-    useEffect(() => {
-        if (activeService === 'Окрашивание') setIsColoring(true)
-        else setIsColoring(false)
-    }, [activeService])
-
-    let [serviceList, setServiceList] = useState([
-        {
-            header: 'Мужской зал',
-            price_list: [
-                {
-                    name: 'Стрижка модельная',
-                    price: '600'
-                },
-                {
-                    name: 'Стрижка квадратная',
-                    price: '500'
-                },
-
-            ]
-        },
-        {
-            header: 'Женский зал',
-            price_list: [
-                {
-                    name: 'Стрижка + обдув',
-                    hair_lengths: [
-                        {
-                            hair_length: HAIR_LENGTHS.shirt,
-                            price: '800'
-                        },
-                        {
-                            hair_length: HAIR_LENGTHS.middle,
-                            price: '1000'
-                        },
-                        {
-                            hair_length: HAIR_LENGTHS.long,
-                            price: '1200'
-                        },
-
-                    ],
-                },
-            ]
-        },
-        {header: 'Укладка', price_list: []},
-        {header: 'Маникюр', price_list: []},
-        {header: 'Косметология', price_list: []}
-    ])
-
+    function successGetPriceLists(data) {
+        setServiceList(data.data)
+    }
 
     return (
         <div className="add-client-window__service">
             <div className={`coloring ${isColoring && 'active'}`}
-                 onClick={() => setActiveService('Окрашивание')}>
+                 onClick={() => setIsColoring(!isColoring)}>
                 <img src={isColoring ? coloringIconWhite : coloringIcon} alt="окрашивание"/>
             </div>
-            <div className="service-list">
-                {serviceList.map((service, index) => {
-                    return <div
-                        className={`service-list__item ${service?.header === activeService?.header && 'active'}`}
-                        key={index}
-                        onClick={() => setActiveService(service)}>
-                        {service?.header}
-                    </div>
-                })}
+            <div className="service-list__wrapper">
+                <div className="service-list">
+                    {serviceList.map((service, index) => {
+                        return <div className={`service-list__item ${service?.pk === activeService?.pk && 'active'}`}
+                                    key={index}
+                                    onClick={() => setActiveService(service)}>
+                            {service?.name}
+                        </div>})}
+                </div>
             </div>
-
-            {activeService === 'Окрашивание' ?
+            {isColoring ?
                 <Coloring/> :
-                <PriceTable data={activeService}/>}
+                <PriceTable activePriceList={activeService}/>}
         </div>
     )
 }

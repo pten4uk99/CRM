@@ -16,5 +16,5 @@ class AddPriceListUseCase(UseCase):
         if self._init.existing_price_list is not None:
             raise UseCaseException('Категория с таким именем уже существует')
 
-        price_list = PriceList(name=self._init.name, type=self._init.type)
+        price_list = PriceList(name=self._init.name.capitalize(), type=self._init.type)
         self.changed_entities = AddPriceListUseCaseChanged(price_list=price_list)

@@ -9,9 +9,9 @@ function ThreeItemPrice({priceItem, ...props}) {
                 <div className="name">{priceItem.name}</div>
                 <div className="description">{priceItem.description}</div>
             </div>
-            <div className="price shirt-price">{priceItem.shirt_price}</div>
-            <div className="price middle-price">{priceItem.middle_price}</div>
-            <div className="price long-price">{priceItem.long_price}</div>
+            <div className="price shirt-price">{priceItem.shirt_price.price}</div>
+            <div className="price middle-price">{priceItem.middle_price.price}</div>
+            <div className="price long-price">{priceItem.long_price.price}</div>
         </div>
     )
 }

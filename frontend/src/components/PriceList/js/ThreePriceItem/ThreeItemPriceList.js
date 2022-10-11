@@ -7,13 +7,18 @@ import {SetActiveModalWindow} from "../../../Utils/redux/modalWindow/modalWindow
 
 
 function OneItemPriceList({chosenCategory, requestPriceLists, ...props}) {
-    let priceItems = chosenCategory?.price_items
+    let rawPriceItems = chosenCategory?.price_items
+    let [priceItems, setPriceItems] = useState([])
 
     let [modalActive, setModalActive] = useState(false)
 
     useEffect(() => {
         props.SetActiveModalWindow(modalActive)
     }, [modalActive])
+
+    useEffect(() => {
+        if (rawPriceItems) setPriceItems(formatThreeItemPriceList(rawPriceItems))
+    }, [rawPriceItems])
 
     return (
         <div className='three-item-price-list'>
@@ -35,3 +40,27 @@ export default connect(
         SetActiveModalWindow: (active) => dispatch(SetActiveModalWindow(active)),
     })
 )(OneItemPriceList);
+
+
+export function formatThreeItemPriceList(rawPriceItems) {
+    let newPriceItems = []
+    let priceItemToBuild;
+
+    for (let item of rawPriceItems) {
+        let priceName = `${item.price_group}_price`
+        let price = {pk: item.pk, price: item.price}
+
+        if (priceItemToBuild) {
+            if (priceItemToBuild.name === item.name) {
+                priceItemToBuild[priceName] = price
+            }
+            if (priceItemToBuild?.shirt_price &&
+                priceItemToBuild?.middle_price &&
+                priceItemToBuild?.long_price) newPriceItems.push(priceItemToBuild)
+        } else {
+            priceItemToBuild = {name: item.name}
+            priceItemToBuild[priceName] = price
+        }
+    }
+    return newPriceItems
+}

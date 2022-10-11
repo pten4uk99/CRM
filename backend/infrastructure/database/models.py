@@ -1,7 +1,9 @@
-from sqlalchemy import Column, Integer, String, Date, ForeignKey, DateTime, Boolean, Enum, BigInteger, Text
+from sqlalchemy import Column, Integer, String, Date, ForeignKey, DateTime, Boolean, Enum, BigInteger, Text, \
+    UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from infrastructure.database.base import BaseModel
+from services.aggregates.price_item.entity import PriceItemGroup
 from services.aggregates.price_list.entity import PriceListType
 from services.aggregates.visit.entity import StatusChoice
 
@@ -65,50 +67,34 @@ class PriceListDB(BaseModel):
     name = Column(String, nullable=False, unique=True)
     type = Column(String, Enum(PriceListType), nullable=False)
 
-    price_item_generic_links = relationship('PriceItemGenericLinkDB', back_populates='price_list')
-
-
-class PriceItemGenericLinkDB(BaseModel):
-    __tablename__ = 'price_item_generic_link'
-
-    pk = Column(Integer, primary_key=True, index=True)
-    table_name = Column(String, nullable=False)
-    object_id = Column(Integer, nullable=False)
-    price_list_id = Column(Integer, ForeignKey('price_list.pk'), nullable=False)
-
-    price_list = relationship('PriceListDB', back_populates='price_item_generic_links')
-    services = relationship('ServiceDB', back_populates='price_item_generic')
+    price_items = relationship('PriceItemDB', back_populates='price_list')
 
 
 class ServiceDB(BaseModel):
     __tablename__ = 'service'
+    __table_args__ = (UniqueConstraint('visit_id', 'price_item_id'),)
 
     pk = Column(Integer, primary_key=True, index=True)
-    price_item_generic_id = Column(Integer, ForeignKey('price_item_generic_link.pk'))
-    visit_id = Column(Integer, ForeignKey('visit.pk'))
+    visit_id = Column(Integer, ForeignKey('visit.pk'), nullable=False)
+    price_item_id = Column(Integer, ForeignKey('price_item.pk'), nullable=False)
+    quantity = Column(Integer, nullable=False)
 
-    price_item_generic = relationship('PriceItemGenericLinkDB', back_populates='services')
     visit = relationship('VisitDB', back_populates='services')
+    price_item = relationship('PriceItemDB', back_populates='services')
 
 
-class OnePriceItemDB(BaseModel):
-    __tablename__ = 'one_price_item'
+class PriceItemDB(BaseModel):
+    __tablename__ = 'price_item'
 
     pk = Column(Integer, primary_key=True, index=True)
+    price_group = Column(String, Enum(PriceItemGroup), nullable=False)
     name = Column(String, nullable=False)
     description = Column(String)
     price = Column(Integer, nullable=False)
+    price_list_id = Column(Integer, ForeignKey('price_list.pk'), nullable=False)
 
-
-class ThreePriceItemDB(BaseModel):
-    __tablename__ = 'three_price_item'
-
-    pk = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    description = Column(String)
-    shirt_price = Column(Integer)
-    middle_price = Column(Integer)
-    long_price = Column(Integer)
+    price_list = relationship('PriceListDB', back_populates='price_items')
+    services = relationship('ServiceDB', back_populates='price_item')
 
 
 class WorkShiftDB(BaseModel):

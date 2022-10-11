@@ -2,11 +2,12 @@ import datetime
 
 from sqlalchemy import and_
 
-from infrastructure.database.models import VisitDB, ClientDB
+from infrastructure.database.models import VisitDB, ClientDB, ServiceDB
 from services.aggregates.base.repository.base import Repository
 from services.aggregates.client.entity import Client
 from services.aggregates.visit.adapters.model_adapter import VisitAdapter
 from services.aggregates.visit.entity import Visit
+from services.aggregates.visit.value_objects import Service
 
 
 class VisitRepository(Repository):
@@ -32,11 +33,31 @@ class VisitRepository(Repository):
         self.session.add(instance)
         self.session.commit()
 
+    def _create_service(self, service: Service, visit_id: int):
+        service_db: ServiceDB = self.session.query(ServiceDB).filter(and_(
+            ServiceDB.visit_id == visit_id,
+            ServiceDB.price_item_id == service.price_item.pk
+        )).first()
+
+        if not service_db:
+            service_db = ServiceDB(
+                quantity=service.quantity,
+                visit_id=visit_id,
+                price_item_id=service.price_item.pk
+            )
+        else:
+            service_db.quantity += service.quantity
+
+        self.session.add(service_db)
+
     def _update(self, new_entity: Visit):
         instance: VisitDB = self._instance_db
 
         if new_entity.client is not None:
             self._add_client(new_entity.client)
+        if new_entity.services:
+            for service in new_entity.services:
+                self._create_service(service, instance.pk)
 
         instance.master_id = new_entity.master.pk
         instance.card = new_entity.card

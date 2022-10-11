@@ -1,36 +1,20 @@
-from infrastructure.database.generic_table import PriceItemGenericTables
-from infrastructure.database.models import PriceItemGenericLinkDB
+from infrastructure.database.models import PriceItemDB
 from services.aggregates.base.repository.base import Repository
 from services.aggregates.price_item.adapters.model_adapter import PriceItemAdapter
-from services.aggregates.price_item.entity import OnePriceItem, ThreePriceItem
+from services.aggregates.price_item.entity import PriceItem
+from services.aggregates.price_list.entity import PriceList
 
 
 class PriceItemRepository(Repository):
     adapter_class = PriceItemAdapter
-    db_model = PriceItemGenericLinkDB
+    db_model = PriceItem
 
-    def create_one_price_item(self, obj: OnePriceItem) -> None:
-        price_item_db = self.adapter_class.to_one_price_item_db(obj)
+    def _get(self, pk: int) -> PriceItemDB:
+        return self.session.query(PriceItemDB).get(pk)
+
+    def create_with_price_list(self, price_item: PriceItem, price_list: PriceList):
+        price_item_db = self.adapter_class.from_entity(price_item)
+        price_item_db.price_list_id = price_list.pk
+
         self.session.add(price_item_db)
-        self.session.commit()
-
-        generic_link = PriceItemGenericLinkDB(
-            table_name=PriceItemGenericTables.one_price_item.name,
-            object_id=price_item_db.pk,
-            price_list_id=obj.price_list_id
-        )
-        self.session.add(generic_link)
-        self.session.commit()
-
-    def create_three_price_item(self, obj: ThreePriceItem) -> None:
-        price_item_db = self.adapter_class.to_three_price_item_db(obj)
-        self.session.add(price_item_db)
-        self.session.commit()
-
-        generic_link = PriceItemGenericLinkDB(
-            table_name=PriceItemGenericTables.three_price_item.name,
-            object_id=price_item_db.pk,
-            price_list_id=obj.price_list_id
-        )
-        self.session.add(generic_link)
         self.session.commit()

@@ -8,7 +8,7 @@ import {SetClientErrorDetail} from "../../Utils/redux/clientError/clientErrorAct
 import {SetServerErrorDetail} from "../../Utils/redux/serverError/serverErrorActions";
 
 
-function AddCategoryModal({requestPriceLists, onCancel, ...props}) {
+function AddCategoryModal({requestPriceLists, setAddCategoryWindowActive, ...props}) {
     let [responseLoaded, setResponseLoaded] = useState(true)
     let [chosenCategory, setChosenCategory] = useState(PRICE_LIST_TYPE.one_price_item)
     let [categoryName, setCategoryName] = useState('')
@@ -31,6 +31,7 @@ function AddCategoryModal({requestPriceLists, onCancel, ...props}) {
     function successAddCategory(data) {
         setResponseLoaded(true)
         props.SetActiveModalWindow(false)
+        setAddCategoryWindowActive(false)
         requestPriceLists()
     }
 
@@ -45,7 +46,9 @@ function AddCategoryModal({requestPriceLists, onCancel, ...props}) {
     }
 
     return (
-        <ModalWindow onConfirm={handleConfirm} onCancel={onCancel} loading={!responseLoaded}>
+        <ModalWindow onConfirm={handleConfirm}
+                     onCancel={() => setAddCategoryWindowActive(false)}
+                     loading={!responseLoaded}>
             <h3>Добавление категории</h3>
             <p style={{display: "flex", flexDirection: "column",}}>
                 <label style={{fontSize: 14, marginTop: 20}}>

@@ -3,49 +3,13 @@
   grid-column: 1 / span 20;
   margin-left: 15px;
 
-  .service-list {
-    display: flex;
-
-    font-size: 16px;
-    font-weight: 500;
-
-    margin-top: 15px;
-    margin-left: 98px;
-    margin-bottom: 20px; // выровнено по верхней части "Итога"
-
-
-
-    .service-list__item {
-      width: 150px;
-      height: 40px;
-
-      box-sizing: border-box;
-      margin-right: 5px;
-      padding: 10px;
-
-      background-color: white;
-      border-radius: 10px;
-      border: 1px solid #E0E0E0;
-
-      text-align: center;
-      cursor: pointer;
-      user-select: none;
-
-      &.active {
-        background-color: $blue;
-        color: white;
-      }
-    }
-
-  }
-
   & > .coloring {
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    margin-top: 74px;
+    margin-top: 15px;
 
     width: 40px;
     height: 40px;
@@ -61,36 +25,82 @@
     }
   }
 
-  .service-input {
-    grid-row: 1 / span 2;
-    grid-column: 2 / span 5;
+  .service-list__wrapper {
+    width: 830px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
-    margin-left: 15px;
-
-    .input-service {
-      height: 21px;
-      padding: 5px;
-
-      font-size: .70em;
-
-      background-color: $white;
-      border-bottom: 1px solid rgba(0, 0, 0, .3);
-    }
-  }
-
-  .materials-used {
-    display: flex;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
-    margin: 15px 0 10px 10px;
 
-    .checkbox {
-      margin-top: 4px;
-      margin-left: 10px;
+    margin-top: 15px;
+    margin-left: 51px;
+    margin-bottom: 20px; // выровнено по верхней части "Итога"
+
+    overflow-x: auto;
+
+    .service-list {
+      display: flex;
+      width: max-content;
+
+      .service-list__item {
+        width: 150px;
+        height: 40px;
+
+        box-sizing: border-box;
+        margin-right: 5px;
+        padding: 10px;
+
+        background-color: white;
+        border-radius: 10px;
+        border: 1px solid #E0E0E0;
+
+        text-overflow: ellipsis;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+
+        overflow: hidden;
+
+        &.active {
+          background-color: $blue;
+          color: white;
+        }
+      }
+
+    }
+
+
+
+    .service-input {
+      grid-row: 1 / span 2;
+      grid-column: 2 / span 5;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      margin-left: 15px;
+
+      .input-service {
+        height: 21px;
+        padding: 5px;
+
+        font-size: .70em;
+
+        background-color: $white;
+        border-bottom: 1px solid rgba(0, 0, 0, .3);
+      }
+    }
+
+    .materials-used {
+      display: flex;
+      font-size: 16px;
+      font-weight: 500;
+      margin: 15px 0 10px 10px;
+
+      .checkbox {
+        margin-top: 4px;
+        margin-left: 10px;
+      }
     }
   }
 }

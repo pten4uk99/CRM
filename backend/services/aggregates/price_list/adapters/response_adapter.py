@@ -1,7 +1,7 @@
-from typing import TypedDict, Union
+from typing import TypedDict
 
 from services.aggregates.base.adapters.base import ResponseEntityAdapter
-from services.aggregates.price_item.entity import OnePriceItem, ThreePriceItem
+from services.aggregates.price_item.entity import PriceItem, PriceItemGroup
 from services.aggregates.price_list.entity import PriceList, PriceListType
 
 
@@ -9,55 +9,29 @@ class PriceItemResponseDict(TypedDict):
     pk: int
     name: str
     description: str
-
-
-class OnePriceItemResponseDict(PriceItemResponseDict):
+    price_group: PriceItemGroup
     price: int
-
-
-class ThreePriceItemResponseDict(PriceItemResponseDict):
-    shirt_price: int
-    middle_price: int
-    long_price: int
 
 
 class PriceListResponseDict(TypedDict):
     pk: int
     name: str
     type: PriceListType
-    price_items: list[Union[OnePriceItemResponseDict, ThreePriceItemResponseDict]]
+    price_items: list[PriceItemResponseDict]
 
 
 class ResponsePriceListAdapter(ResponseEntityAdapter):
     @classmethod
-    def _get_one_price_items_response_list(cls, price_items: list[OnePriceItem]) -> list[OnePriceItemResponseDict]:
+    def _get_price_items_response_list(cls, price_items: list[PriceItem]) -> list[PriceItemResponseDict]:
         result = []
 
         for item in price_items:
-            item: OnePriceItem
-            result.append(OnePriceItemResponseDict(
+            result.append(PriceItemResponseDict(
                 pk=item.pk,
                 name=item.name,
                 description=item.description,
+                price_group=item.price_group,
                 price=item.price
-            ))
-
-        return result
-
-    @classmethod
-    def _get_three_price_items_response_list(cls,
-                                             price_items: list[ThreePriceItem]) -> list[ThreePriceItemResponseDict]:
-        result = []
-
-        for item in price_items:
-            item: ThreePriceItem
-            result.append(ThreePriceItemResponseDict(
-                pk=item.pk,
-                name=item.name,
-                description=item.description,
-                shirt_price=item.shirt_price,
-                middle_price=item.middle_price,
-                long_price=item.long_price
             ))
 
         return result
@@ -67,9 +41,5 @@ class ResponsePriceListAdapter(ResponseEntityAdapter):
         price_items = []
 
         if obj.price_items:
-            if isinstance(obj.price_items[0], OnePriceItem):
-                price_items = cls._get_one_price_items_response_list(obj.price_items)
-            elif isinstance(obj.price_items[0], ThreePriceItem):
-                price_items = cls._get_three_price_items_response_list(obj.price_items)
-
+            price_items = cls._get_price_items_response_list(obj.price_items)
         return PriceListResponseDict(pk=obj.pk, name=obj.name, type=obj.type, price_items=price_items)

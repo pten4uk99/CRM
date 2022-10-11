@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 from services.aggregates.price_list.entity import PriceListType
 from services.aggregates.visit.entity import StatusChoice
+from services.use_case.base.uc_types import VisitPaymentPriceItemIn
 
 
 class MasterCreateIn(BaseModel):
@@ -83,4 +84,11 @@ class ThreePriceItemIn(BaseModel):
     middle_price: int
     long_price: int
     price_list_id: int
+
+
+class VisitPaymentIn(BaseModel):
+    paid: int
+    discount: int = None
+    card: int = None
+    services: list[VisitPaymentPriceItemIn] = None
 

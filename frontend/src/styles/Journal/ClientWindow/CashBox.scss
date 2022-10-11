@@ -23,6 +23,8 @@
     .service-positions {
       height: 100%;
       border-bottom: 2px solid $border-color;
+
+      box-sizing: border-box;
       padding: 10px;
       overflow-y: auto;
 
@@ -90,7 +92,7 @@
     grid-row: 18;
     grid-column: 14;
 
-    width: 240px;
+    width: 242px;
     height: 35px;
 
     outline: none;
@@ -104,9 +106,14 @@
     border: 1px solid $border-color;
     border-radius: 10px;
 
-    font-size: .7em;
+    font-size: 1em;
     font-weight: 400;
     cursor: pointer;
+    
+    &:hover {
+      background-color: $blue;
+      color: $white;
+    }
   }
 }
 
@@ -118,3 +125,4 @@
 @import "CashBox/AddCategory";
 @import "CashBox/Calculator";
 @import "CashBox/WomanPriceTable";
+@import "CashBox/PaymentDropDown";

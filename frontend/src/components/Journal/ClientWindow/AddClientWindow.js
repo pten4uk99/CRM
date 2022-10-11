@@ -95,14 +95,11 @@ function AddClientWindow({requestMastersWithVisits, ...props}) {
                     <ClientInfo chosenMasterId={chosenMasterId}
                                 deactivateWindow={deactivateWindow}
                                 currentDate={currentDate}
-                                master={props.master}
                                 setMasterId={setChosenMasterId}
-                                clientInfo={props.clientInfo}
-                                tableItem={props.tableItem}
                                 requestMastersWithVisits={requestMastersWithVisits}/> :
                     <>
                         <img className='back-icon' src={back} alt="назад" onClick={() => setClientInfoActive(true)}/>
-                        <CashBox/>
+                        <CashBox requestMastersWithVisits={requestMastersWithVisits}/>
                     </>}
             </div>
         </>

@@ -26,7 +26,7 @@ def test_entities_added_to_changed_and_delete():
         name=name, price_list_id=price_list_id, price=price, description=description)
     changed_entities: AddOnePriceItemUseCaseChanged
 
-    price_item = changed_entities.one_price_item
+    price_item = changed_entities.price_item
 
     assert price_item.price == price
     assert price_item.description == description

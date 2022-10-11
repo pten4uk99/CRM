@@ -1,4 +1,11 @@
-import {fetchAddNewVisit, fetchDeleteVisit, fetchEditVisit, fetchGetClientList, fetchSetClientStatus} from "./server";
+import {
+    fetchAddNewVisit,
+    fetchDeleteVisit,
+    fetchEditVisit,
+    fetchGetClientList,
+    fetchSetClientStatus,
+    fetchVisitPayment
+} from "./server";
 import {handleResponse} from "../../../../constants";
 
 
@@ -40,6 +47,15 @@ export function setVisitStatus({visitId, status, success, clientError, serverErr
 
 export function deleteVisit({visitId, body, success, clientError, serverError}) {
     fetchDeleteVisit({visitId, body})
+        .then(data => handleResponse({data, success, clientError, serverError}))
+        .catch(error => {
+            serverError(error.message)
+            console.log(error)
+        })
+}
+
+export function visitPayment({visitId, body, success, clientError, serverError}) {
+    fetchVisitPayment({visitId, body})
         .then(data => handleResponse({data, success, clientError, serverError}))
         .catch(error => {
             serverError(error.message)

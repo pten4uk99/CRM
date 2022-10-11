@@ -1,30 +1,33 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {AddCashPosition, RemoveCashPosition} from "../../../../redux/actions/Main/cashResult";
 import {HAIR_LENGTHS} from "../../../../constants";
+import WomanPriceItem from "./WomanPriceItem";
+import {formatThreeItemPriceList} from "../../../PriceList/js/ThreePriceItem/ThreeItemPriceList";
 
 
-function WomanPriceTable(props) {
+function WomanPriceTable({activePriceList, ...props}) {
     let cashResult = props.store.cashResult
-    let data = props.data
-    let priceList = data?.price_list || []
+    let rawPriceList = activePriceList?.price_items || []
+    let [priceItems, setPriceItems] = useState([])
 
-    function handleAddPosition(elem, hair_length) {
+    useEffect(() => {
+        if (rawPriceList) setPriceItems(formatThreeItemPriceList(rawPriceList))
+    }, [rawPriceList])
+
+    function handleAddPosition(elem, priceObj, hair_length) {
         let newPos = {
-            name: `${elem.name} (${hair_length.hair_length})`,
-            price: hair_length.price
+            pk: priceObj.pk,
+            name: `${elem.name} (${hair_length})`,
+            price: priceObj.price
         }
-        if (getCountPosInCashResult(elem, hair_length) < 5) props.AddCashPosition(newPos)
+        if (getCountPosInCashResult(elem, priceObj) < 5) props.AddCashPosition(newPos)
     }
 
-    function getCountPosInCashResult(elem, hair_length) {
+    function getCountPosInCashResult(elem, priceObj) {
         let count = 0
-        cashResult.forEach((pos) => {
-            if (pos.price === hair_length.price) {
-                if (pos.name.includes(elem.name)) {
-                    count++
-                }
-            }
+        cashResult.forEach((position) => {
+            if (position.pk === priceObj.pk) count++
         })
         return count
     }
@@ -38,24 +41,32 @@ function WomanPriceTable(props) {
                     <div className="price header">{HAIR_LENGTHS.middle}</div>
                     <div className="price header">{HAIR_LENGTHS.long}</div>
                 </div>
-                {priceList.map((elem, index) => {
-                    return <div className="row" key={index}>
-                        <div className="name">{elem.name}</div>
-                        {elem.hair_lengths.map((hair_length) => {
-                            return <div className={`price ${hair_length.hair_length === HAIR_LENGTHS.shirt ? 
-                                'shirt' : hair_length.hair_length === HAIR_LENGTHS.middle ?
-                                    'middle' : hair_length.hair_length === HAIR_LENGTHS.long ? 
-                                        'long' : ''}`}
-                                        onClick={() => handleAddPosition(elem, hair_length)}>
-                                {hair_length.price}
-                                {getCountPosInCashResult(elem, hair_length) !== 0 &&
-                                    <span className="count-pos-in-result">
-                                        x {getCountPosInCashResult(elem, hair_length)}
-                                    </span>}
-                            </div>
-                        })}
-                    </div>
-                })}
+
+                <div className="woman-price-list">
+                    {priceItems.map((elem, index) => {
+                        return <div className="row" key={index}>
+                            <div className="name">{elem.name}</div>
+                            <WomanPriceItem priceItem={elem}
+                                            priceObj={elem.shirt_price}
+                                            className='shirt'
+                                            hairLength={HAIR_LENGTHS.shirt}
+                                            handleAddPosition={handleAddPosition}
+                                            getCountPosInCashResult={getCountPosInCashResult}/>
+                             <WomanPriceItem priceItem={elem}
+                                            priceObj={elem.middle_price}
+                                            className='middle'
+                                            hairLength={HAIR_LENGTHS.middle}
+                                            handleAddPosition={handleAddPosition}
+                                            getCountPosInCashResult={getCountPosInCashResult}/>
+                            <WomanPriceItem priceItem={elem}
+                                            priceObj={elem.long_price}
+                                            className='long'
+                                            hairLength={HAIR_LENGTHS.long}
+                                            handleAddPosition={handleAddPosition}
+                                            getCountPosInCashResult={getCountPosInCashResult}/>
+                        </div>
+                    })}
+                </div>
             </div>
         </div>
     )

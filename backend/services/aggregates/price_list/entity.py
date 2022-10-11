@@ -4,7 +4,7 @@ from typing import TypeVar
 
 from services.aggregates.base import Entity
 
-E = TypeVar('E', bound=Entity)
+PriceItem = TypeVar('PriceItem', bound=Entity)
 
 
 class PriceListType(Enum):
@@ -16,5 +16,5 @@ class PriceListType(Enum):
 class PriceList(Entity):
     name: str
     type: PriceListType
-    price_items: list[E] = None
+    price_items: list[PriceItem] = None
     pk: int = None

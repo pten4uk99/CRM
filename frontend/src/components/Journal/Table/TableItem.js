@@ -2,12 +2,12 @@ import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 
 import {
-    ActivateBackground,
-    SetAddClientWindowActive, SetDefaultMaster,
-    SetDefaultTimeStart, SetTableItemId
+    SetAddClientWindowActive, SetClientInfoActive,
+    SetDefaultMaster,
+    SetDefaultTimeStart,
+    SetTableItemId
 } from "../../../redux/actions/Main/addClientWindow_actions";
 import {SwapTableItemToActive} from "../../../redux/actions/Main/masters_actions";
-import AddClientWindow from "../ClientWindow/AddClientWindow";
 import Client from "./Client";
 
 
@@ -45,6 +45,7 @@ function TableItem({master, requestMastersWithVisits, ...props}) {
     }
 
     function activateWindow() {
+        props.SetClientInfoActive(true)
         props.SetTableItemId(props.index)
         props.SetDefaultTimeStart(Number(currentItem.hour), Number(currentItem.minutes))
         props.SetDefaultMaster(master.pk, master.name, master.last_name)
@@ -79,6 +80,7 @@ function TableItem({master, requestMastersWithVisits, ...props}) {
 export default connect(
     state => ({store: state.Main}),
     dispatch => ({
+        SetClientInfoActive: (active) => dispatch(SetClientInfoActive(active)),
         SetTableItemId: (id) => dispatch(SetTableItemId(id)),
         SetDefaultMaster: (pk, name, lastName) => dispatch(SetDefaultMaster(pk, name, lastName)),
         SetDefaultTimeStart: (hour, minutes) => dispatch(SetDefaultTimeStart(hour, minutes)),

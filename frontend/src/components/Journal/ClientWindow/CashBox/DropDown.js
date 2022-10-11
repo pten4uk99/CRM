@@ -1,6 +1,5 @@
-import React, {useEffect, useRef, useState} from "react";
+import React from "react";
 import {connect} from "react-redux";
-import {roundFifty} from "./Coloring";
 
 
 function DropDown(props) {
@@ -15,6 +14,6 @@ function DropDown(props) {
 }
 
 export default connect(
-    state => ({store: state}),
+    state => ({}),
     dispatch => ({})
 )(DropDown);

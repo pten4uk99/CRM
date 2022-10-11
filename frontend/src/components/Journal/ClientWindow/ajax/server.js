@@ -54,3 +54,14 @@ export function fetchDeleteVisit({visitId, body}) {
     return fetch(`${BASE_URL}/admin/visit/${visitId}/delete`, options)
         .then(response => response.json())
 }
+
+export function fetchVisitPayment({visitId, body}) {
+    const options = {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+    }
+    return fetch(`${BASE_URL}/admin/visit_payment/${visitId}`, options)
+        .then(response => response.json())
+}

@@ -174,3 +174,7 @@ class SetVisitStatusUseCaseResponse(UseCaseResponse):
 
 class ClientDetailUseCaseResponse(UseCaseResponse):
     pass
+
+
+class VisitPaymentUseCaseResponse(UseCaseResponse):
+    pass

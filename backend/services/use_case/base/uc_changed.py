@@ -5,7 +5,7 @@ from services.aggregates.administrator.entity import Administrator
 from services.aggregates.allowed_ip_address import AllowedIpAddress
 from services.aggregates.client.entity import Client
 from services.aggregates.master.entity import Master
-from services.aggregates.price_item.entity import OnePriceItem, ThreePriceItem
+from services.aggregates.price_item.entity import PriceItem
 from services.aggregates.price_list.entity import PriceList
 from services.aggregates.visit.entity import Visit
 from services.aggregates.work_day.entity import WorkDay
@@ -45,12 +45,14 @@ class SetMasterTimeTableUseCaseChanged(UseCaseChanged):
 
 @dataclass
 class AddOnePriceItemUseCaseChanged(UseCaseChanged):
-    one_price_item: OnePriceItem
+    price_item: PriceItem
+    price_list: PriceList
 
 
 @dataclass
 class AddThreePriceItemUseCaseChanged(UseCaseChanged):
-    three_price_item: ThreePriceItem
+    price_items: list[PriceItem]
+    price_list: PriceList
 
 
 @dataclass
@@ -88,6 +90,10 @@ class SetVisitStatusUseCaseChanged(UseCaseChanged):
 class DeleteVisitUseCaseChanged(UseCaseChanged):
     visit: Visit
 
+
+@dataclass
+class VisitPaymentUseCaseChanged(UseCaseChanged):
+    visit: Visit
 
 if __name__ == '__main__':
     u = CheckAuthUseCaseChanged(allowed_ip='dd')

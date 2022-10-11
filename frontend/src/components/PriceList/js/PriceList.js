@@ -38,7 +38,7 @@ function PriceList(props) {
     return (
         <article className="price-list">
             <div className="block__categories">
-                {addCategoryWindowActive && <AddCategoryModal onCancel={() => setAddCategoryWindowActive(false)}
+                {addCategoryWindowActive && <AddCategoryModal setAddCategoryWindowActive={setAddCategoryWindowActive}
                                                               requestPriceLists={requestPriceLists}/>}
                 {priceList.map((elem) => <h1 key={elem.pk}
                                               className={`category ${chosenCategory === elem && "active"}`}

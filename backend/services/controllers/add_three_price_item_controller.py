@@ -37,4 +37,6 @@ class AddThreePriceItemController(UseCaseController):
 
     def _save_use_case_result(self, use_case_changed: AddThreePriceItemUseCaseChanged):
         repo = PriceItemRepository(self.session)
-        repo.create_three_price_item(use_case_changed.three_price_item)
+
+        for price_item in use_case_changed.price_items:
+            repo.create_with_price_list(price_item, use_case_changed.price_list)

@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from infrastructure.database.utils import get_db_session
 from infrastructure.modules.admin.admin_schemas import MasterCreateIn, DeleteVisitIn, PriceListIn, OnePriceItemIn, \
-    ThreePriceItemIn
+    ThreePriceItemIn, VisitPaymentIn
 from infrastructure.modules.admin.schemas.response_models import MasterListResponseModel
 from infrastructure.schemas import DefaultResponseSchema, MasterDeleteOut, MasterTimeTableOut, MasterWithVisitsOut
 from services.aggregates.visit.entity import StatusChoice
@@ -25,6 +25,7 @@ from services.controllers.master_list_controller import MasterListController
 from services.controllers.new_visit_controller import NewVisitController
 from services.controllers.set_master_timetable_controller import SetMasterTimeTableController
 from services.controllers.set_visit_status_controller import SetVisitStatusController
+from services.controllers.visit_payment_controller import VisitPaymentController
 
 admin_router = APIRouter(
     prefix='/admin'
@@ -173,6 +174,20 @@ async def add_three_price_item(price_item: ThreePriceItemIn, session: Session = 
         shirt_price=price_item.shirt_price,
         middle_price=price_item.middle_price,
         long_price=price_item.long_price
+    )
+    result = controller.handle()
+    return result
+
+
+@admin_router.put('/visit_payment/{visit_id}', response_model=DefaultResponseSchema)
+async def visit_payment(visit_id: int, body: VisitPaymentIn, session: Session = Depends(get_db_session)):
+    controller = VisitPaymentController(
+        session=session,
+        visit_id=visit_id,
+        paid=body.paid,
+        discount=body.discount,
+        card=body.card,
+        services=body.services
     )
     result = controller.handle()
     return result
