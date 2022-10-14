@@ -1,6 +1,5 @@
-import {fetchCreateMaster, fetchDeleteMaster, fetchMasterList} from "./server";
-import {handleResponse, STATUS_RESPONSE} from "../../../constants";
-import {adaptMasterList} from "./adapters";
+import {fetchClientDetail, fetchCreateMaster, fetchDeleteMaster, fetchMasterList, fetchVisitServices} from "./server";
+import {handleResponse} from "../../../constants";
 
 export function getMasterList({success, clientError, serverError}) {
     fetchMasterList()
@@ -22,6 +21,25 @@ export function createNewMaster({masterObj, success, clientError, serverError}) 
 
 export function deleteMaster({masterId, success, clientError, serverError}) {
     fetchDeleteMaster(masterId)
+        .then(data => handleResponse({data, success, clientError, serverError}))
+        .catch(error => {
+            serverError(error.message)
+            console.log(error)
+        })
+}
+
+export function clientDetail({clientId, success, clientError, serverError}) {
+    fetchClientDetail({clientId})
+        .then(data => handleResponse({data, success, clientError, serverError}))
+        .catch(error => {
+            serverError(error.message)
+            console.log(error)
+        })
+}
+
+
+export function visitServices({visitId, success, clientError, serverError}) {
+    fetchVisitServices({visitId})
         .then(data => handleResponse({data, success, clientError, serverError}))
         .catch(error => {
             serverError(error.message)

@@ -7,7 +7,8 @@ from infrastructure.database.utils import get_db_session
 from infrastructure.modules.admin.admin_schemas import MasterCreateIn, DeleteVisitIn, PriceListIn, OnePriceItemIn, \
     ThreePriceItemIn, VisitPaymentIn
 from infrastructure.modules.admin.schemas.response_models import MasterListResponseModel
-from infrastructure.schemas import DefaultResponseSchema, MasterDeleteOut, MasterTimeTableOut, MasterWithVisitsOut
+from infrastructure.schemas import DefaultResponseSchema, MasterDeleteOut, MasterTimeTableOut, MasterWithVisitsOut, \
+    ClientDetailResponseSchema, VisitServicesResponseSchema
 from services.aggregates.visit.entity import StatusChoice
 from services.controllers.add_one_price_item_controller import AddOnePriceItemController
 from services.controllers.add_price_list_controller import AddPriceListController
@@ -19,6 +20,7 @@ from services.controllers.get_client_list_controller import GetClientListControl
 from services.controllers.get_price_list_controller import GetPriceListController
 from services.controllers.get_timetable_controller import GetTimeTableController
 from services.controllers.get_visit_list_controller import GetVisitListController
+from services.controllers.get_visit_services_controller import GetVisitServicesController
 from services.controllers.master_create_controller import MasterCreateController
 from services.controllers.master_delete_controller import MasterDeleteController
 from services.controllers.master_list_controller import MasterListController
@@ -189,5 +191,19 @@ async def visit_payment(visit_id: int, body: VisitPaymentIn, session: Session = 
         card=body.card,
         services=body.services
     )
+    result = controller.handle()
+    return result
+
+
+@admin_router.get('/clients/{client_id}', response_model=ClientDetailResponseSchema)
+async def client_detail(client_id: int, session: Session = Depends(get_db_session)):
+    controller = ClientDetailController(session=session, client_id=client_id)
+    result = controller.handle()
+    return result
+
+
+@admin_router.get('/visit/{visit_id}/services', response_model=VisitServicesResponseSchema)
+async def visit_services(visit_id: int, session: Session = Depends(get_db_session)):
+    controller = GetVisitServicesController(session=session, visit_id=visit_id)
     result = controller.handle()
     return result

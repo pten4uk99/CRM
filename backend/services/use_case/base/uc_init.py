@@ -7,9 +7,10 @@ from services.aggregates.client.entity import Client
 from services.aggregates.master.entity import Master
 from services.aggregates.price_list.entity import PriceList, PriceListType
 from services.aggregates.visit.entity import Visit, StatusChoice
+from services.aggregates.visit.value_objects import Service
 from services.aggregates.work_day.entity import WorkDay
 from services.aggregates.work_shift.entity import WorkShift
-from services.use_case.base.uc_types import VisitPaymentPriceItemIn, VisitPaymentService
+from services.use_case.base.uc_types import VisitPaymentService
 
 
 class UseCaseInit:
@@ -168,6 +169,7 @@ class DeleteVisitUseCaseInit(UseCaseInit):
 @dataclass
 class ClientDetailUseCaseInit(UseCaseInit):
     client: Client
+    visits: list[Visit]
 
 
 @dataclass
@@ -177,6 +179,11 @@ class VisitPaymentUseCaseInit(UseCaseInit):
     discount: int
     card: int
     services: list[VisitPaymentService]
+
+
+@dataclass
+class GetVisitServicesUseCaseInit(UseCaseInit):
+    services: list[Service]
 
 
 if __name__ == '__main__':

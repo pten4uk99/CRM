@@ -6,8 +6,8 @@ import {phoneToPresentation} from "../../Journal/Table/Client";
 
 
 function ClientsBlock(props) {
-    let [detailActive, setDetailActive] = useState(false)
     let [clientsList, setClientsList] = useState([])
+    let [chosenClient, setChosenClient] = useState(null)
 
     useEffect(() => {
         getClientList({
@@ -37,15 +37,15 @@ function ClientsBlock(props) {
         <div className="clients-list__block">
             <textarea className="input search" rows={1} placeholder="Поиск..."/>
 
-            {!detailActive ?
+            {!chosenClient ?
                 <div className="clients-list">
-                    {clientsList.map((client) => <div className="client" onClick={() => setDetailActive(true)}>
+                    {clientsList.map((client) => <div className="client" onClick={() => setChosenClient(client)}>
                         <p className="name">{client.name} {client.last_name}</p>
                         <p className="phone">{phoneToPresentation(client.phone)}</p>
                     </div>)}
                 </div> :
 
-                <ClientDetail setActive={setDetailActive}/>}
+                <ClientDetail clientId={chosenClient.pk} setChosenClient={setChosenClient}/>}
         </div>
     )
 }

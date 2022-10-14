@@ -1,15 +1,25 @@
 .visit {
   margin-top: 5px;
-  padding: 5px 10px;
+  padding: 7px 10px;
+
   background-color: $white;
+  border-radius: 10px;
+  border: 1px solid $border-color;
 
   .shirt-block {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     .date {
-      font-weight: 600;
+      font-weight: 400;
+
+      padding: 2px 5px;
+
+      background-color: white;
+      border-radius: 10px;
     }
+
     span {
       font-size: .85em;
       cursor: pointer;
@@ -18,53 +28,153 @@
 
   .visit-detail {
     margin-top: 15px;
-    & > .service {
-      display: flex;
-      flex-direction: column;
 
-      .service-name {
-        font-weight: 600;
+    .first {
+      display: flex;
+      justify-content: space-between;
+
+      .money {
+        div {
+          display: flex;
+          justify-content: space-between;
+
+          width: 300px;
+
+          margin-bottom: 5px;
+
+          span {
+            background-color: white;
+            border-radius: 10px;
+
+            padding: 2px 5px;
+          }
+        }
+      }
+
+      .time {
+        display: flex;
+        align-items: center;
+
+        div {
+          height: max-content;
+
+          padding: 7px;
+
+          background-color: white;
+          border-radius: 30px;
+
+          font-size: 36px;
+        }
+
+        .start {
+          margin-right: 10px;
+        }
+        .end {
+          margin: 0 10px;
+        }
+      }
+    }
+
+    .second {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+
+      .comment {
+        padding: 5px 10px;
+
+        border: 1px solid $border-color;
+        background-color: white;
+        border-radius: 10px;
+
+        width: 400px;
+
+        font-size: 14px;
+      }
+
+      .master {
+        text-align: center;
+
+        background-color: white;
+        border-radius: 10px;
+
+        padding: 5px 7px;
+        box-sizing: border-box;
+
+        width: 250px;
+        height: 80px;
+
+        font-size: 16px;
 
         span {
-          font-weight: 400;
-          padding: 3px 5px;
-          background-color: orange;
-          border-radius: 5px;
-        }
-      }
-
-      .service-detail {
-        margin-top: 10px;
-
-        .work {
-          span {
-            color: green;
-          }
+          font-weight: 600;
         }
 
-        .paints {
-          display: flex;
+        .name {
           margin-top: 10px;
+        }
 
-          .category {
-            margin-right: 50px;
+        .either-master {
+          margin-top: 5px;
+
+          color: $red;
+          font-size: 12px;
+
+          &.not {
+            color: $blue;
           }
         }
       }
     }
 
-    .comment {
-      margin-top: 10px;
-      padding: 5px 10px;
-      border: 1px solid $border-color;
-      background-color: white;
-    }
+    .third {
+      margin-top: 20px;
 
-    .summary {
-      margin-top: 10px;
-      text-align: right;
-      span {
-        color: green;
+      .services-text {
+        color: orange;
+      }
+
+      .table {
+        margin: 20px 0;
+
+        display: flex;
+        flex-direction: column;
+
+        width: 688px;
+
+        .row {
+          display: flex;
+
+          background-color: white;
+          font-size: 16px;
+
+          &.header {
+            background-color: $border-color;
+
+            font-weight: 600;
+            font-size: 18px;
+          }
+
+          div {
+            padding: 5px;
+            box-sizing: border-box;
+
+            text-align: center;
+            border-bottom: 1px solid $border-color;
+          }
+
+          .price-list {
+            width: 274px;
+            border-right: 1px solid $border-color;
+          }
+          .name {
+            width: 334px;
+            border-right: 1px solid $border-color;
+          }
+          .price {
+            width: 80px;
+          }
+        }
       }
     }
   }

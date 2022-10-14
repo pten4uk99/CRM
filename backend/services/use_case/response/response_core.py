@@ -2,14 +2,17 @@ from services.aggregates.administrator.adapters.response_adapter import Response
     AdministratorListResponseDict
 from services.aggregates.allowed_ip_address.adapters.response_adapter import ResponseAllowedIpAddressAdapter, \
     AllowedIpAddressResponseDict
-from services.aggregates.client.adapters.response_adapter import ResponseClientAdapter, ClientResponseDict
+from services.aggregates.client.adapters.response_adapter import ResponseClientAdapter, ClientResponseDict, \
+    ClientDetailResponseDict
 from services.aggregates.master.adapters.response_adapter import MasterResponseDict, ResponseMasterAdapter, \
     MasterWithTimeTableResponseDict
 from services.aggregates.price_list.adapters.response_adapter import PriceListResponseDict, ResponsePriceListAdapter
-from services.aggregates.visit.adapters.response_adapter import ResponseVisitAdapter, MasterWithVisitsResponseDict
+from services.aggregates.visit.adapters.response_adapter import ResponseVisitAdapter, MasterWithVisitsResponseDict, \
+    ServiceResponseDict
 from services.use_case.base.uc_changed import MasterCreateUseCaseChanged, SetMasterTimeTableUseCaseChanged
 from services.use_case.base.uc_out import CheckAuthUseCaseOut, AdministratorListUseCaseOut, MasterListUseCaseOut, \
-    GetTimeTableUseCaseOut, GetPriceListUseCaseOut, GetVisitListUseCaseOut, GetClientListUseCaseOut
+    GetTimeTableUseCaseOut, GetPriceListUseCaseOut, GetVisitListUseCaseOut, GetClientListUseCaseOut, \
+    ClientDetailUseCaseOut, GetVisitServicesUseCaseOut
 from services.use_case.base.uc_to_delete import MasterDeleteUseCaseToDelete, SetMasterTimeTableUseCaseToDelete
 from services.use_case.response.base import UseCaseResponse
 
@@ -173,8 +176,20 @@ class SetVisitStatusUseCaseResponse(UseCaseResponse):
 
 
 class ClientDetailUseCaseResponse(UseCaseResponse):
-    pass
+    @classmethod
+    def _ok(cls, use_case_out: ClientDetailUseCaseOut = None) -> list[ClientDetailResponseDict]:
+        return [ResponseClientAdapter.detail_from_entity(use_case_out.client)]
 
 
 class VisitPaymentUseCaseResponse(UseCaseResponse):
     pass
+
+
+class GetVisitServicesUseCaseResponse(UseCaseResponse):
+    @classmethod
+    def _ok(cls, use_case_out: GetVisitServicesUseCaseOut = None) -> list[ServiceResponseDict]:
+        result = []
+        for service in use_case_out.services:
+            result.append(ResponseVisitAdapter.adapt_service(service))
+
+        return result

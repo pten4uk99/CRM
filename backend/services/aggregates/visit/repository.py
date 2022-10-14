@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import and_
+from sqlalchemy import and_, desc
 
 from infrastructure.database.models import VisitDB, ClientDB, ServiceDB
 from services.aggregates.base.repository.base import Repository
@@ -13,6 +13,21 @@ from services.aggregates.visit.value_objects import Service
 class VisitRepository(Repository):
     adapter_class = VisitAdapter
     db_model = VisitDB
+
+    def get_by_client_id(self, client_id: int) -> list[Visit]:
+        query = self.session.query(VisitDB).filter(VisitDB.client_id == client_id).order_by(desc(VisitDB.datetime_start))
+        visits_db: list[VisitDB] = query.all()
+        visits = []
+
+        for visit_db in visits_db:
+            visits.append(self.adapter_class.to_entity(visit_db))
+
+        return visits
+
+    def get_visit_services(self, visit_id: int) -> list[Service]:
+        visit_db: VisitDB = self.session.query(VisitDB).filter(VisitDB.pk == visit_id).first()
+        services = self.adapter_class.adapt_visit_services(visit_db.services)
+        return services
 
     def _create_client(self, name, last_name, phone):
         client = ClientDB(name=name, last_name=last_name, phone=phone)

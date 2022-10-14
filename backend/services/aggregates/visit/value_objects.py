@@ -10,3 +10,4 @@ PriceItem = TypeVar('PriceItem', bound=Entity)
 class Service(ValueObject):
     quantity: int
     price_item: PriceItem
+    pk: int = None

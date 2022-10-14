@@ -6,6 +6,7 @@ from services.aggregates.client.entity import Client
 from services.aggregates.master.entity import Master
 from services.aggregates.price_list.entity import PriceList
 from services.aggregates.visit.entity import Visit
+from services.aggregates.visit.value_objects import Service
 
 
 class UseCaseOut:
@@ -47,6 +48,16 @@ class GetVisitListUseCaseOut(UseCaseOut):
 @dataclass
 class GetClientListUseCaseOut(UseCaseOut):
     clients: list[Client]
+
+
+@dataclass
+class ClientDetailUseCaseOut(UseCaseOut):
+    client: Client
+
+
+@dataclass
+class GetVisitServicesUseCaseOut(UseCaseOut):
+    services: list[Service]
 
 
 if __name__ == '__main__':

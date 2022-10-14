@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
-from infrastructure.modules.admin.admin_schemas import MasterDelete, MasterTimeTable, MasterWithVisits
+from infrastructure.modules.admin.admin_schemas import MasterDelete, MasterTimeTable, MasterWithVisits, ClientDetailOut, \
+    VisitService
 
 
 class DefaultResponseSchema(BaseModel):
@@ -27,3 +28,11 @@ class MasterTimeTableOut(DefaultResponseSchema):
 
 class MasterWithVisitsOut(DefaultResponseSchema):
     data: list[MasterWithVisits]
+
+
+class ClientDetailResponseSchema(DefaultResponseSchema):
+    data: list[ClientDetailOut]
+
+
+class VisitServicesResponseSchema(DefaultResponseSchema):
+    data: list[VisitService]

@@ -1,8 +1,12 @@
 .clients-list__block > .client-detail {
   box-sizing: border-box;
   padding: 10px;
+
   height: calc(100% - 60px);
+
   background-color: white;
+  border: 2px solid $border-color;
+
   font-size: 18px;
   overflow: auto;
 
@@ -13,6 +17,8 @@
 
     border: 1px solid $border-color;
     background-color: white;
+    border-radius: 50%;
+
     cursor: pointer;
   }
 

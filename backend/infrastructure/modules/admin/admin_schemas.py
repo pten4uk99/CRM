@@ -3,6 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+from services.aggregates.price_item.entity import PriceItemGroup
 from services.aggregates.price_list.entity import PriceListType
 from services.aggregates.visit.entity import StatusChoice
 from services.use_case.base.uc_types import VisitPaymentPriceItemIn
@@ -92,3 +93,49 @@ class VisitPaymentIn(BaseModel):
     card: int = None
     services: list[VisitPaymentPriceItemIn] = None
 
+
+class ClientVisit(BaseModel):
+    pk: int
+    date: datetime.date
+    time_start: datetime.time
+    time_end: datetime.time
+    duration: int
+    either_master: bool
+    status: StatusChoice
+    client: Optional[Client]
+    master: VisitsMaster
+
+    comment: str = None
+    paid: int = None
+    discount: int = None
+    card: int = None
+    delete_reason: str = None
+
+
+class ClientDetailOut(BaseModel):
+    pk: int
+    name: str = None
+    last_name: str = None
+    phone: str
+    visits: list[ClientVisit]
+
+
+class PriceList(BaseModel):
+    pk: int
+    name: str
+    type: PriceListType
+
+
+class PriceItem(BaseModel):
+    pk: int
+    name: str
+    price: int
+    price_group: PriceItemGroup
+    description: str
+    price_list: PriceList
+
+
+class VisitService(BaseModel):
+    pk: int
+    price_item: PriceItem
+    quantity: int

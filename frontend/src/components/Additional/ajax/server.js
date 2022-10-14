@@ -34,3 +34,22 @@ export function fetchDeleteMaster(masterId) {
     return fetch(`${BASE_URL}/admin/master/${masterId}`, options).then(response => response.json())
 }
 
+
+export function fetchClientDetail({clientId}) {
+    const options = {
+        method: 'GET',
+        headers: HEADERS,
+        credentials: 'include',
+    }
+    return fetch(`${BASE_URL}/admin/clients/${clientId}`, options).then(response => response.json())
+}
+
+export function fetchVisitServices({visitId}) {
+    const options = {
+        method: 'GET',
+        headers: HEADERS,
+        credentials: 'include',
+    }
+    return fetch(`${BASE_URL}/admin/visit/${visitId}/services`, options).then(response => response.json())
+}
+

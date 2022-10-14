@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 from enum import Enum
+from typing import TypeVar
 
 from services.aggregates.base import Entity
+
+PriceList = TypeVar('PriceList', bound=Entity)
 
 
 class PriceItemGroup(Enum):
@@ -18,4 +21,4 @@ class PriceItem(Entity):
     price: int
     price_group: PriceItemGroup
     pk: int = None
-
+    price_list: PriceList = None

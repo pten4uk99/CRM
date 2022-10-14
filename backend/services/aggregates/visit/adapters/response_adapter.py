@@ -4,7 +4,10 @@ from typing import TypedDict
 from services.aggregates.base.adapters.base import ResponseEntityAdapter
 from services.aggregates.client.entity import Client
 from services.aggregates.master.entity import Master
+from services.aggregates.price_item.entity import PriceItemGroup, PriceItem
+from services.aggregates.price_list.entity import PriceListType
 from services.aggregates.visit.entity import Visit
+from services.aggregates.visit.value_objects import Service
 
 
 class ClientResponseDict(TypedDict):
@@ -42,7 +45,42 @@ class MasterWithVisitsResponseDict(TypedDict):
     visits: list[VisitResponseDict]
 
 
+class PriceListResponseDict(TypedDict):
+    pk: int
+    name: str
+    type: PriceListType
+
+
+class PriceItemResponseDict(TypedDict):
+    pk: int
+    name: str
+    price: int
+    price_group: PriceItemGroup
+    price_list: PriceListResponseDict
+    description: str
+
+
+class ServiceResponseDict(TypedDict):
+    pk: int
+    price_item: PriceItemResponseDict
+    quantity: int
+
+
 class ResponseVisitAdapter(ResponseEntityAdapter):
+    @classmethod
+    def adapt_service(cls, service: Service) -> ServiceResponseDict:
+        price_item: PriceItem = service.price_item
+        price_item_dict = PriceItemResponseDict(
+            pk=price_item.pk,
+            name=price_item.name,
+            price_group=price_item.price_group,
+            price_list=PriceListResponseDict(
+                pk=price_item.price_list.pk, name=price_item.price_list.name, type=price_item.price_list.type),
+            price=price_item.price,
+            description=price_item.description,
+        )
+        return ServiceResponseDict(pk=service.pk, price_item=price_item_dict, quantity=service.quantity)
+
     @classmethod
     def _get_master_dict(cls, obj: Master) -> MasterResponseDict:
         return MasterResponseDict(
